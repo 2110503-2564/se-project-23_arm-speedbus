@@ -11,14 +11,16 @@ export default async function TopMenu() {
   return (
     <div className="h-[60px] bg-[#2d336b] fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 shadow-md ">
       <div className="flex items-center gap-4">
-        <Image
-          src={"/img/logo2.png"}
-          className="h-12 w-auto"
-          alt="logo"
-          width={0}
-          height={0}
-          sizes="100vh"
-        />
+        <a href="/">
+          <Image
+            src={"/img/logo2.png"}
+            className="h-12 w-auto"
+            alt="logo"
+            width={0}
+            height={0}
+            sizes="100vh"
+          />
+        </a>
 
         <TopMenuItem title="Home" pageRef="/"></TopMenuItem>
       </div>
@@ -32,7 +34,7 @@ export default async function TopMenu() {
           <DropDownProfile></DropDownProfile>
         ) : (
           <Link href="/api/auth/signin">
-            <div className="flex items-center absolute right-0 h-full cyan-600 text-sm">
+            <div className="relative mt-4 font font-custom w-[120px] text-center text-[13px] text-white font-semibold cursor-pointer hover:text-gray-300 transition">
               Sign in
             </div>
           </Link>
