@@ -7,7 +7,7 @@ export default async function Car(){
     const cars = await getCars();
     return (
         <main className="text-center p-5">
-            <h1 className="text-xl font-medium">Select Your Travel Partner</h1>
+            <h1 className="text-xl font-medium">Select Your Desired Car</h1>
             {/* <CarPanel/> */}
             <Suspense fallback={<p>Loading ... <LinearProgress/></p>}>
                 <CarCatalog carJson={cars}/>
