@@ -27,8 +27,8 @@ export default async function TopMenu() {
       <div className="flex gap-6 absolute left-1/2 -translate-x-1/2">
         <TopMenuItem title="Select Car" pageRef="/car" />
         <TopMenuItem title="Reservations" pageRef="/reservations" />
-        <TopMenuItem title="Provider" pageRef="/about" />
-        <TopMenuItem title="Car Jumper" pageRef="/game"/>
+        <TopMenuItem title="Provider" pageRef="/provider" />
+        <TopMenuItem title="Car Jumper" pageRef="/game" />
       </div>
       <div className="flex flex-row absolute right-2 h-full ">
         {session ? (
