@@ -22,7 +22,7 @@ export default function DropDownProfile({ isLoggedIn }: { isLoggedIn: boolean })
             Sign in
           </li>
         </Link>
-        <Link href="/api/auth/register">
+        <Link href="/register">
           <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition">
             Register
           </li>
