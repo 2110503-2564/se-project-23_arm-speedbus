@@ -28,6 +28,7 @@ export default async function TopMenu() {
         <TopMenuItem title="Select Car" pageRef="/car" />
         <TopMenuItem title="Reservations" pageRef="/reservations" />
         <TopMenuItem title="Provider" pageRef="/about" />
+        <TopMenuItem title="Car Jumper" pageRef="/game"/>
       </div>
       <div className="flex flex-row absolute right-2 h-full ">
         {session ? (
