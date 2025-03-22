@@ -1,28 +1,39 @@
 import Image from "next/image";
-import styles from "./topmenu.module.css"
+import styles from "./topmenu.module.css";
 import TopMenuItem from "./TopMenuItem";
 import { getServerSession } from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/authOptions"
+import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import { Link } from "@mui/material";
-export default async function TopMenu(){
+import DropDownProfile from "./dropdownProfile";
+export default async function TopMenu() {
+  const session = await getServerSession(authOptions);
 
-    const session = await getServerSession(authOptions);
-
-    return (
-        <div className = {styles.menucontainer}>
-            <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo'
-            width={0} height={0} sizes="100vh"/>
-            <TopMenuItem title="Select Car" pageRef='/car'/>
-            <TopMenuItem title="Reservations" pageRef='/reservations'/>
-            <TopMenuItem title="About" pageRef='/about'/>
-            <div className="flex flex-row absolute right-0 h-full">
-            <TopMenuItem title="Cart" pageRef="/cart/"/>
-            {
-                session? <Link href='/api/auth/signout'><div className="flex items-center h-full cyan-600 text-sm">
-                        Sign out of {session.user?.name}</div></Link>
-                : <Link href='/api/auth/signin'><div className="flex items-center absolute right-0 h-full cyan-600 text-sm">Sign in</div></Link>
-            }
+  return (
+    <div className="h-[60px] bg-[#2d336b] fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 shadow-md ">
+      <Image
+        src={"/img/logo2.png"}
+        className={styles.logoimg}
+        alt="logo"
+        width={0}
+        height={0}
+        sizes="100vh"
+      />
+      <div className="flex gap-6 absolute left-1/2 -translate-x-1/2">
+        <TopMenuItem title="Select Car" pageRef="/car" />
+        <TopMenuItem title="Reservations" pageRef="/reservations" />
+        <TopMenuItem title="Provider" pageRef="/about" />
+      </div>
+      <div className="flex flex-row absolute right-2 h-full ">
+        {session ? (
+          <DropDownProfile></DropDownProfile>
+        ) : (
+          <Link href="/api/auth/signin">
+            <div className="flex items-center absolute right-0 h-full cyan-600 text-sm">
+              Sign in
             </div>
-        </div>
-    );
+          </Link>
+        )}
+      </div>
+    </div>
+  );
 }
