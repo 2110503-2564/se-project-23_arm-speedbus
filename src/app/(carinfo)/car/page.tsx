@@ -13,8 +13,8 @@ export default async function Car(){
                 <CarCatalog carJson={cars}/>
             </Suspense>
             <hr className="my-10"/>
-            <h1 className="text-xl font-medium">TRY Client-side Car Panel</h1>
-            <CarPanel/>
+            {/* <h1 className="text-xl font-medium">TRY Client-side Car Panel</h1>
+            <CarPanel/> */}
         </main>
     );
 }
