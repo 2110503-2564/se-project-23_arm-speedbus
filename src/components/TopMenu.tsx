@@ -10,14 +10,18 @@ export default async function TopMenu() {
 
   return (
     <div className="h-[60px] bg-[#2d336b] fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 shadow-md ">
-      <Image
-        src={"/img/logo2.png"}
-        className={styles.logoimg}
-        alt="logo"
-        width={0}
-        height={0}
-        sizes="100vh"
-      />
+      <div className="flex items-center gap-4">
+        <Image
+          src={"/img/logo2.png"}
+          className="h-12 w-auto"
+          alt="logo"
+          width={0}
+          height={0}
+          sizes="100vh"
+        />
+
+        <TopMenuItem title="Home" pageRef="/"></TopMenuItem>
+      </div>
       <div className="flex gap-6 absolute left-1/2 -translate-x-1/2">
         <TopMenuItem title="Select Car" pageRef="/car" />
         <TopMenuItem title="Reservations" pageRef="/reservations" />
