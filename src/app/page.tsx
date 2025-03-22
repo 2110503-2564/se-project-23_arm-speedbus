@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Banner from "@/components/Banner";
 import ProductCard from "@/components/ProductCard";
@@ -8,12 +9,16 @@ import { useSession } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
+  console.log("Session Data:", session);
 
   return (
     <main className="bg-[#7886C7]">
-      <div className="text-6xl text-center font-extrabold font-[Poppins] text-[#FFF2F2] py-10 drop-shadow-lg tracking-wide">
-        Rental Car FrontShot
-      </div>
+      {session ? (
+        <div className="text-6xl text-center font-extrabold font-[Poppins] text-[#FFF2F2] py-10 drop-shadow-lg tracking-wide">
+          Rental Car FrontShot
+        </div>
+      ) : null}
+
       <Banner />
       <TravelCard />
     </main>

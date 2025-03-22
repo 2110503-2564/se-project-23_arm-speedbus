@@ -18,9 +18,11 @@ const DropDownProfile = () => {
 
       {isOpen && (
         <ul className="absolute top-10 right-0 w-44 bg-white border border-gray-200 rounded-xl shadow-lg p-2 transition-all duration-300 ease-in-out opacity-100 scale-100">
-          <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition">
-            Profile
-          </li>
+          <Link href="/profile">
+            <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition">
+              Profile
+            </li>
+          </Link>
           <Link href="/cart">
             <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition">
               My Booking
