@@ -3,8 +3,11 @@ import CarPanel from "@/components/CarPanel";
 import getCars from "@/libs/getCars"
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
+import { revalidateTag } from "next/cache";
 export default async function Car(){
     const cars = await getCars();
+    console.log(cars)
+    revalidateTag('cars')
     return (
         <main className="text-center p-5">
             <h1 className="text-xl font-medium">Select Your Desired Car</h1>
