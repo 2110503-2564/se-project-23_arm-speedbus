@@ -16,14 +16,15 @@ export interface ProviderItem{
     picture: string,
     openTime: string,
     closeTime: string,
-    __v: number
+    __v: number,
+    id: string
 }
 export interface CarItem{
     _id: string,
     name: string,
     vin_plate: string,
     picture: string,
-    provider_info: string,
+    provider_info: ProviderItem,
     capacity: number,
     model: string,
     pricePerDay: number,
