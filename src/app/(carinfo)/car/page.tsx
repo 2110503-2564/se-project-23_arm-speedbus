@@ -6,7 +6,7 @@ import { LinearProgress } from "@mui/material";
 import { revalidateTag } from "next/cache";
 export default async function Car(){
     const cars = await getCars();
-    console.log(cars)
+    // console.log(cars)
     revalidateTag('cars')
     return (
         <main className="text-center p-5">
