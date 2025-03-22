@@ -14,7 +14,7 @@ export default async function CarDetailPage({
       <h1 className="text-lg font-medium">{carDetail.data.name}</h1>
       <div className="flex flex-row my-5">
         <Image
-          src={carDetail.data.picture}
+          src={carItem.picture}
           alt="Car Image"
           width={0}
           height={0}

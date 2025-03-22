@@ -1,6 +1,6 @@
-export default async function getCars(){
+export default async function getProviders(){
     // await new Promise((resolve)=>{setTimeout(resolve,5000);})
-    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/cars`,{next:{tags:['cars']},
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/providers`,{next:{tags:['providers']},
         cache:"no-store",
         method:"GET",
         headers:{
@@ -8,7 +8,7 @@ export default async function getCars(){
         }
     });
     if(!response.ok){
-        throw new Error("Failed to fetch cars");
+        throw new Error("Failed to fetch providers");
     }
     return await response.json();
 }
