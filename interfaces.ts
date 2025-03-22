@@ -9,7 +9,7 @@ export interface ReservationItem{
 }
 export interface CarItem{
     id:string,
-    model:string,
+    name:string,
     picture:string
 }
 export interface CarJson{
