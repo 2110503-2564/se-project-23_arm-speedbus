@@ -19,6 +19,11 @@ export interface ProviderItem{
     __v: number,
     id: string
 }
+export interface ProviderJson{
+    success:boolean,
+    data:ProviderItem[]
+}
+
 export interface CarItem{
     _id: string,
     name: string,
