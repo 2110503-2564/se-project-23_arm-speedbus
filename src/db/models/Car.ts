@@ -1,44 +1,35 @@
 import mongoose from "mongoose";
 const CarSchema = new mongoose.Schema(
   {
-    model: {
-      type: String,
-      required: [true, "Please add model name"],
-      unique: true,
-      trim: true,
-      maxlength: [50, "Name cannot be more than 50 characters"],
+    name: { 
+        type: String, 
+        required: true 
     },
-    description: {
-      type: String,
-      required: [true, "Please add description"],
+    vin_plate: { 
+        type: String, 
+        required: true, 
+        unique: true 
+    },
+    provider_info: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Provider', 
+        required: true 
     },
     picture: {
-      type: String,
-      required: false,
+        type: String, 
+        required: true
     },
-    seats: {
-      type: Number,
-      required: [true, "Please add number of seats"],
+    capacity: { 
+        type: Number, 
+        required: true 
     },
-    doors: {
-      type: Number,
-      required: [true, "Please add number of doors"],
+    model: { 
+        type: String, 
+        required: true 
     },
-    largebags: {
-      type: Number,
-      required: [true, "Please add number of large bags that can be accommodated"],
-    },
-    smallbags: {
-      type: Number,
-      required: [true, "Please add number of small bags that can be accommodated"],
-    },
-    automatic: {
-      type: Boolean,
-      required: [true, "Please identify it uses automatic transmission"],
-    },
-    dayRate: {
-      type: Number,
-      required: [true, "Please add day rate"],
+    pricePerDay: { 
+        type: Number, 
+        required: true 
     },
   },
 );
