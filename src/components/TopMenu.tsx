@@ -32,13 +32,9 @@ export default async function TopMenu() {
       </div>
       <div className="flex flex-row absolute right-2 h-full ">
         {session ? (
-          <DropDownProfile></DropDownProfile>
+          <DropDownProfile isLoggedIn={true} />
         ) : (
-          <Link href="/api/auth/signin">
-            <div className="relative mt-4 font font-custom w-[120px] text-center text-[13px] text-white font-semibold cursor-pointer hover:text-gray-300 transition">
-              Sign in
-            </div>
-          </Link>
+          <DropDownProfile isLoggedIn={false} />
         )}
       </div>
     </div>
