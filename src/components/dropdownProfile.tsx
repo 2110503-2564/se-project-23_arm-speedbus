@@ -49,7 +49,7 @@ export default function DropDownProfile({
               <FaUser className="mr-2" /> Profile
             </li>
           </Link>
-          <Link href="/cart">
+          <Link href="/booking">
             <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition flex items-center">
               <FaShoppingCart className="mr-2" /> My Booking
             </li>
