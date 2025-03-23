@@ -25,16 +25,15 @@ export default async function TopMenu() {
         <TopMenuItem title="Home" pageRef="/"></TopMenuItem>
       </div>
       <div className="flex gap-6 absolute left-1/2 -translate-x-1/2">
-        <TopMenuItem title="Select Car" pageRef="/car" />
-        <TopMenuItem title="Reservations" pageRef="/reservations" />
         <TopMenuItem title="Provider" pageRef="/provider" />
+        <TopMenuItem title="Select Car" pageRef="/car" />
         <TopMenuItem title="Car Jumper" pageRef="/game" />
       </div>
       <div className="flex flex-row absolute right-2 h-full ">
         {session ? (
-          <DropDownProfile isLoggedIn={true} />
+          <DropDownProfile isLoggedIn={true} Text="Profile" />
         ) : (
-          <DropDownProfile isLoggedIn={false} />
+          <DropDownProfile isLoggedIn={false} Text="Login" />
         )}
       </div>
     </div>
