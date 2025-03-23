@@ -125,13 +125,15 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         <div className="flex justify-center">
           {" "}
           <ReactCalendar
-            tileClassName={({ date }) =>
-              isDateUnavailable(date)
-                ? "bg-red-200 text-red-800 rounded-lg p-1"
-                : ""
-            }
-            className="border rounded-lg w-full max-w-md"
-          />
+         tileClassName={({ date }) => {
+           return isDateUnavailable(date) ? "red-border" : "";
+         }}
+         tileContent={({ date }) => {
+           if (isDateUnavailable(date)) {
+             return <div style={{ border: '2px solid red' }}></div>;
+           }
+         }}
+       />
         </div>
         <div className="text-md text-left text-gray-600">Renting Start Date</div>
        <LocationDateReserve onDateChange={(value:Dayjs)=>{setStartDate(value);console.log(dayjs(value).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString())}}/>
