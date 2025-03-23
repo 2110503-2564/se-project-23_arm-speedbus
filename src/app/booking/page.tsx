@@ -1,4 +1,5 @@
 "use client";
+import deleteRent from "@/libs/deleteRent";
 import getRents from "@/libs/getRents";
 import { BookingItem, BookingJson } from "interfaces";
 import { useSession } from "next-auth/react";
@@ -9,6 +10,8 @@ export default function RentPage() {
   const [rentJson, setRentJson] = useState<BookingJson>({success:false,count:0,data:[]});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deleteError, setDeleteError] = useState("");
+  const [refresh, setRefresh] = useState(0);
   if(!session?.user.token){
     return;
   }
@@ -25,7 +28,18 @@ export default function RentPage() {
     };
 
     fetchRents();
-  }, []);
+  }, [refresh]);
+  const handleDelete = async (rentId: string) => {
+    if(!session.user.token) return
+    const res = await deleteRent(session.user.token, rentId);
+    if(res.success){
+        alert('Deleted Booking Successfully')
+        setRefresh((prev) => prev + 1);
+    }
+    else{
+        setDeleteError(res.message);
+    }
+  };
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
   return (
@@ -55,6 +69,10 @@ export default function RentPage() {
               <div className="text-xl">End Date : {rentItem.endDate.substring(0,10)}</div>
               <div className="text-xl">Status : {rentItem.status}</div>
               <div className="text-xl">Confirmation Date : {rentItem.iDate}</div>
+              <button onClick={() => handleDelete(rentItem._id)} className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg transition duration-300 hover:bg-red-600 active:bg-red-700">
+                Delete
+              </button>
+              {deleteError&&<div className="text-lg text-red">{deleteError}</div>}
             </div>
           ))
         )}
