@@ -136,7 +136,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
        />
         </div>
         <div className="text-md text-left text-gray-600">Renting Start Date</div>
-       <LocationDateReserve onDateChange={(value:Dayjs)=>{setStartDate(value);console.log(dayjs(value).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString())}}/>
+       <LocationDateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
        <div className="text-md text-left text-gray-600">Renting End Date</div>
        <LocationDateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
         <button
