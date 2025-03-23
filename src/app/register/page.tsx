@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import userRegister from "@/libs/userRegister";
+import Link from "next/link";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -71,7 +72,7 @@ const RegisterPage = () => {
         <button type="submit" className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Register</button>
       </form>
       {error && <p className="text-red-500">{error}</p>}
-      {success && <p className="text-green-500">{success}</p>}
+      {success && <div><p className="text-green-500">{success}</p> <Link href="/api/auth/signin">Please sign in - Click here</Link></div>}
     </div>
   );
 };
