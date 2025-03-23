@@ -4,13 +4,16 @@ import ReactCalendar from "react-calendar";
 import { useSession } from "next-auth/react";
 import "react-calendar/dist/Calendar.css";
 import Image from "next/image";
-import getCar from "@/libs/getCar";
 import Link from "next/link";
-import { CarItem } from "interfaces";
+import getCar from "@/libs/getCar"; // Assuming this is a function to fetch car details
+import getRentsForCar from "@/libs/getRentsForCar"; // Assuming this is a function to fetch rent data for a car
+import { CarItem, BookingItem } from "interfaces";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const [carItem, setCarItem] = useState<CarItem | null>(null);
   const [loading, setLoading] = useState(true);
+  const [rentedDates, setRentedDates] = useState<Date[]>([]); // To store unavailable dates
+  const {data:session} = useSession();
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -23,8 +26,38 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         setLoading(false);
       }
     };
+
+    const fetchRentsForCar = async () => {
+      try {
+        if(!session?.user.token) return;
+        const rentJson = await getRentsForCar(session?.user.token,params.cid); // Fetch rents for the car
+        const unavailableDates = rentJson.data.map((rentItem: BookingItem) => {
+          const startDate = new Date(rentItem.startDate);
+          const endDate = new Date(rentItem.endDate);
+          let currentDate = startDate;
+          const dates = [];
+
+          while (currentDate <= endDate) {
+            dates.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1); // Increment day by day
+          }
+
+          return dates;
+        }).flat();
+        
+        setRentedDates(unavailableDates);
+      } catch (error) {
+        console.error("Failed to fetch rents:", error);
+      }
+    };
+
     fetchCar();
+    fetchRentsForCar();
   }, [params.cid]);
+
+  const isDateUnavailable = (date: Date) => {
+    return rentedDates.some((rentedDate) => rentedDate.toDateString() === date.toDateString());
+  };
 
   if (loading) return <p className="text-center p-8">Loading...</p>;
   if (!carItem) return <p className="text-center p-8 text-red-500">Car not found.</p>;
@@ -85,6 +118,18 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             </button>
           </Link>
         </div>
+      </div>
+      <div className="mt-6 w-full max-w-md mx-auto">
+      <ReactCalendar
+        tileClassName={({ date }) => {
+          return isDateUnavailable(date) ? "red-border" : "";
+        }}
+        tileContent={({ date }) => {
+          if (isDateUnavailable(date)) {
+            return <div style={{ border: '2px solid red' }}></div>;
+          }
+        }}
+      />
       </div>
     </main>
   );
