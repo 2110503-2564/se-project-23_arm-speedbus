@@ -12,12 +12,14 @@ export default function Home() {
   const { data: session } = useSession();
   const [headingAnimation, setHeadingAnimation] = useState(false);
   const [welcomeAnimation, setWelcomeAnimation] = useState(false);
+  const [logoAnimation, setLogoAnimation] = useState(false);
 
   useEffect(() => {
     setHeadingAnimation(true);
     setTimeout(() => {
       setWelcomeAnimation(true);
-    }, 200); // Delay for welcome message animation
+    }, 200);
+    setTimeout(() => setLogoAnimation(true), 200);
   }, []);
 
   return (
@@ -29,7 +31,18 @@ export default function Home() {
           }`}
         >
           Rental Car FrontShot
-        </h1>
+        </h1>{" "}
+        <div className="container mx-auto flex flex-col items-center">
+          <Image
+            src="/img/logo2.png"
+            alt="Rental Car FrontShot Logo"
+            width={200}
+            height={200}
+            className={`mb-8 transition-all duration-1000 ${
+              logoAnimation ? "scale-100 opacity-100" : "scale-80 opacity-0"
+            }`}
+          />
+        </div>
         <p
           className={`text-4xl font-jubilee text-[#FFF2F2] opacity-0 transition-opacity duration-800 ${
             welcomeAnimation ? "opacity-80" : ""
@@ -41,7 +54,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto flex flex-col items-center">
         <Banner />
       </div>
     </main>
