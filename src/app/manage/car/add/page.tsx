@@ -41,7 +41,7 @@ export default function AddCarPage() {
                 setErrorMessage("You must be logged in as an admin to add a car.");
                 return;
             }
-
+            console.log(formData.picture)
             const response = await createCar(
                 session.user.token,
                 formData.name,
@@ -55,9 +55,7 @@ export default function AddCarPage() {
 
             if (response.success) {
                 alert("Created car successfully")
-                setTimeout(()=>{
-                    router.push("/car");
-                },1000)
+                router.push("/car");
             } else {
                 setError(true);
                 setErrorMessage(response.message || "Failed to add car.");
