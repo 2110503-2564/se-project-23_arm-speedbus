@@ -1,21 +1,70 @@
+"use client";
+import { useState, useEffect } from "react";
+import ReactCalendar from "react-calendar";
+import { useSession } from "next-auth/react";
+import "react-calendar/dist/Calendar.css";
 import Image from "next/image";
-import getCar from "@/libs/getCar";
 import Link from "next/link";
-import { CarItem, CarJson } from "interfaces";
-import { revalidateTag } from "next/cache";
-export default async function CarDetailPage({
-  params,
-}: {
-  params: { cid: string };
-}) {
-  const carDetail = await getCar(params.cid);
-  const carItem: CarItem = carDetail.data;
-  revalidateTag('car')
+import getCar from "@/libs/getCar"; // Assuming this is a function to fetch car details
+import getRentsForCar from "@/libs/getRentsForCar"; // Assuming this is a function to fetch rent data for a car
+import { CarItem, BookingItem } from "interfaces";
+
+export default function CarDetailPage({ params }: { params: { cid: string } }) {
+  const [carItem, setCarItem] = useState<CarItem | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [rentedDates, setRentedDates] = useState<Date[]>([]); // To store unavailable dates
+  const {data:session} = useSession();
+
+  useEffect(() => {
+    const fetchCar = async () => {
+      try {
+        const carDetail = await getCar(params.cid);
+        setCarItem(carDetail.data);
+      } catch (error) {
+        console.error("Failed to fetch car details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchRentsForCar = async () => {
+      try {
+        if(!session?.user.token) return;
+        const rentJson = await getRentsForCar(session?.user.token,params.cid); // Fetch rents for the car
+        const unavailableDates = rentJson.data.map((rentItem: BookingItem) => {
+          const startDate = new Date(rentItem.startDate);
+          const endDate = new Date(rentItem.endDate);
+          let currentDate = startDate;
+          const dates = [];
+
+          while (currentDate <= endDate) {
+            dates.push(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1); // Increment day by day
+          }
+
+          return dates;
+        }).flat();
+        
+        setRentedDates(unavailableDates);
+      } catch (error) {
+        console.error("Failed to fetch rents:", error);
+      }
+    };
+
+    fetchCar();
+    fetchRentsForCar();
+  }, [params.cid]);
+
+  const isDateUnavailable = (date: Date) => {
+    return rentedDates.some((rentedDate) => rentedDate.toDateString() === date.toDateString());
+  };
+
+  if (loading) return <p className="text-center p-8">Loading...</p>;
+  if (!carItem) return <p className="text-center p-8 text-red-500">Car not found.</p>;
+
   return (
-    <main className="text-center p-8  min-h-screen flex flex-col items-center font-[Verdana,Geneva,Tahoma,sans-serif]">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-        {carDetail.data.name}
-      </h1>
+    <main className="text-center p-8 min-h-screen flex flex-col items-center font-[Verdana,Geneva,Tahoma,sans-serif]">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">{carItem.name}</h1>
       <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
         <Image
           src={carItem.picture}
@@ -26,7 +75,7 @@ export default async function CarDetailPage({
         />
         <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
           <div>
-            <div className="text-lg font-medium  text-left text-[#161179]">
+            <div className="text-lg font-medium text-left text-[#161179]">
               {carItem.model}
             </div>
             <div className="text-md text-gray-600 text-left">
@@ -42,13 +91,9 @@ export default async function CarDetailPage({
               Daily Rental Rate: ${carItem.pricePerDay}
             </div>
           </div>
-          <Link
-            href={`/reservations?id=${params.cid}&model=${carDetail.data.model}`}
-            className="mt-4"
-          >
-            <button className="relative inline-block p-px font-semibold leading-6 text-white  shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95">
+          <Link href={`/reservations?id=${params.cid}&model=${carItem.model}`} className="mt-4">
+            <button className="relative inline-block p-px font-semibold leading-6 text-white shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95">
               <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-
               <span className="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
                 <div className="relative z-10 flex items-center space-x-2">
                   <span className="transition-all duration-500 group-hover:translate-x-1">
@@ -73,6 +118,18 @@ export default async function CarDetailPage({
             </button>
           </Link>
         </div>
+      </div>
+      <div className="mt-6 w-full max-w-md mx-auto">
+      <ReactCalendar
+        tileClassName={({ date }) => {
+          return isDateUnavailable(date) ? "red-border" : "";
+        }}
+        tileContent={({ date }) => {
+          if (isDateUnavailable(date)) {
+            return <div style={{ border: '2px solid red' }}></div>;
+          }
+        }}
+      />
       </div>
     </main>
   );
