@@ -1,13 +1,3 @@
-export interface ReservationItem{
-    carId:string,
-    carModel:string,
-    numOfDays:number,
-    pickupDate:string,
-    pickupLocation:string,
-    returnDate:string,
-    returnLocation:string
-}
-
 export interface ProviderItem{
     _id: string,
     name: string,
@@ -51,4 +41,33 @@ export interface UserItem{
     createdAt: string,
     __v: number,
     id: string
+}
+
+export interface BookingVirtual_Car{
+    _id: string,
+    name: string,
+    vin_plate: string,
+    id: string
+}
+
+export interface BookingVirtual_User{
+    _id: string,
+    name: string,
+}
+
+export interface ReservationItem{
+    _id:string,
+    car_info:BookingVirtual_Car,
+    user_info:BookingVirtual_User,
+    startDate:string,
+    endDate:string,
+    status:string,
+    iDate:string,
+    __v:number
+}
+
+export interface ReservationJson{
+    success:boolean,
+    count:number,
+    data:ReservationItem[]
 }
