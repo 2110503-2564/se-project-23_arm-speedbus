@@ -7,6 +7,7 @@ export interface ReservationItem{
     returnDate:string,
     returnLocation:string
 }
+
 export interface ProviderItem{
     _id: string,
     name: string,

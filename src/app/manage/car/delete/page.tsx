@@ -1,4 +1,4 @@
-import getCars from "@/libs/getCars"
+import getCars from "@/libs/getCars";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import { revalidateTag } from "next/cache";
