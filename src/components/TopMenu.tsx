@@ -18,6 +18,9 @@ export default async function TopMenu() {
         <TopMenuItem title="Provider" pageRef="/provider" />
         <TopMenuItem title="Select Car" pageRef="/car" />
         <TopMenuItem title="Car Jumper" pageRef="/game" />
+        {session?.user.User_info.role === "admin" ? (
+          <TopMenuItem title="Manage" pageRef="/manage" />
+        ) : null}
       </div>
       <div className="flex flex-row absolute right-2 h-full mx-5 ">
         {session ? (
