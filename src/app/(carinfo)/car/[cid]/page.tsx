@@ -10,7 +10,7 @@ export default async function CarDetailPage({
   const carDetail = await getCar(params.cid);
   const carItem: CarItem = carDetail.data;
   return (
-    <main className="text-center p-8  min-h-screen flex flex-col items-center">
+    <main className="text-center p-8  min-h-screen flex flex-col items-center font-[Verdana,Geneva,Tahoma,sans-serif]">
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">
         {carDetail.data.name}
       </h1>
@@ -24,7 +24,7 @@ export default async function CarDetailPage({
         />
         <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
           <div>
-            <div className="text-lg font-medium text-gray-700 text-left">
+            <div className="text-lg font-medium  text-left text-[#161179]">
               {carItem.model}
             </div>
             <div className="text-md text-gray-600 text-left">
