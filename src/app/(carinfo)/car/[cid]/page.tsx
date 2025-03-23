@@ -2,6 +2,7 @@ import Image from "next/image";
 import getCar from "@/libs/getCar";
 import Link from "next/link";
 import { CarItem, CarJson } from "interfaces";
+import { revalidateTag } from "next/cache";
 export default async function CarDetailPage({
   params,
 }: {
@@ -9,6 +10,7 @@ export default async function CarDetailPage({
 }) {
   const carDetail = await getCar(params.cid);
   const carItem: CarItem = carDetail.data;
+  revalidateTag('car')
   return (
     <main className="text-center p-8  min-h-screen flex flex-col items-center font-[Verdana,Geneva,Tahoma,sans-serif]">
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">

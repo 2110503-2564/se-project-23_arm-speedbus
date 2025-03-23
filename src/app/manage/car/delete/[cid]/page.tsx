@@ -6,12 +6,15 @@ import deleteCar from "@/libs/deleteCar"; // Import the deleteCar function
 import Link from "next/link";
 import { CarItem } from "interfaces";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { revalidateTag } from "next/cache";
 
 export default function CarDetailPage({
   params,
 }: {
   params: { cid: string };
 }) {
+  const router = useRouter();
   const { data: session } = useSession();
   const [carItem, setCarItem] = useState<CarItem | null>(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +22,9 @@ export default function CarDetailPage({
   const [deleteError, setDeleteError] = useState<string | null>(null); // Error state for deletion
   if(!session||session.user.User_info.role!=='admin'){
     return (
-        <div>NAH UR NOT ADMIN STOP.</div>
+        <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+          You are not an administrator. Access denied.
+        </div>
     )
   }
   useEffect(() => {
@@ -43,7 +48,8 @@ export default function CarDetailPage({
             return;
         }
       await deleteCar(session.user.token,params.cid);  // Call the deleteCar function
-      window.location.href = '/cars';  // Redirect to the car listing page
+      alert("Deleted car successfully")
+      router.push("/car");
     } catch (err) {
       setDeleteError("Failed to delete the car.");  // Handle deletion error
     }
@@ -60,7 +66,6 @@ export default function CarDetailPage({
   if (!carItem) {
     return <div>No car details found.</div>;
   }
-
   return (
     <main className="text-center p-8 min-h-screen flex flex-col items-center">
       <h1 className="text-2xl font-semibold text-gray-800 mb-4">{carItem.name}</h1>

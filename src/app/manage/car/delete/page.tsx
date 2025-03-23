@@ -5,8 +5,6 @@ import { revalidateTag } from "next/cache";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import CarDeleteList from "@/components/CarDeleteList";
-import { redirect } from "next/navigation";
-import deleteCar from "@/libs/deleteCar";
 export default async function DeleteCarPage(){
     const session = await getServerSession(authOptions);
     const cars = await getCars();
@@ -21,7 +19,7 @@ export default async function DeleteCarPage(){
                         <CarDeleteList carJson={cars}/>
                     </Suspense>
                     <hr className="my-10"/>
-                </div>:<div className="text-2xl">You are not admin. Get out</div>
+                </div>:<div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">You are not an administrator. Access denied.</div>
             }
         </main>
     );

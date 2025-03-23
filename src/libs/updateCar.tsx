@@ -1,24 +1,25 @@
-export default async function updateCar(id: string, editData: any) {
-  try {
+export default async function updateCar(token:string,id:string,name:string,vin_plate:string,provider_info:string,picture:string,capacity:Number,model:string,pricePerDay:number) {
     const response = await fetch(
       `${process.env.BACKEND_URL}/api/v1/cars/${id}`,
       {
+        cache: "no-store",
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          authorization:`Bearer ${token}`,
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(editData),
+        body: JSON.stringify({
+          name:name,
+          vin_plate:vin_plate,
+          provider_info:provider_info,
+          picture:picture,
+          capacity:capacity,
+          model:model,
+          pricePerDay:pricePerDay
+        }),
       }
     );
 
-    if (response.ok) {
-      const updatedReservation = await response.json();
-      return updatedReservation;
-    } else {
-      throw new Error("Failed to update reservation");
-    }
-  } catch (error) {
-    console.error("Error updating reservation:", error);
-    throw error;
+    const updatedReservation = await response.json();
+    return updatedReservation;
   }
-}

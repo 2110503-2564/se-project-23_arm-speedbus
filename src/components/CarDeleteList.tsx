@@ -26,7 +26,7 @@ export default async function CarDeleteList({ carJson }: { carJson: CarJson }) {
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="text-xl font-bold text-white">
-                  View Details
+                  Delete
                 </span>
               </div>
             </div>

@@ -9,6 +9,7 @@ export default async function CarUpdateList({ carJson }: { carJson: CarJson }) {
       <div className="text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-center mb-8 text-[#333] text-[#FFF2F2]">
         Explore {carJsonReady.data.length} models in our catalog to be updated.
       </div>
+      <div className="text-sm font-[Verdana,Geneva,Tahoma,sans-serif] text-center mb-8 text-[#333] text-[#FFF2F2]">(Zoom out if you cannot see the car's id)</div>
       <div className="flex flex-wrap justify-center gap-8 px-4">
         {carJsonReady.data.map((carItem: CarItem) => (
           <Link
@@ -21,7 +22,7 @@ export default async function CarUpdateList({ carJson }: { carJson: CarJson }) {
 
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-xl font-bold text-white">View Details</span>
+                <span className="text-xl font-bold text-white">Update</span>
               </div>
             </div>
           </Link>
