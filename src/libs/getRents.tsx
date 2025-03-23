@@ -9,7 +9,7 @@ export default async function getRents(token:string){
         }
     });
     if(!response.ok){
-        throw new Error("Failed to fetch cars");
+        throw new Error("Failed to fetch rents");
     }
     return await response.json();
 }

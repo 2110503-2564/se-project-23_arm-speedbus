@@ -11,7 +11,7 @@ import { CarItem, BookingItem } from "interfaces";
 import LocationDateReserve from "@/components/DateReserve";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
-import createBooking from "@/libs/createBooking";
+import createRent from "@/libs/createRent";
 import { useRouter } from "next/navigation";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
@@ -74,7 +74,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
   async function handleCreateBooking(startDate: string, endDate: string) {
     if (!session) return;
-    const res = await createBooking(
+    const res = await createRent(
       session.user.token,
       params.cid,
       session.user.User_info._id,
