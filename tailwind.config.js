@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         custom: ["Verdana", "Geneva", "Tahoma", "sans-serif"],
+        jubilee: ["OT_Jubilee_Diamond", "serif"],
       },
     },
   },
