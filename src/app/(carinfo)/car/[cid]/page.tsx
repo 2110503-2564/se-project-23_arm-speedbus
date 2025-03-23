@@ -2,200 +2,159 @@
 import { useState, useEffect } from "react";
 import ReactCalendar from "react-calendar";
 import { useSession } from "next-auth/react";
-import "react-calendar/dist/Calendar.css";
 import Image from "next/image";
-import Link from "next/link";
-import getCar from "@/libs/getCar"; // Assuming this is a function to fetch car details
-import getRentsForCar from "@/libs/getRentsForCar"; // Assuming this is a function to fetch rent data for a car
-import { CarItem, BookingItem } from "interfaces";
-import LocationDateReserve from "@/components/DateReserve";
-import dayjs from "dayjs";
-import { Dayjs } from "dayjs";
-import createBooking from "@/libs/createBooking";
 import { useRouter } from "next/navigation";
+import getCar from "@/libs/getCar";
+import getRentsForCar from "@/libs/getRentsForCar";
+import createBooking from "@/libs/createBooking";
+import { CarItem, BookingItem } from "interfaces";
+import dayjs, { Dayjs } from "dayjs";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
+  const { data: session } = useSession();
   const [carItem, setCarItem] = useState<CarItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [rentedDates, setRentedDates] = useState<Date[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const { data: session } = useSession();
 
   useEffect(() => {
-    const fetchCar = async () => {
+    const fetchData = async () => {
       try {
         const carDetail = await getCar(params.cid);
         setCarItem(carDetail.data);
+
+        if (session?.user.token) {
+          const rentJson = await getRentsForCar(session.user.token, params.cid);
+          setRentedDates(
+            rentJson.data.flatMap((rent: BookingItem) => {
+              let current = new Date(rent.startDate);
+              const end = new Date(rent.endDate);
+              const dates = [];
+              while (current <= end) {
+                dates.push(new Date(current));
+                current.setDate(current.getDate() + 1);
+              }
+              return dates;
+            })
+          );
+        }
       } catch (error) {
-        console.error("Failed to fetch car details:", error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
+    fetchData();
+  }, [params.cid, session]);
 
-    const fetchRentsForCar = async () => {
-      try {
-        if (!session?.user.token) return;
-        const rentJson = await getRentsForCar(session?.user.token, params.cid); // Fetch rents for the car
-        const unavailableDates = rentJson.data
-          .map((rentItem: BookingItem) => {
-            const startDate = new Date(rentItem.startDate);
-            const endDate = new Date(rentItem.endDate);
-            let currentDate = startDate;
-            const dates = [];
-
-            while (currentDate <= endDate) {
-              dates.push(new Date(currentDate));
-              currentDate.setDate(currentDate.getDate() + 1); // Increment day by day
-            }
-
-            return dates;
-          })
-          .flat();
-
-        setRentedDates(unavailableDates);
-      } catch (error) {
-        console.error("Failed to fetch rents:", error);
-      }
-    };
-
-    fetchCar();
-    fetchRentsForCar();
-  }, [params.cid]);
-
-  const isDateUnavailable = (date: Date) => {
-    return rentedDates.some(
+  const isDateUnavailable = (date: Date) =>
+    rentedDates.some(
       (rentedDate) => rentedDate.toDateString() === date.toDateString()
     );
-  };
 
-  async function handleCreateBooking(startDate: string, endDate: string) {
-    if (!session) return;
+  async function handleCreateBooking() {
+    if (!session || !startDate || !endDate) {
+      setErrorMessage("Please select both start and end dates.");
+      return;
+    }
+
+    if (dayjs(startDate).isAfter(dayjs(endDate))) {
+      setErrorMessage("End date must be after start date.");
+      return;
+    }
+
     const res = await createBooking(
       session.user.token,
       params.cid,
       session.user.User_info._id,
-      startDate,
-      endDate
+      dayjs(startDate).toISOString(),
+      dayjs(endDate).toISOString()
     );
+
     if (res.success) {
-      alert("Create Booking Successfully");
+      alert("Booking Successful!");
       router.push("/booking");
     } else {
       setErrorMessage(res.message);
     }
   }
 
-  if (loading) return <p className="text-center p-8">Loading...</p>;
+  if (loading) return <p className="text-center py-8">Loading...</p>;
   if (!carItem)
-    return <p className="text-center p-8 text-red-500">Car not found.</p>;
+    return <p className="text-center py-8 text-red-500">Car not found.</p>;
 
   return (
-    <main className="text-center p-8 min-h-screen flex flex-col items-center font-[Verdana,Geneva,Tahoma,sans-serif]">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-        {carItem.name}
-      </h1>
-      <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
+    <main className="min-h-screen p-6 flex flex-row items-start bg-gray-100 gap-6">
+      <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
         <Image
           src={carItem.picture}
-          alt="Car Image"
-          width={500}
-          height={300}
-          className="rounded-lg w-full md:w-1/2 object-cover"
+          alt="Car"
+          width={600}
+          height={400}
+          className="w-full object-cover rounded-t-xl"
         />
-        <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
-          <div>
-            <div className="text-lg font-medium text-left text-[#161179]">
-              {carItem.model}
-            </div>
-            <div className="text-md text-gray-600 text-left">
-              VIN: {carItem.vin_plate}
-            </div>
-            <div className="text-md text-gray-600 text-left">
-              Provider: {carItem.provider_info.name}
-            </div>
-            <div className="text-md text-gray-600 text-left">
-              Capacity: {carItem.capacity} seats
-            </div>
-            <div className="text-md text-gray-600 text-left font-semibold">
-              Daily Rental Rate: ${carItem.pricePerDay}
-            </div>
-          </div>
+        <div className="p-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            {carItem.name}
+          </h1>
+          <p className="text-gray-600 mb-1">Model: {carItem.model}</p>
+          <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
+          <p className="text-xl font-semibold text-blue-600 mt-3">
+            ${carItem.pricePerDay}/day
+          </p>
         </div>
       </div>
-      {session ? (
-        <>
-          <div className="mt-6 w-full max-w-md mx-auto">
+
+      {session && (
+        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl my-4 ">
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">
+            Choose Rental Dates
+          </h2>
+          <div className="flex justify-center">
+            {" "}
             <ReactCalendar
-              tileClassName={({ date }) => {
-                return isDateUnavailable(date) ? "red-border" : "";
-              }}
-              tileContent={({ date }) => {
-                if (isDateUnavailable(date)) {
-                  return <div style={{ border: "2px solid red" }}></div>;
-                }
-              }}
+              tileClassName={({ date }) =>
+                isDateUnavailable(date)
+                  ? "bg-red-200 text-red-800 rounded-lg p-1"
+                  : ""
+              }
+              className="border rounded-lg w-full max-w-md"
             />
           </div>
-          <div className="text-md text-left text-gray-600">
-            Renting Start Date
+          <div className="mt-4">
+            <label className="block text-gray-700 text-sm font-medium mb-1">
+              Start Date
+            </label>
+            <input
+              type="date"
+              className="w-full border p-2 rounded-md text-sm"
+              onChange={(e) => setStartDate(dayjs(e.target.value))}
+            />
           </div>
-          <LocationDateReserve
-            onDateChange={(value: Dayjs) => {
-              setStartDate(value);
-              console.log(
-                dayjs(value).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
-              );
-            }}
-          />
-          <div className="text-md text-left text-gray-600">
-            Renting End Date
+          <div className="mt-4">
+            <label className="block text-gray-700 text-sm font-medium mb-1">
+              End Date
+            </label>
+            <input
+              type="date"
+              className="w-full border p-2 rounded-md text-sm"
+              onChange={(e) => setEndDate(dayjs(e.target.value))}
+            />
           </div>
-          <LocationDateReserve
-            onDateChange={(value: Dayjs) => {
-              setEndDate(value);
-            }}
-          />
           <button
-            onClick={() => {
-              handleCreateBooking(
-                dayjs(startDate)
-                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
-                  .toString(),
-                dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
-              );
-            }}
-            className="relative inline-block p-px font-semibold leading-6 text-white shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
+            onClick={handleCreateBooking}
+            className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
           >
-            <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-            <span className="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
-              <div className="relative z-10 flex items-center space-x-2">
-                <span className="transition-all duration-500 group-hover:translate-x-1">
-                  Reserve This Car
-                </span>
-                <svg
-                  className="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
-                  data-slot="icon"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                    fill-rule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-            </span>
+            Reserve Now
           </button>
-          {errorMessage && <div>{errorMessage}</div>}
-        </>
-      ) : null}
+          {errorMessage && (
+            <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
+          )}
+        </div>
+      )}
     </main>
   );
 }
