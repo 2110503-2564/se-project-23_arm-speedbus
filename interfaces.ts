@@ -55,7 +55,7 @@ export interface BookingVirtual_User{
     name: string,
 }
 
-export interface ReservationItem{
+export interface BookingItem{
     _id:string,
     car_info:BookingVirtual_Car,
     user_info:BookingVirtual_User,
@@ -66,8 +66,8 @@ export interface ReservationItem{
     __v:number
 }
 
-export interface ReservationJson{
+export interface BookingJson{
     success:boolean,
     count:number,
-    data:ReservationItem[]
+    data:BookingItem[]
 }
