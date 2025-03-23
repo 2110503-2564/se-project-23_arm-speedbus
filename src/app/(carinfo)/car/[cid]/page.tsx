@@ -72,7 +72,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     );
   };
 
-  async function handleCreateBooking(startDate: string, endDate: string) {
+  async function handleCreateRent(startDate: string, endDate: string) {
     if (!session) return;
     const res = await createRent(
       session.user.token,
@@ -94,107 +94,59 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     return <p className="text-center p-8 text-red-500">Car not found.</p>;
 
   return (
-    <main className="text-center p-8 min-h-screen flex flex-col items-center font-[Verdana,Geneva,Tahoma,sans-serif]">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-        {carItem.name}
-      </h1>
-      <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
-        <Image
-          src={carItem.picture}
-          alt="Car Image"
-          width={500}
-          height={300}
-          className="rounded-lg w-full md:w-1/2 object-cover"
-        />
-        <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
-          <div>
-            <div className="text-lg font-medium text-left text-[#161179]">
-              {carItem.model}
-            </div>
-            <div className="text-md text-gray-600 text-left">
-              VIN: {carItem.vin_plate}
-            </div>
-            <div className="text-md text-gray-600 text-left">
-              Provider: {carItem.provider_info.name}
-            </div>
-            <div className="text-md text-gray-600 text-left">
-              Capacity: {carItem.capacity} seats
-            </div>
-            <div className="text-md text-gray-600 text-left font-semibold">
-              Daily Rental Rate: ${carItem.pricePerDay}
-            </div>
-          </div>
-        </div>
+    <main className="min-h-screen p-6 flex flex-row items-start bg-gray-100 gap-6">
+    <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
+      <Image
+        src={carItem.picture}
+        alt="Car"
+        width={600}
+        height={400}
+        className="w-full object-cover rounded-t-xl"
+      />
+      <div className="p-6">
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          {carItem.name}
+        </h1>
+        <p className="text-gray-600 mb-1">Model: {carItem.model}</p>
+        <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
+        <p className="text-xl font-semibold text-blue-600 mt-3">
+          ${carItem.pricePerDay}/day
+        </p>
       </div>
+    </div>
       {session ? (
-        <>
-          <div className="mt-6 w-full max-w-md mx-auto">
-            <ReactCalendar
-              tileClassName={({ date }) => {
-                return isDateUnavailable(date) ? "red-border" : "";
-              }}
-              tileContent={({ date }) => {
-                if (isDateUnavailable(date)) {
-                  return <div style={{ border: "2px solid red" }}></div>;
-                }
-              }}
-            />
-          </div>
-          <div className="text-md text-left text-gray-600">
-            Renting Start Date
-          </div>
-          <LocationDateReserve
-            onDateChange={(value: Dayjs) => {
-              setStartDate(value);
-              console.log(
-                dayjs(value).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
-              );
-            }}
+        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl my-4 ">
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">
+          Choose Rental Dates
+        </h2>
+        <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
+          Check The Calendar For This Car's Available Date. (Underlined Date Means Occupied)
+        </h2>
+        <div className="flex justify-center">
+          {" "}
+          <ReactCalendar
+            tileClassName={({ date }) =>
+              isDateUnavailable(date)
+                ? "bg-red-200 text-red-800 rounded-lg p-1"
+                : ""
+            }
+            className="border rounded-lg w-full max-w-md"
           />
-          <div className="text-md text-left text-gray-600">
-            Renting End Date
-          </div>
-          <LocationDateReserve
-            onDateChange={(value: Dayjs) => {
-              setEndDate(value);
-            }}
-          />
-          <button
-            onClick={() => {
-              handleCreateBooking(
-                dayjs(startDate)
-                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
-                  .toString(),
-                dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
-              );
-            }}
-            className="relative inline-block p-px font-semibold leading-6 text-white shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
-          >
-            <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-teal-400 via-blue-500 to-purple-500 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
-            <span className="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
-              <div className="relative z-10 flex items-center space-x-2">
-                <span className="transition-all duration-500 group-hover:translate-x-1">
-                  Reserve This Car
-                </span>
-                <svg
-                  className="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
-                  data-slot="icon"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
-                    fill-rule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-            </span>
-          </button>
-          {errorMessage && <div>{errorMessage}</div>}
-        </>
+        </div>
+        <div className="text-md text-left text-gray-600">Renting Start Date</div>
+       <LocationDateReserve onDateChange={(value:Dayjs)=>{setStartDate(value);console.log(dayjs(value).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString())}}/>
+       <div className="text-md text-left text-gray-600">Renting End Date</div>
+       <LocationDateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
+        <button
+          onClick={()=>{handleCreateRent(dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString());}}
+          className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
+        >
+          Reserve Now
+        </button>
+        {errorMessage && (
+          <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
+        )}
+      </div>
       ) : null}
     </main>
   );
