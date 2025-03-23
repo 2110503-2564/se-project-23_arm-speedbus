@@ -34,6 +34,7 @@ export default function Game() {
     let isJumping = false;
     let obstacles: Obstacle[] = [{ x: 300, width: 20, height: 40 }];
     let currentScore = 0;
+    let lastTime = performance.now();
 
     function jump() {
       if (!isJumping) {
@@ -42,46 +43,48 @@ export default function Game() {
       }
     }
 
-    function update() {
-      if (!isRunning) return;
-      if (!ctx) return;
-      if (!canvas) return;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'black';
-      ctx.fillRect(50, dinoY, 20, 20);
-      dinoY += velocity;
-      velocity += gravity;
-      if (dinoY >= 150) {
-        dinoY = 150;
-        isJumping = false;
+    function update(time: number) {
+        if (!isRunning || !ctx || !canvas) return;
+      
+        const deltaTime = (time - lastTime) / 16.67; // Normalize to 60 FPS
+        lastTime = time;
+      
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(50, dinoY, 20, 20);
+      
+        dinoY += velocity * deltaTime;
+        velocity += gravity * deltaTime;
+        if (dinoY >= 150) {
+          dinoY = 150;
+          isJumping = false;
+        }
+      
+        ctx.fillStyle = 'red';
+        obstacles.forEach(obstacle => {
+          obstacle.x -= 5 * deltaTime; // Normalize speed
+          ctx.fillRect(obstacle.x, 160 - obstacle.height, obstacle.width, obstacle.height);
+        });
+      
+        if (obstacles[0].x < -20) {
+          obstacles.shift();
+          obstacles.push({ x: 300 + Math.random() * 200, width: 20, height: 40 });
+          currentScore++;
+          setScore(currentScore);
+        }
+      
+        if (obstacles.some(obstacle => obstacle.x < 70 && obstacle.x > 30 && dinoY + 20 > 160 - obstacle.height)) {
+          setIsRunning(false);
+          setGameOver(true);
+          setHighScore(prev => Math.max(prev, currentScore));
+          setTimeout(() => startGame(), 2000);
+        } else {
+            requestAnimationFrame((time) => update(time));
+        }
       }
-
-      ctx.fillStyle = 'red';
-      obstacles.forEach(obstacle => {
-        obstacle.x -= 5;
-        ctx.fillRect(obstacle.x, 160 - obstacle.height, obstacle.width, obstacle.height);
-      });
-
-      if (obstacles[0].x < -20) {
-        obstacles.shift();
-        obstacles.push({ x: 300 + Math.random() * 200, width: 20, height: 40 });
-        currentScore++;
-        setScore(currentScore);
-      }
-
-      if (obstacles.some(obstacle => obstacle.x < 70 && obstacle.x > 30 && dinoY + 20 > 160 - obstacle.height)) {
-        setIsRunning(false);
-        setGameOver(true);
-        setHighScore(prev => Math.max(prev, currentScore));
-        setTimeout(() => startGame(), 2000); // Restart automatically after 2 seconds
-      } else {
-        requestAnimationFrame(update);
-      }
-    }
 
     window.addEventListener('keydown', (e) => { if (e.code === 'Space') jump(); });
-    update();
+    update(performance.now());
   }, [isRunning]);
 
   return (
@@ -96,11 +99,6 @@ export default function Game() {
           Start Game
         </button>
       )}
-      <Link href="/">
-        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Back to Home
-        </button>
-      </Link>
     </div>
   );
 }

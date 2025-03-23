@@ -41,3 +41,14 @@ export interface CarJson{
     success:boolean,
     data:CarItem[]
 }
+
+export interface UserItem{
+    _id: string,
+    name: string,
+    email: string,
+    tel: string,
+    role: string,
+    createdAt: string,
+    __v: number,
+    id: string
+}

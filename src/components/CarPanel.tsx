@@ -56,7 +56,7 @@ export default function CarPanel(){
                {
                 carResponse.data.map((carItem:CarItem)=>(
                     <Link href={`/car/${carItem.id}`} className="w-1/5">
-                        <ProductCard carName={carItem.model} imgSrc={carItem.picture}
+                        <ProductCard Name={carItem.model} imgSrc={carItem.picture}
                         onCompare={(car:string)=>dispatchCompare({type:'add',carName:car})}/>
                     </Link>
                 ))
