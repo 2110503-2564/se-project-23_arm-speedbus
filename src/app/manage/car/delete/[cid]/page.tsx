@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { revalidateTag } from "next/cache";
 
-export default function CarDetailPage({
+export default function CarCidDeletePage({
   params,
 }: {
   params: { cid: string };

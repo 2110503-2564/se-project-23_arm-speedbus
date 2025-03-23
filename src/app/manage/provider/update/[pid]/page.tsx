@@ -1,21 +1,21 @@
 'use client'
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import getCar from "@/libs/getCar";
 import Link from "next/link";
-import { CarItem } from "interfaces";
+import { ProviderItem } from "interfaces";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import updateCar from "@/libs/updateCar";
+import getProvider from "@/libs/getProvider";
+import updateProvider from "@/libs/updateProvider";
 
-export default function CarDetailPage({
+export default function ProviderPidUpdatePage({
   params,
 }: {
-  params: { cid: string };
+  params: { pid: string };
 }) {
   const router = useRouter();
   const { data: session } = useSession();
-  const [carItem, setCarItem] = useState<CarItem | null>(null);
+  const [providerItem, setProviderItem] = useState<ProviderItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [updateError, setUpdateError] = useState<string | null>(null);
@@ -27,13 +27,13 @@ export default function CarDetailPage({
     )
 }
     const [formData, setFormData] = useState({
-    name: "",
-    vin_plate: "",
-    provider_info: "",
-    picture: "",
-    capacity: 1,
-    model: "",
-    pricePerDay: 1,
+      name:"",
+      address:"",
+      tel:"",
+      email:"",
+      picture:"",
+      openTime:"",
+      closeTime:""
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,48 +46,46 @@ export default function CarDetailPage({
       };
     
   useEffect(() => {
-    const fetchCarDetails = async () => {
+    const fetchProviderDetails = async () => {
       try {
-        const carDetail = await getCar(params.cid);
-        setCarItem(carDetail.data);
-        let extractedProviderID = carDetail;
-        extractedProviderID.data.provider_info = carDetail.data.provider_info._id;
-        setFormData(carDetail.data);
+        const providerDetail = await getProvider(params.pid);
+        setProviderItem(providerDetail.data);
+        setFormData(providerDetail.data);
       } catch (err) {
-        setError("Failed to fetch car details.");
+        setError("Failed to fetch provider details.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCarDetails();
-  }, [params.cid]);
+    fetchProviderDetails();
+  }, [params.pid]);
 
 
-  const handleUpdateCar = async (e: React.FormEvent) => {
+  const handleUpdateProvider = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
         if (!session?.user.token) {
             return;
         }
-    const res =  await updateCar(session.user.token,
-        params.cid,
+    const res =  await updateProvider(session.user.token,
+        params.pid,
         formData.name,
-        formData.vin_plate,
-        formData.provider_info,
+        formData.address,
+        formData.tel,
+        formData.email,
         formData.picture,
-        formData.capacity,
-        formData.model,
-        formData.pricePerDay);
+        formData.openTime,
+        formData.closeTime);
       if(res.success){
-          alert("Updated car successfully")
-          router.push(`/car/${params.cid}`);
+          alert("Updated provider successfully")
+          router.push(`/provider/${params.pid}`);
       }
       else{
         setUpdateError(res.message);
       }
     } catch (err) {
-      setUpdateError("Failed to update the car. Check if provider id exist in database and/or VIN must be unique");
+      setUpdateError("Failed to update the provider. Check if the provider's email must be unique");
     }
   };
 
@@ -99,42 +97,40 @@ export default function CarDetailPage({
     return <div>{error}</div>;
   }
 
-  if (!carItem) {
-    return <div>No car details found.</div>;
+  if (!providerItem) {
+    return <div>No provider details found.</div>;
   }
 
   return (
     <main className="text-center p-8 min-h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">{carItem.name}</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">{providerItem.name}</h1>
       <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
         <Image
-          src={carItem.picture}
-          alt="Car Image"
+          src={providerItem.picture}
+          alt="Provider Image"
           width={500}
           height={300}
           className="rounded-lg w-full md:w-1/2 object-cover"
         />
         <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
           <div>
-            <div className="text-lg font-medium text-gray-700 text-left">{carItem.model}</div>
-            <div className="text-md text-gray-600 text-left">VIN: {carItem.vin_plate}</div>
-            <div className="text-md text-gray-600 text-left">Provider: {carItem.provider_info.name}</div>
-            <div className="text-md text-gray-600 text-left">Capacity: {carItem.capacity} seats</div>
-            <div className="text-md text-gray-600 text-left font-semibold">
-              Daily Rental Rate: ${carItem.pricePerDay}
-            </div>
+          <div className="text-md mx-5">Address : {providerItem.address}</div>
+            <div className="text-md mx-5">Tel. : {providerItem.tel}</div>
+            <div className="text-md mx-5">Email : {providerItem.email}</div>
+            <div className="text-md mx-5">Open Time : {providerItem.openTime}</div>
+            <div className="text-md mx-5">Close Time : {providerItem.closeTime}</div>
           </div>
         </div>
       </div>
       <div>
         Update Data
-        <form className="space-y-4" onSubmit={handleUpdateCar}>
+        <form onSubmit={handleUpdateProvider} className="space-y-4">
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
                 htmlFor="name"
               >
-                Car Name
+                Provider Name
               </label>
               <input
                 type="text"
@@ -142,41 +138,58 @@ export default function CarDetailPage({
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Enter car name"
+                placeholder="Enter provider name"
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
-                htmlFor="vin_plate"
+                htmlFor="address"
               >
-                VIN
+                Address
               </label>
               <input
                 type="text"
                 required
-                name="vin_plate"
-                value={formData.vin_plate}
+                name="address"
+                value={formData.address}
                 onChange={handleChange}
-                placeholder="Enter VIN"
+                placeholder="Enter Address"
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
-                htmlFor="provider_info"
+                htmlFor="tel"
               >
-                Car Provider ID
+                Tel.
               </label>
               <input
                 type="text"
                 required
-                name="provider_info"
-                value={formData.provider_info}
+                name="tel"
+                value={formData.tel}
                 onChange={handleChange}
-                placeholder="Enter provider's ID"
+                placeholder="Enter provider's Telephone Number"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label
+                className="block text-sm font-medium text-gray-700 mb-1"
+                htmlFor="email"
+              >
+                Provider Email
+              </label>
+              <input
+                type="text"
+                required
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter Provider Email"
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
@@ -185,7 +198,7 @@ export default function CarDetailPage({
                 className="block text-sm font-medium text-gray-700 mb-1"
                 htmlFor="picture"
               >
-                Car Picture URL
+                Provider Picture
               </label>
               <input
                 type="text"
@@ -200,53 +213,35 @@ export default function CarDetailPage({
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
-                htmlFor="capacity"
+                htmlFor="openTime"
               >
-                Car Capacity
-              </label>
-              <input
-                type="number"
-                required
-                name="capacity"
-                value={formData.capacity}
-                onChange={handleChange}
-                placeholder="Enter capacity"
-                min={1}
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
-              />
-            </div>
-            <div className="flex flex-col">
-              <label
-                className="block text-sm font-medium text-gray-700 mb-1"
-                htmlFor="model"
-              >
-                Car Model
+                Provider Open Time
               </label>
               <input
                 type="text"
                 required
-                name="model"
-                value={formData.model}
+                name="openTime"
+                value={formData.openTime}
                 onChange={handleChange}
-                placeholder="Enter model or description"
+                placeholder="Enter Provider Open Time (must be in HH:MM:SS format)"
+                min={1}
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
-                htmlFor="pricePerDay"
+                htmlFor="closeTime"
               >
-                Daily Rental Rate
+                Provider Close Time
               </label>
               <input
-                type="number"
+                type="text"
                 required
-                name="pricePerDay"
-                value={formData.pricePerDay}
+                name="closeTime"
+                value={formData.closeTime}
                 onChange={handleChange}
-                placeholder="Enter daily rate"
-                min={1}
+                placeholder="Enter Provider Close Time (must be in HH:MM:SS format)"
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
@@ -254,7 +249,7 @@ export default function CarDetailPage({
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
             >
-             Update Car
+              Add New Provider
             </button>
             {updateError && (
               <p className="text-red-500 mt-2 text-center">{updateError}</p>

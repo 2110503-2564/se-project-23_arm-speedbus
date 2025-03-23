@@ -5,7 +5,7 @@ import { revalidateTag } from "next/cache";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import CarUpdateList from "@/components/CarUpdateList";
-export default async function DeleteCarPage(){
+export default async function UpdateCarPage(){
     const session = await getServerSession(authOptions);
     const cars = await getCars();
     revalidateTag('cars')

@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import updateCar from "@/libs/updateCar";
 
-export default function CarDetailPage({
+export default function CarCidUpdatePage({
   params,
 }: {
   params: { cid: string };

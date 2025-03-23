@@ -1,22 +1,22 @@
 'use client'
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import getCar from "@/libs/getCar";
-import deleteCar from "@/libs/deleteCar"; // Import the deleteCar function
+import deleteProvider from "@/libs/deleteProvider";
 import Link from "next/link";
-import { CarItem } from "interfaces";
+import { ProviderItem } from "interfaces";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { revalidateTag } from "next/cache";
+import getProvider from "@/libs/getProvider";
 
-export default function CarDetailPage({
+export default function ProviderPidDeletePage({
   params,
 }: {
-  params: { cid: string };
+  params: { pid: string };
 }) {
   const router = useRouter();
   const { data: session } = useSession();
-  const [carItem, setCarItem] = useState<CarItem | null>(null);
+  const [providerItem, setProviderItem] = useState<ProviderItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null); // Error state for deletion
@@ -28,30 +28,30 @@ export default function CarDetailPage({
     )
   }
   useEffect(() => {
-    const fetchCarDetails = async () => {
+    const fetchProviderDetails = async () => {
       try {
-        const carDetail = await getCar(params.cid);
-        setCarItem(carDetail.data);
+        const providerDetail = await getProvider(params.pid);
+        setProviderItem(providerDetail.data);
       } catch (err) {
-        setError("Failed to fetch car details.");
+        setError("Failed to fetch provider details.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCarDetails();
-  }, [params.cid]);
+    fetchProviderDetails();
+  }, [params.pid]);
 
-  const handleDeleteCar = async () => {
+  const handleDeleteProvider = async () => {
     try {
         if (!session?.user.token) {
             return;
         }
-      await deleteCar(session.user.token,params.cid);  // Call the deleteCar function
-      alert("Deleted car successfully")
-      router.push("/car");
+      await deleteProvider(session.user.token,params.pid);
+      alert("Deleted provider successfully")
+      router.push("/provider");
     } catch (err) {
-      setDeleteError("Failed to delete the car.");  // Handle deletion error
+      setDeleteError("Failed to delete the provider.");
     }
   };
 
@@ -63,33 +63,31 @@ export default function CarDetailPage({
     return <div>{error}</div>;
   }
 
-  if (!carItem) {
-    return <div>No car details found.</div>;
+  if (!providerItem) {
+    return <div>No provider details found.</div>;
   }
   return (
     <main className="text-center p-8 min-h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">{carItem.name}</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">{providerItem.name}</h1>
       <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
         <Image
-          src={carItem.picture}
-          alt="Car Image"
+          src={providerItem.picture}
+          alt="Provider Image"
           width={500}
           height={300}
           className="rounded-lg w-full md:w-1/2 object-cover"
         />
         <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
           <div>
-            <div className="text-lg font-medium text-gray-700 text-left">{carItem.model}</div>
-            <div className="text-md text-gray-600 text-left">VIN: {carItem.vin_plate}</div>
-            <div className="text-md text-gray-600 text-left">Provider: {carItem.provider_info.name}</div>
-            <div className="text-md text-gray-600 text-left">Capacity: {carItem.capacity} seats</div>
-            <div className="text-md text-gray-600 text-left font-semibold">
-              Daily Rental Rate: ${carItem.pricePerDay}
-            </div>
+            <div className="text-md mx-5">Address : {providerItem.address}</div>
+            <div className="text-md mx-5">Tel. : {providerItem.tel}</div>
+            <div className="text-md mx-5">Email : {providerItem.email}</div>
+            <div className="text-md mx-5">Open Time : {providerItem.openTime}</div>
+            <div className="text-md mx-5">Close Time : {providerItem.closeTime}</div>
           </div>
           {deleteError && <div className="text-red-600">{deleteError}</div>}  {/* Show error if deletion fails */}
           <button
-            onClick={handleDeleteCar}
+            onClick={handleDeleteProvider}
             className="mt-4 relative inline-block p-px font-semibold leading-6 text-white shadow-2xl cursor-pointer rounded-xl shadow-zinc-900 transition-transform duration-300 ease-in-out hover:scale-105 active:scale-95"
           >
             <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-red-400 via-red-500 to-red-600 p-[2px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"></span>
@@ -97,7 +95,7 @@ export default function CarDetailPage({
             <span className="relative z-10 block px-6 py-3 rounded-xl bg-gray-950">
               <div className="relative z-10 flex items-center space-x-2">
                 <span className="transition-all duration-500 group-hover:translate-x-1">
-                  Delete Car
+                  Delete Provider
                 </span>
                 <svg
                   className="w-6 h-6 transition-transform duration-500 group-hover:translate-x-1"
