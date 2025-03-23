@@ -9,6 +9,7 @@ export default async function CarDeleteList({ carJson }: { carJson: CarJson }) {
       <div className="text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-center mb-8 text-[#333] text-[#FFF2F2]">
         Explore {carJsonReady.data.length} models in our catalog to be deleted.
       </div>
+      <div className="text-sm font-[Verdana,Geneva,Tahoma,sans-serif] text-center mb-8 text-[#333] text-[#FFF2F2]">(Zoom out if you cannot see the car's id)</div>
       <div className="flex flex-wrap justify-center gap-8 px-4">
         {carJsonReady.data.map((carItem: CarItem) => (
           <Link
