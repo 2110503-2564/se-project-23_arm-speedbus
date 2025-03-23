@@ -1,11 +1,10 @@
 'use client'
-import LocationDateReserve from "@/components/LocationDateReserve";
+import LocationDateReserve from "@/components/DateReserve";
 import dayjs, { Dayjs } from "dayjs";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, UseDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import { ReservationItem } from "../../../interfaces";
 import { addReservation } from "@/redux/features/cartSlice";
 
 export default function Reservations(){
@@ -39,9 +38,9 @@ export default function Reservations(){
             <div className="text-xl font-medium">Car : {model}</div>
             <div className="w-fit space-y-2">
                 <div className="text-md text-left text-gray-600">Pick-up Date and Location</div>
-                <LocationDateReserve onDateChange={(value:Dayjs)=>{setPickupDate(value)}} onLocationChange={(value:string)=>{setPickupLocation(value)}}/>
+                <LocationDateReserve onDateChange={(value:Dayjs)=>{setPickupDate(value)}}/>
                 <div className="text-md text-left text-gray-600">Return Date and Location</div>
-                <LocationDateReserve onDateChange={(value:Dayjs)=>{setReturnDate(value)}} onLocationChange={(value:string)=>{setReturnLocation(value)}}/>
+                <LocationDateReserve onDateChange={(value:Dayjs)=>{setReturnDate(value)}}/>
             </div>
             <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm" onClick={makeReservation}>Reserve this Car</button>
         </main>
