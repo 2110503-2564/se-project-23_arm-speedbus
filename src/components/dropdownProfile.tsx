@@ -42,7 +42,7 @@ export default function DropDownProfile({
               Profile
             </li>
           </Link>
-          <Link href="/cart">
+          <Link href="/booking">
             <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition">
               My Booking
             </li>

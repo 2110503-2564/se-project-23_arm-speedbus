@@ -19,6 +19,10 @@ export default function () {
         <table className='table-auto border-separate border-spacing-2 text-black'>
           <tbody>
             <tr>
+              <td>User ID</td>
+              <td>{session?.user.User_info._id}</td>
+            </tr>
+            <tr>
               <td>Name</td>
               <td>{session?.user.User_info.name}</td>
             </tr>
@@ -32,7 +36,7 @@ export default function () {
             </tr>
             <tr>
               <td>Member Since</td>
-              <td>{session?.user.User_info.createdAt.toString()}</td>
+              <td>{session?.user.User_info.createdAt.split('T')[0]}</td>
             </tr>
           </tbody>
         </table>

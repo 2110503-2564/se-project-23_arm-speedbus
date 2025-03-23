@@ -32,12 +32,14 @@ export default function RentPage() {
     <main className="p-6">
       {session.user.User_info.role==='admin'?
       <>
-      <h1 className="text-2xl font-bold mb-4">All Rent History</h1>
-      <h2 className="text-xl font-bold mb-4"> You can Remove Renting, Change Renting Date for Anyone</h2>
+      <h1 className="text-2xl font-bold mb-4">All Rent History.</h1>
+      <h2 className="text-xl font-bold mb-4"> You can Remove Renting or Change Renting Date for Anyone.</h2>
       </>:
       <>
-      <h1 className="text-2xl font-bold mb-4">Your Rent History</h1>
-      <h2 className="text-xl font-bold mb-4"> You can Remove Renting, Change Renting Date</h2>
+      <h1 className="text-2xl font-bold mb-4">Your Rent History.</h1>
+      <h2 className="text-xl font-bold mb-4"> You can Remove Renting or Change Renting Date.</h2>
+      <h2 className="text-xl font-bold mb-4"> A user can have up to 3 bookings confirmed.</h2>
+      <h2 className="text-lg font-bold mb-4"> (Finished booking doesn't count.)</h2>
       </>
       }
       <div className="space-y-4">
