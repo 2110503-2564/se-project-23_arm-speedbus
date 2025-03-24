@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
 import ProductCard from "./ProductCard";
-import { useState, useEffect } from "react";
 import { CarItem, CarJson } from "interfaces";
 const MAX_CARS_DISPLAYED = 3;
 export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
-    console.log("Main Catalog Mounted!"); // Debugging log
   const carJsonReady = await carJson;
   return (
     <>
