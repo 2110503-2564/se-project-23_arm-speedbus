@@ -10,7 +10,7 @@ export default async function ProviderCatalogMain({ providerJson }: { providerJs
   return (
     <>
       <div className="flex flex-wrap justify-center gap-8 px-4">
-        {providerJsonReady.data.slice(0, MAX_PROVIDERS_DISPLAYED).map((providerItem: ProviderItem, index) => (
+        {providerJsonReady.data.slice(0, Math.min(providerJsonReady.data.length, 3)).map((providerItem: ProviderItem, index) => (
           <Link
             href={`/provider/${providerItem.id}`}
             key={providerItem.id}

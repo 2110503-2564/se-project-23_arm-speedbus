@@ -2,13 +2,12 @@
 import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { CarItem, CarJson } from "interfaces";
-const MAX_CARS_DISPLAYED = 3;
 export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
   const carJsonReady = await carJson;
   return (
     <>
     <div className="flex flex-wrap justify-center gap-8 px-4">
-      {carJsonReady.data.slice(0, MAX_CARS_DISPLAYED).map((carItem: CarItem, index) => (
+      {carJsonReady.data.slice(0, Math.min(carJsonReady.data.length, 3)).map((carItem: CarItem, index) => (
         <Link
         href={`/car/${carItem.id}`}
         key={carItem.id}
