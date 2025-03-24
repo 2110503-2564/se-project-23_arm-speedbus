@@ -141,22 +141,24 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             />
           </div>
 
-          <div className="text-md text-left text-gray-800 m-3">
-            Enter Renting Start Date
+          <div className="flex flex-col items-center">
+            <div className="text-md text-gray-800 m-3">
+              Enter Renting Start Date
+            </div>
+            <DateReserve
+              onDateChange={(value: Dayjs) => {
+                setStartDate(value);
+              }}
+            />
+            <div className="text-md text-gray-800 m-3">
+              Enter Renting End Date
+            </div>
+            <DateReserve
+              onDateChange={(value: Dayjs) => {
+                setEndDate(value);
+              }}
+            />
           </div>
-          <DateReserve
-            onDateChange={(value: Dayjs) => {
-              setStartDate(value);
-            }}
-          />
-          <div className="text-md text-left text-gray-800 m-3">
-            Enter Renting End Date
-          </div>
-          <DateReserve
-            onDateChange={(value: Dayjs) => {
-              setEndDate(value);
-            }}
-          />
           <button
             onClick={() => {
               handleCreateRent(
@@ -177,9 +179,9 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       ) : (
         <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
           <Link href="/api/auth/signin">
-          <h2 className="text-xl my-4 text-[#2d336b] text-center hover:text-[#7886c7] transition">
-            Sign in to book your rent
-          </h2>
+            <h2 className="text-xl my-4 text-[#2d336b] text-center hover:text-[#7886c7] transition">
+              Sign in to book your rent
+            </h2>
           </Link>
         </div>
       )}
