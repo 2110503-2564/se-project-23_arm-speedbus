@@ -54,7 +54,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="container mx-auto flex flex-col items-center">
+      <div className="">
         <Banner />
       </div>
     </main>
