@@ -26,7 +26,7 @@ export default function DropDownProfile({
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="flex flex-row bg-white p-1 rounded-xl text-[#2d336b] font-semibold cursor-pointer
+      <div className="flex flex-row bg-white py-1 px-2 rounded-xl text-[#2d336b] font-semibold cursor-pointer
                       hover:text-[#7886c7] transition items-center justify-center">
         <FaUser className="mr-2" />
         {Text}
