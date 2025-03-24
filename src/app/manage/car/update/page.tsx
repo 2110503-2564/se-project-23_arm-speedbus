@@ -18,7 +18,6 @@ export default async function UpdateCarPage(){
                     <Suspense fallback={<p>Loading ... <LinearProgress/></p>}>
                         <CarUpdateList carJson={cars}/>
                     </Suspense>
-                    <hr className="my-10"/>
                 </div>:<div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">You are not an administrator. Access denied.</div>
             }
         </main>

@@ -1,9 +1,9 @@
-import CarCatalog from "@/components/CarCatalog";
 import getCars from "@/libs/getCars";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import { revalidateTag } from "next/cache";
-export default async function Car() {
+import CarCatalogOfProvider from "@/components/CarCatalogOfProvider";
+export default async function CarOfProvider({params}:{params:{pid:string}}) {
   const cars = await getCars();
   revalidateTag("cars");
   return (
@@ -16,7 +16,7 @@ export default async function Car() {
           </p>
         }
       >
-        <CarCatalog carJson={cars} />
+        <CarCatalogOfProvider carJson={cars} pid={params.pid}/>
       </Suspense>
     </main>
   );

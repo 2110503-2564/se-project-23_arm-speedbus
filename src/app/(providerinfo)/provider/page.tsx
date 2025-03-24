@@ -19,7 +19,6 @@ export default async function Provider() {
       >
         <ProviderCatalog providerJson={providers} />
       </Suspense>
-      <hr className="my-10" />
     </main>
   );
 }

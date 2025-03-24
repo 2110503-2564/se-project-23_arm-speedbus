@@ -1,7 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 import { CarItem, CarJson, ProviderItem } from "interfaces";
 import getProvider from "@/libs/getProvider";
+import Link from "next/link";
 export default async function ProviderDetailPage({params}:{params:{pid:string}}){
     const providerDetail = await getProvider(params.pid)
     const providerItem:ProviderItem = providerDetail.data
@@ -23,6 +24,9 @@ export default async function ProviderDetailPage({params}:{params:{pid:string}})
                     <div className="text-md">{providerItem.openTime}</div>
                     <div className="text-md font-semibold">Close Time:</div>
                     <div className="text-md">{providerItem.closeTime}</div>
+                    <Link href={`/provider/${params.pid}/car`} className="mt-6 text-center w-[75%] bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition">
+                        View Their Cars
+                    </Link>
                 </div>
                 </div>
             </div>
