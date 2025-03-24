@@ -11,7 +11,7 @@ export default async function ProviderCatalog({
   const providerJsonReady = await providerJson;
   return (
     <>
-      <div className="text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-center mb-8 text-[#333] text-[#FFF2F2] opacity-0 transition-opacity duration-1000 animate-fade-in">
+      <div className="text-3xl text-center mb-8 text-[#333] text-[#FFF2F2] opacity-0 transition-opacity duration-1000 animate-fade-in">
         We have up to {providerJsonReady.data.length} providers in our shop.
       </div>
       <div className="flex flex-wrap justify-center gap-8 px-4">

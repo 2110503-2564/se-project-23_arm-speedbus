@@ -110,10 +110,10 @@ export default function RentPage() {
                     </div>
                     <div>
                       <div className="text-gray-600">
-                        Start Date: {rentItem.startDate?.substring(0, 10)}
+                        Start Date: {rentItem.startDate?.split('T')[0]}
                       </div>
                       <div className="text-gray-600">
-                        End Date: {rentItem.endDate?.substring(0, 10)}
+                        End Date: {rentItem.endDate?.split('T')[0]}
                       </div>
                       <div className="text-gray-600">
                         Status: {rentItem.status}

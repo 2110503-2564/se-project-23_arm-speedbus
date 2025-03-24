@@ -112,6 +112,9 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           <p className="text-gray-600 mb-1">
             Provider: {carItem.provider_info.name}
           </p>
+          <p className="text-gray-600 mb-1">
+            Car ID: {carItem._id}
+          </p>
           <p className="text-xl font-semibold text-blue-600 mt-3">
             ${carItem.pricePerDay}/day
           </p>

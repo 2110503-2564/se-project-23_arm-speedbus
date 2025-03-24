@@ -24,6 +24,8 @@ export default async function ProviderDetailPage({params}:{params:{pid:string}})
                     <div className="text-md">{providerItem.openTime}</div>
                     <div className="text-md font-semibold">Close Time:</div>
                     <div className="text-md">{providerItem.closeTime}</div>
+                    <div className="text-md font-semibold">Provider ID:</div>
+                    <div className="text-md">{providerItem._id}</div>
                     <Link href={`/provider/${params.pid}/car`} className="mt-6 text-center w-[75%] bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition">
                         View Their Cars
                     </Link>

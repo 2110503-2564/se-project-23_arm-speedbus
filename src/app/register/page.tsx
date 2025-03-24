@@ -38,8 +38,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4  text-blue-900">Register</h1>
+    <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10">
+      <h1 className="text-2xl font-bold mb-4 text-blue-900">Register</h1>
       <form onSubmit={handleSubmit} className="w-full">
         <table className="w-full border-collapse border-none text-black">
           <tbody>
