@@ -5,7 +5,7 @@ export default async function ManageChoice() {
   const session = await getServerSession(authOptions);
   return (
     <>
-      {session?.user.User_info.role==='admin'?<div className="flex flex-col items-center  min-h-screen  text-5xl mt-10 font-[BlinkMacSystemFont]">
+      {session?.user.User_info.role==='admin'?<div className="flex flex-col items-center  min-h-screen  text-5xl mt-10">
         Welcome Admin
         <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md mt-10 ">
           <h2 className="text-3xl font-semibold mb-6 text-center text-indigo-600">
