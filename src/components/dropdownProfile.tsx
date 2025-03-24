@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+
 import {
   FaUser,
   FaShoppingCart,
@@ -25,9 +26,11 @@ export default function DropDownProfile({
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <span className="w-[50px] h-[30px] text-center text-[13px] text-white font-semibold cursor-pointer hover:text-gray-300 transition flex items-center justify-center">
+      <div className="flex flex-row bg-white p-1 rounded-xl text-[#2d336b] font-semibold cursor-pointer
+                      hover:text-[#7886c7] transition items-center justify-center">
+        <FaUser className="mr-2" />
         {Text}
-      </span>
+      </div>
       {!isLoggedIn && isOpen && (
         <ul className="absolute top-10 right-0 w-44 bg-white border border-gray-200 rounded-xl shadow-lg p-2 transition-all duration-300 ease-in-out opacity-100 scale-100">
           <Link href="/api/auth/signin">

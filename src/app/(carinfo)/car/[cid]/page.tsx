@@ -116,26 +116,27 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     </div>
       {session ? (
         <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
-        <h2 className="text-4xl font-bold my-4 text-[#2d336b] text-center">
-          Choose Rental Dates
-        </h2>
-        <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
-          Check The Calendar For This Car's Available Date. (Underlined Date Means Occupied)
-        </h2>
-        <div className="flex justify-center">
-          {" "}
-        <ReactCalendar
-          className={`text-black`}
-          tileClassName={({ date }) => {
-            return isDateUnavailable(date) ? "red-border " : "";
-          }}
-          tileContent={({ date }) => {
-            if (isDateUnavailable(date)) {
-              return <div style={{ border: '2px solid red' }}></div>;
-            }
-          }}
-        />
-        </div>
+          <h2 className="text-4xl font-bold my-4 text-[#2d336b] text-center">
+            Choose Rental Dates
+          </h2>
+          <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
+            Check The Calendar For This Car's Available Date. (Underlined Date Means Occupied)
+          </h2>
+          <div className="flex justify-center">
+            {" "}
+            <ReactCalendar
+              className={`text-black`}
+              tileClassName={({ date }) => {
+                return isDateUnavailable(date) ? "red-border " : "";
+              }}
+              tileContent={({ date }) => {
+                if (isDateUnavailable(date)) {
+                  return <div style={{ border: '2px solid red' }}></div>;
+                }
+              }}
+            />
+          </div>
+          
           <div className="text-md text-left text-gray-800 m-3">Enter Renting Start Date</div>
           <DateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
           <div className="text-md text-left text-gray-800 m-3">Enter Renting End Date</div>
