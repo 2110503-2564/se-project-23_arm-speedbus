@@ -67,7 +67,7 @@ export default function CarCidDeletePage({
     return <div>No car details found.</div>;
   }
   return (
-    <main className="text-center p-8 min-h-screen flex flex-col items-center">
+    <main className="text-left p-8 min-h-screen flex flex-col items-center">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">{carItem.name}</h1>
       <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-4xl">
         <Image
