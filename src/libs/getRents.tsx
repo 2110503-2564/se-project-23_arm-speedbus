@@ -8,8 +8,5 @@ export default async function getRents(token:string){
             "Content-type":"application/json"
         }
     });
-    if(!response.ok){
-        throw new Error("Failed to fetch rents");
-    }
     return await response.json();
 }

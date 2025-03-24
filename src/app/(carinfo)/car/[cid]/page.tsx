@@ -8,7 +8,7 @@ import Link from "next/link";
 import getCar from "@/libs/getCar"; // Assuming this is a function to fetch car details
 import getRentsForCar from "@/libs/getRentsForCar"; // Assuming this is a function to fetch rent data for a car
 import { CarItem, BookingItem } from "interfaces";
-import LocationDateReserve from "@/components/DateReserve";
+import DateReserve from "@/components/DateReserve";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import createRent from "@/libs/createRent";
@@ -136,9 +136,9 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
        />
         </div>
         <div className="text-md text-left text-gray-600">Renting Start Date</div>
-       <LocationDateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
+       <DateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
        <div className="text-md text-left text-gray-600">Renting End Date</div>
-       <LocationDateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
+       <DateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
         <button
           onClick={()=>{handleCreateRent(dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString());}}
           className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"

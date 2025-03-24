@@ -7,8 +7,5 @@ export default async function getCars(){
             "Content-type":"application/json"
         }
     });
-    if(!response.ok){
-        throw new Error("Failed to fetch cars");
-    }
     return await response.json();
 }

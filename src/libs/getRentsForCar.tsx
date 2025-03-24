@@ -8,8 +8,5 @@ export default async function getRentsForCar(token:string,cid:string){
             "Content-type":"application/json"
         }
     });
-    if(!response.ok){
-        throw new Error("Failed to fetch rents for this car");
-    }
     return await response.json();
 }

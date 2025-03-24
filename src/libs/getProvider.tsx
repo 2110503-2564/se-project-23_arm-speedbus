@@ -5,8 +5,5 @@ export default async function getProvider(id:string){
         headers:{
             "Content-type":"application/json"
         }});
-    if(!response.ok){
-        throw new Error("failed to fetch the provider");
-    }
     return await response.json();
 }

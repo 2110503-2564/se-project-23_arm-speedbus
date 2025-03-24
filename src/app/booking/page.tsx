@@ -1,11 +1,14 @@
 "use client";
 import deleteRent from "@/libs/deleteRent";
+import finishRent from "@/libs/finishRent";
 import getRents from "@/libs/getRents";
 import { BookingItem, BookingJson } from "interfaces";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function RentPage() {
+  const router = useRouter();
   const { data: session } = useSession();
   const [rentJson, setRentJson] = useState<BookingJson>({
     success: false,
@@ -14,7 +17,7 @@ export default function RentPage() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [deleteError, setDeleteError] = useState("");
+  const [editError, setEditError] = useState("");
   const [refresh, setRefresh] = useState(0);
   if (!session?.user.token) {
     return;
@@ -40,7 +43,17 @@ export default function RentPage() {
       alert("Deleted Booking Successfully");
       setRefresh((prev) => prev + 1);
     } else {
-      setDeleteError(res.message);
+      setEditError(res.message);
+    }
+  };
+  const handleFinish = async (rentId: string) => {
+    if (!session.user.token) return;
+    const res = await finishRent(session.user.token, rentId);
+    if (res.success) {
+      alert("Marked Renting as Finished Successfully");
+      setRefresh((prev) => prev + 1);
+    } else {
+      setEditError(res.message);
     }
   };
   if (loading) return <div>Loading...</div>;
@@ -110,7 +123,26 @@ export default function RentPage() {
                       </div>
                     </div>
                   </div>
+                  {session.user.User_info.role==='admin'&&rentItem.status==='confirmed'?
+                    <div className="mt-4 flex justify-start">
+                    <button
+                      onClick={() => handleFinish(rentItem._id)}
+                      className="px-4 py-2 bg-blue-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                    >
+                      Mark as Finished
+                    </button>
+                    </div>
+                    : null
+                  }
+                  
                   <div className="mt-4 flex justify-end">
+                    {rentItem.status==='confirmed'?
+                      <button
+                      onClick={() => router.push(`/booking/${rentItem.car_info._id}/${rentItem._id}`)}
+                      className="px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                    >
+                      Change Date
+                    </button>:null}
                     <button
                       onClick={() => handleDelete(rentItem._id)}
                       className="px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
@@ -118,8 +150,8 @@ export default function RentPage() {
                       Delete
                     </button>
                   </div>
-                  {deleteError && (
-                    <div className="text-red-500 mt-2">{deleteError}</div>
+                  {editError && (
+                    <div className="text-red-500 mt-2">{editError}</div>
                   )}
                 </div>
               ))}

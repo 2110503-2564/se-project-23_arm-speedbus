@@ -8,8 +8,5 @@ export default async function finishRent(token:string,id:string){
             "Content-type":"application/json"
         }
     });
-    if(!response.ok){
-        throw new Error("Failed to update this rent status to finished");
-    }
     return await response.json();
 }
