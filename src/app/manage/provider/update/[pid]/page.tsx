@@ -249,7 +249,7 @@ export default function ProviderPidUpdatePage({
               type="submit"
               className="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
             >
-              Add New Provider
+              Update Provider
             </button>
             {updateError && (
               <p className="text-red-500 mt-2 text-center">{updateError}</p>
