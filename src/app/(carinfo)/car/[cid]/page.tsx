@@ -174,7 +174,15 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
           )}
         </div>
-      ) : null}
+      ) : (
+        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
+          <Link href="/api/auth/signin">
+          <h2 className="text-xl my-4 text-[#2d336b] text-center hover:text-[#7886c7] transition">
+            Sign in to book your rent
+          </h2>
+          </Link>
+        </div>
+      )}
     </main>
   );
 }
