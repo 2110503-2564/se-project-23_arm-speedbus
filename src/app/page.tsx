@@ -1,60 +1,57 @@
-"use client";
-import Image from "next/image";
-import Banner from "@/components/Banner";
-import ProductCard from "@/components/ProductCard";
-import styles from "./page.module.css";
-import TravelCard from "@/components/TravelCard";
-import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
 
-export default function Home() {
-  const { data: session } = useSession();
-  const [headingAnimation, setHeadingAnimation] = useState(false);
-  const [welcomeAnimation, setWelcomeAnimation] = useState(false);
-  const [logoAnimation, setLogoAnimation] = useState(false);
+import CarCatalog from "@/components/CarCatalogMain";
+import CarCatalogMain from "@/components/CarCatalogMain";
+import HeadSection from "@/components/HeadSection";
+import getCars from "@/libs/getCars";
+import { LinearProgress } from "@mui/material";
+import { revalidateTag } from "next/cache";
+import Link from "next/link";
+import { Suspense } from "react";
 
-  useEffect(() => {
-    setHeadingAnimation(true);
-    setTimeout(() => {
-      setWelcomeAnimation(true);
-    }, 200);
-    setTimeout(() => setLogoAnimation(true), 200);
-  }, []);
+export default async function Home() {
+  const cars = await getCars();
+  revalidateTag("cars");
 
   return (
-    <main className="bg-[#7886C7] min-h-screen">
-      <div className="text-center py-16 px-4">
-        <h1
-          className={`text-8xl font-extrabold font-jubilee text-[#FFF2F2] drop-shadow-lg tracking-wide mb-4 transition-all duration-1000 ${
-            headingAnimation ? "scale-100 opacity-100" : "scale-80 opacity-0"
-          }`}
-        >
-          Rental Car FrontShot
-        </h1>{" "}
-        <div className="container mx-auto flex flex-col items-center">
-          <Image
-            src="/img/logo2.png"
-            alt="Rental Car FrontShot Logo"
-            width={200}
-            height={200}
-            className={`mb-8 transition-all duration-1000 ${
-              logoAnimation ? "scale-100 opacity-100" : "scale-80 opacity-0"
-            }`}
-          />
-        </div>
-        <p
-          className={`text-4xl font-jubilee text-[#FFF2F2] opacity-0 transition-opacity duration-800 ${
-            welcomeAnimation ? "opacity-80" : ""
-          }`}
-        >
-          {session
-            ? `Welcome ${session?.user.User_info.name}`
-            : "Welcome to Rental Car FrontShot!"}
-        </p>
-      </div>
+    <main className="bg-[#7886C7] min-h-screen" >
+      <HeadSection />
 
-      <div className="">
-        <Banner />
+
+      <div className="text-center h-[100vh] py-20 items-center bg-[#94a6f7]">
+        <h1
+          className={`text-4xl font-extrabold m-5 font-jubilee text-[#FFF2F2]`}
+        >
+          View Our Amazing Car Catalogs
+        </h1>
+
+        <Suspense
+          fallback={
+            <p>
+              Loading ... <LinearProgress />
+            </p>
+          }
+        >
+        <CarCatalog carJson={cars} />
+
+        <div className="flex flex-row text-center items-center justify-center text-white font-bold text-2xl">
+        <Link href="/car">
+          <div className="bg-blue-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
+            View Cars
+          </div>
+        </Link>
+        <Link href="/provider">
+          <div className="bg-blue-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
+            View Providers
+          </div>
+        </Link>
+        </div>
+
+      </Suspense>
+      </div>
+      
+
+      <div className="text-center h-[100vh] py-16 px-4 items-center flex flex-col justify-center bg-gray-100 snap-start">
+        {/* Additional content */}
       </div>
     </main>
   );

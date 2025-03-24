@@ -7,18 +7,20 @@ export default function ProductCard({
   onCompare,
 }: {
   Name: string;
-  imgSrc: string;
+  imgSrc?: string;
   onCompare?: Function;
 }) {
   return (
     <InteractiveCard contentName={Name}>
       <div className="w-full h-[70%] relative rounded-t-lg">
+        { imgSrc &&
         <Image
           src={imgSrc}
           alt="Product Picture"
           fill={true}
           className="object-cover rounded-t-lg"
         />
+        }
       </div>
       <div className="w-full h-[15%] p-[30px] font-sans  text-black text-center text-xl font-medium">
         {Name}

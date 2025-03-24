@@ -40,7 +40,14 @@ export default function Banner() {
       >
         {covers.map((cover, i) => (
           <div key={i} className="min-w-full h-full relative">
-            <Image src={cover} alt="cover" fill className="object-cover" />
+        <Image
+          src={cover}
+          alt="cover"
+          width={0}
+          height={0}
+          className="object-cover"
+          style={{ width: "auto", height: "100%" }}
+        />
           </div>
         ))}
       </div>
