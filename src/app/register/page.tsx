@@ -41,30 +41,31 @@ const RegisterPage = () => {
     <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-4  text-blue-900">Register</h1>
       <form onSubmit={handleSubmit} className="w-full">
-        <table className="w-full">
+        <table className="w-full border-collapse border-none text-black">
           <tbody>
             <tr>
-              <td className="p-2 border border-gray-300 text-black">Name:</td>
-              <td className="p-2 border border-gray-300">
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full p-2 border rounded-md" />
+              <td className="p-2 text-black">Name:</td>
+              <td className="p-2">
+              <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
+              </td>
+            </tr>
+            
+            <tr>
+              <td className="p-2 text-black">Email:</td>
+              <td className="p-2">
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
               </td>
             </tr>
             <tr>
-              <td className="p-2 border border-gray-300 text-black">Password:</td>
-              <td className="p-2 border border-gray-300">
-                <input type="password" name="password" value={formData.password} onChange={handleChange} required className="w-full p-2 border rounded-md" />
+              <td className="p-2 text-black">Password:</td>
+              <td className="p-2">
+              <input type="password" name="password" value={formData.password} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
               </td>
             </tr>
             <tr>
-              <td className="p-2 border border-gray-300 text-black">Email:</td>
-              <td className="p-2 border border-gray-300">
-                <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full p-2 border rounded-md" />
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2 border border-gray-300 text-black">Telephone:</td>
-              <td className="p-2 border border-gray-300">
-                <input type="tel" name="tel" value={formData.tel} onChange={handleChange} required className="w-full p-2 border rounded-md" />
+              <td className="p-2 text-black">Telephone:</td>
+              <td className="p-2">
+              <input type="tel" name="tel" value={formData.tel} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
               </td>
             </tr>
           </tbody>

@@ -12,34 +12,23 @@ export default function () {
         width={200} height={200}
         className="items-center"
       />
-      <div className="bg-white p-6 rounded-lg shadow-md w-96 space-y-4 my-5">
-        <div className='text-3xl font-bold text-purple-900 text-center'>
+      <div className="bg-white p-6 rounded-lg shadow-md space-y-4 my-5">
+        <div className='text-3xl font-bold text-[#2d336b] text-center'>
           Your Profile
         </div>
-        <table className='table-auto border-separate border-spacing-2 text-black'>
-          <tbody>
-            <tr>
-              <td>User ID</td>
-              <td>{session?.user.User_info._id}</td>
-            </tr>
-            <tr>
-              <td>Name</td>
-              <td>{session?.user.User_info.name}</td>
-            </tr>
-            <tr>
-              <td>Email</td>
-              <td>{session?.user.User_info.email}</td>
-            </tr>
-            <tr>
-              <td>Tel</td>
-              <td>{session?.user.User_info.tel}</td>
-            </tr>
-            <tr>
-              <td>Member Since</td>
-              <td>{session?.user.User_info.createdAt.split('T')[0]}</td>
-            </tr>
-          </tbody>
-        </table>
+          <div className="grid grid-cols-2 gap-3 text-gray-800">
+              <div className="text-md font-semibold">User Id:</div>
+              <div className="text-md">{session?.user.User_info._id}</div>
+              <div className="text-md font-semibold">Name:</div>
+              <div className="text-md">{session?.user.User_info.name}</div>
+              <div className="text-md font-semibold">Email:</div>
+              <div className="text-md">{session?.user.User_info.email}</div>
+              <div className="text-md font-semibold">Tel:</div>
+              <div className="text-md">{session?.user.User_info.tel}</div>
+              <div className="text-md font-semibold">Created At:</div>
+              <div className="text-md">{session?.user.User_info.createdAt.split('T')[0]}</div>
+          </div>
+          
       </div>
     </div>
   );
