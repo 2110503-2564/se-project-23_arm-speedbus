@@ -89,6 +89,7 @@ export default function RentPage() {
         )}
 
         <div className="bg-white rounded-lg shadow overflow-hidden">
+          {/* booking section */}
           {rentJson?.data?.length === 0 ? (
             <div className="p-6 text-center text-gray-500 font-open-sans">
               No rental history found.
@@ -108,6 +109,17 @@ export default function RentPage() {
                       <div className="text-gray-600">
                         User: {rentItem.user_info?.name}
                       </div>
+                      {
+                        rentItem.status == "confirmed" ? (
+                          <div className="text-blue-600">
+                            Status: Confirmed
+                          </div>
+                        ):(
+                          <div className="text-green-600">
+                            Status: Finished
+                          </div>
+                        )
+                      }
                     </div>
                     <div>
                       <div className="text-gray-600">
@@ -134,48 +146,54 @@ export default function RentPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-row justify-start">
-                    {" "}
-                    {session.user.User_info.role === "admin" &&
-                    rentItem.status === "confirmed" ? (
-                      <div className="mt-4 flex justify-start">
+
+                  {/* button section */}
+                  <div className="flex flex-row justify-between">
+                    <div className="flex flex-row justify-start">
+                      {" "}
+                      {session.user.User_info.role === "admin" &&
+                      rentItem.status === "confirmed" ? (
+                        <div className="mt-4 flex justify-start">
+                          <button
+                            onClick={() => handleFinish(rentItem._id)}
+                            className="px-4 py-2 bg-blue-500 text-white rounded-md transition duration-300
+                            hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+                          >
+                            Mark as Finished
+                          </button>
+                        </div>
+                      ) : session.user.User_info.role === "user" &&
+                        rentItem.status === "finished" ? (
+                        <div className="mt-4 flex justify-end text-green-600">
+                          <p className="items-center">Rent Finished</p>
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div className="mt-4 flex justify-end">
+                      {rentItem.status === "confirmed" && (
                         <button
-                          onClick={() => handleFinish(rentItem._id)}
-                          className="px-4 py-2 bg-blue-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                          onClick={() =>
+                            router.push(
+                              `/booking/${rentItem.car_info._id}/${rentItem._id}`
+                            )
+                          }
+                          className="m-2 px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                         >
-                          Mark as Finished
+                          Change Date
                         </button>
-                      </div>
-                    ) : session.user.User_info.role === "user" &&
-                      rentItem.status === "finished" ? (
-                      <div className="mt-4 flex justify-end text-green-600">
-                        <p className="items-center">Rent Finished</p>
-                      </div>
-                    ) : null}
-                  </div>
-                  <div className="mt-4 flex justify-end">
-                    {rentItem.status === "confirmed" && (
+                      )}
                       <button
-                        onClick={() =>
-                          router.push(
-                            `/booking/${rentItem.car_info._id}/${rentItem._id}`
-                          )
-                        }
-                        className="m-2 px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                        onClick={() => handleDelete(rentItem._id)}
+                        className="m-2 px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                       >
-                        Change Date
+                        Delete
                       </button>
+                    </div>
+                    {editError && (
+                      <div className="text-red-500 mt-2">{editError}</div>
                     )}
-                    <button
-                      onClick={() => handleDelete(rentItem._id)}
-                      className="m-2 px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
-                    >
-                      Delete
-                    </button>
                   </div>
-                  {editError && (
-                    <div className="text-red-500 mt-2">{editError}</div>
-                  )}
                 </div>
               ))}
             </div>
