@@ -1,5 +1,4 @@
-
-import CarCatalog from "@/components/CarCatalogMain";
+import ButtonsMain from "@/components/ButtonsMain";
 import CarCatalogMain from "@/components/CarCatalogMain";
 import HeadSection from "@/components/HeadSection";
 import ProviderCatalogMain from "@/components/ProviderCatalogMain";
@@ -95,19 +94,8 @@ export default async function Home() {
               </div>
             </div>
           </div>
-          <div className="mt-5 flex flex-row text-center items-center justify-center text-white font-semibold text-2xl">
-            <Link href="/register">
-            <div className="bg-blue-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
-              Register and Book Now
-            </div>
-            </Link>
-            <Link href="/api/auth/signin">
-            <div className="bg-blue-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
-              Login and Book Now
-            </div>
-            </Link>
-          </div>
-          <div className="flex flex-row text-center items-center justify-center text-white font-semibold text-2xl">
+          <ButtonsMain />
+          <div className="flex flex-row text-center items-center justify-center text-white font-semibold text-xl">
             <Link href="/game">
             <div className="bg-red-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
               Play Car Jumper
