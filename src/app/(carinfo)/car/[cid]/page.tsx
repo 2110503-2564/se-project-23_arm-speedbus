@@ -95,32 +95,36 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
   return (
     <main className="min-h-screen p-6 flex flex-row items-start gap-6">
-    <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
-      <Image
-        src={carItem.picture}
-        alt="Car"
-        width={600}
-        height={400}
-        className="w-full object-cover rounded-t-xl"
-      />
-      <div className="p-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          {carItem.name}
-        </h1>
-        <p className="text-gray-600 mb-1">Model: {carItem.model}</p>
-        <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
-        <p className="text-xl font-semibold text-blue-600 mt-3">
-          ${carItem.pricePerDay}/day
-        </p>
+      <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
+        <Image
+          src={carItem.picture}
+          alt="Car"
+          width={600}
+          height={400}
+          className="w-full object-cover rounded-t-xl"
+        />
+        <div className="p-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            {carItem.name}
+          </h1>
+          <p className="text-gray-600 mb-1">Model: {carItem.model}</p>
+          <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
+          <p className="text-gray-600 mb-1">
+            Provider: {carItem.provider_info.name}
+          </p>
+          <p className="text-xl font-semibold text-blue-600 mt-3">
+            ${carItem.pricePerDay}/day
+          </p>
+        </div>
       </div>
-    </div>
       {session ? (
         <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
           <h2 className="text-4xl font-bold my-4 text-[#2d336b] text-center">
             Choose Rental Dates
           </h2>
           <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
-            Check The Calendar For This Car's Available Date. (Underlined Date Means Occupied)
+            Check The Calendar For This Car's Available Date. (Underlined Date
+            Means Occupied)
           </h2>
           <div className="flex justify-center">
             {" "}
@@ -131,18 +135,37 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
               }}
               tileContent={({ date }) => {
                 if (isDateUnavailable(date)) {
-                  return <div style={{ border: '2px solid red' }}></div>;
+                  return <div style={{ border: "2px solid red" }}></div>;
                 }
               }}
             />
           </div>
-          
-          <div className="text-md text-left text-gray-800 m-3">Enter Renting Start Date</div>
-          <DateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
-          <div className="text-md text-left text-gray-800 m-3">Enter Renting End Date</div>
-          <DateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
+
+          <div className="text-md text-left text-gray-800 m-3">
+            Enter Renting Start Date
+          </div>
+          <DateReserve
+            onDateChange={(value: Dayjs) => {
+              setStartDate(value);
+            }}
+          />
+          <div className="text-md text-left text-gray-800 m-3">
+            Enter Renting End Date
+          </div>
+          <DateReserve
+            onDateChange={(value: Dayjs) => {
+              setEndDate(value);
+            }}
+          />
           <button
-            onClick={()=>{handleCreateRent(dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString());}}
+            onClick={() => {
+              handleCreateRent(
+                dayjs(startDate)
+                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
+                  .toString(),
+                dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
+              );
+            }}
             className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
           >
             Reserve Now
