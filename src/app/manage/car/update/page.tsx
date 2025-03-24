@@ -14,7 +14,7 @@ export default async function UpdateCarPage(){
             {
                 session?.user.User_info.role==='admin'? 
                 <div>
-                    <h1 className="text-xl font-medium">Select the Car You Want to Delete</h1>
+                    <h1 className="text-xl font-medium">Select the Car You Want to Update</h1>
                     <Suspense fallback={<p>Loading ... <LinearProgress/></p>}>
                         <CarUpdateList carJson={cars}/>
                     </Suspense>

@@ -126,9 +126,12 @@ export default function CarCidUpdatePage({
           </div>
         </div>
       </div>
-      <div>
-        Update Data
-        <form className="space-y-4" onSubmit={handleUpdateCar}>
+
+      <div className="m-4 text-2xl font-bold text-white">Update Data</div>
+      
+      <form className="space-y-4" onSubmit={handleUpdateCar}>
+        <div className="bg-white rounded-lg p-3 flex flex-row">
+          <div className="flex flex-col m-5">
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -197,6 +200,8 @@ export default function CarCidUpdatePage({
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
+          </div>
+          <div className="flex flex-col m-5">
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -250,17 +255,18 @@ export default function CarCidUpdatePage({
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
+          </div>
+        </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
+              className="mt-7 w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
             >
              Update Car
             </button>
             {updateError && (
               <p className="text-red-500 mt-2 text-center">{updateError}</p>
             )}
-          </form>
-      </div>
+      </form>
     </main>
   );
 }
