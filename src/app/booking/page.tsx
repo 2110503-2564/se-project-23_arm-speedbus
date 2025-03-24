@@ -123,6 +123,7 @@ export default function RentPage() {
                       </div>
                     </div>
                   </div>
+                  <div className="flex flex-row justify-between">
                   {session.user.User_info.role==='admin'&&rentItem.status==='confirmed'?
                     <div className="mt-4 flex justify-start">
                     <button
@@ -139,13 +140,13 @@ export default function RentPage() {
                     {rentItem.status==='confirmed'?
                       <button
                       onClick={() => router.push(`/booking/${rentItem.car_info._id}/${rentItem._id}`)}
-                      className="px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                      className="m-2 px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                     >
                       Change Date
                     </button>:null}
                     <button
                       onClick={() => handleDelete(rentItem._id)}
-                      className="px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                      className="m-2 px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                     >
                       Delete
                     </button>
@@ -153,6 +154,7 @@ export default function RentPage() {
                   {editError && (
                     <div className="text-red-500 mt-2">{editError}</div>
                   )}
+                </div>
                 </div>
               ))}
             </div>
