@@ -92,7 +92,7 @@ export default function RentPage() {
             <div className="p-6 text-center text-gray-500 font-open-sans">
               No rental history found.
             </div>
-            ) : (
+          ) : (
             <div className="divide-y divide-gray-200">
               {rentJson?.data?.map((rentItem) => (
                 <div key={rentItem._id} className="p-6 font-open-sans">
@@ -123,31 +123,38 @@ export default function RentPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-row justify-between">
-                  {session.user.User_info.role==='admin'&&rentItem.status==='confirmed'?
-                    <div className="mt-4 flex justify-start">
-                    <button
-                      onClick={() => handleFinish(rentItem._id)}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
-                    >
-                      Mark as Finished
-                    </button>
-                    </div>
-                    :
-                    <div className="mt-4 flex justify-start text-green-600">
-                      <p className="items-center">Rent Finished</p>
-                    </div>
-                  }
-                  
+                  <div className="flex flex-row justify-start">
+                    {" "}
+                    {session.user.User_info.role === "admin" &&
+                    rentItem.status === "confirmed" ? (
+                      <div className="mt-4 flex justify-start">
+                        <button
+                          onClick={() => handleFinish(rentItem._id)}
+                          className="px-4 py-2 bg-blue-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                        >
+                          Mark as Finished
+                        </button>
+                      </div>
+                    ) : session.user.User_info.role === "user" &&
+                      rentItem.status === "finished" ? (
+                      <div className="mt-4 flex justify-end text-green-600">
+                        <p className="items-center">Rent Finished</p>
+                      </div>
+                    ) : null}
+                  </div>
                   <div className="mt-4 flex justify-end">
-                    {rentItem.status==='confirmed' &&
+                    {rentItem.status === "confirmed" && (
                       <button
-                        onClick={() => router.push(`/booking/${rentItem.car_info._id}/${rentItem._id}`)}
+                        onClick={() =>
+                          router.push(
+                            `/booking/${rentItem.car_info._id}/${rentItem._id}`
+                          )
+                        }
                         className="m-2 px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
                       >
                         Change Date
                       </button>
-                    }
+                    )}
                     <button
                       onClick={() => handleDelete(rentItem._id)}
                       className="m-2 px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
@@ -158,7 +165,6 @@ export default function RentPage() {
                   {editError && (
                     <div className="text-red-500 mt-2">{editError}</div>
                   )}
-                </div>
                 </div>
               ))}
             </div>
