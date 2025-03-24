@@ -64,7 +64,7 @@ export default function RentPage() {
         {session.user.User_info.role === "admin" ? (
           <div className="mb-8 text-center">
             <h1 className="text-4xl font-semibold text-gray-800 mb-2 font-poppins">
-              All Rent History
+              All Rent Booking History
             </h1>
             <h2 className="text-lg text-white font-open-sans">
               Manage and modify rental bookings for all users.
@@ -73,7 +73,7 @@ export default function RentPage() {
         ) : (
           <div className="mb-8 text-center">
             <h1 className="text-3xl font-semibold text-gray-800 mb-2 font-poppins">
-              Your Rent History
+              Your Rent Booking History
             </h1>
             <h2 className="text-lg text-white font-open-sans">
               Manage your rental bookings and modify dates.
@@ -92,7 +92,7 @@ export default function RentPage() {
             <div className="p-6 text-center text-gray-500 font-open-sans">
               No rental history found.
             </div>
-          ) : (
+            ) : (
             <div className="divide-y divide-gray-200">
               {rentJson?.data?.map((rentItem) => (
                 <div key={rentItem._id} className="p-6 font-open-sans">
@@ -133,17 +133,21 @@ export default function RentPage() {
                       Mark as Finished
                     </button>
                     </div>
-                    : null
+                    :
+                    <div className="mt-4 flex justify-start text-green-600">
+                      <p className="items-center">Rent Finished</p>
+                    </div>
                   }
                   
                   <div className="mt-4 flex justify-end">
-                    {rentItem.status==='confirmed'?
+                    {rentItem.status==='confirmed' &&
                       <button
-                      onClick={() => router.push(`/booking/${rentItem.car_info._id}/${rentItem._id}`)}
-                      className="m-2 px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
-                    >
-                      Change Date
-                    </button>:null}
+                        onClick={() => router.push(`/booking/${rentItem.car_info._id}/${rentItem._id}`)}
+                        className="m-2 px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"
+                      >
+                        Change Date
+                      </button>
+                    }
                     <button
                       onClick={() => handleDelete(rentItem._id)}
                       className="m-2 px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75"

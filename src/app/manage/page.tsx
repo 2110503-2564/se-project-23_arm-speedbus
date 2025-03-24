@@ -22,6 +22,12 @@ export default async function ManageChoice() {
                 Manage Cars
               </div>
             </Link>
+            <Link href="/booking" className="block w-full">
+              <div className="bg-indigo-50 hover:bg-indigo-100 transition-colors duration-300 border border-indigo-200 rounded-md p-4 text-xl text-indigo-700 text-center font-medium">
+                Manage Bookings
+              </div>
+            </Link>
+            
           </div>
         </div>
       </div>:<div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">You are not an administrator. Access denied.</div>}
