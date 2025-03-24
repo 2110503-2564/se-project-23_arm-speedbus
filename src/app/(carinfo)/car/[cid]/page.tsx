@@ -94,7 +94,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     return <p className="text-center p-8 text-red-500">Car not found.</p>;
 
   return (
-    <main className="min-h-screen p-6 flex flex-row items-start bg-gray-100 gap-6">
+    <main className="min-h-screen p-6 flex flex-row items-start gap-6">
     <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
       <Image
         src={carItem.picture}
@@ -115,8 +115,8 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       </div>
     </div>
       {session ? (
-        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl my-4 ">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">
+        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
+        <h2 className="text-4xl font-bold my-4 text-[#2d336b] text-center">
           Choose Rental Dates
         </h2>
         <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
@@ -124,30 +124,33 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         </h2>
         <div className="flex justify-center">
           {" "}
-          <ReactCalendar
-         tileClassName={({ date }) => {
-           return isDateUnavailable(date) ? "red-border" : "";
-         }}
-         tileContent={({ date }) => {
-           if (isDateUnavailable(date)) {
-             return <div style={{ border: '2px solid red' }}></div>;
-           }
-         }}
-       />
+        <ReactCalendar
+          className={`text-black`}
+          tileClassName={({ date }) => {
+            return isDateUnavailable(date) ? "red-border" : "";
+          }}
+          tileContent={({ date }) => {
+            if (isDateUnavailable(date)) {
+              return <div style={{ background: '2px solid red' }}></div>;
+            }
+          }}
+        />
         </div>
-        <div className="text-md text-left text-gray-600">Renting Start Date</div>
-       <DateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
-       <div className="text-md text-left text-gray-600">Renting End Date</div>
-       <DateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
-        <button
-          onClick={()=>{handleCreateRent(dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString());}}
-          className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
-        >
-          Reserve Now
-        </button>
-        {errorMessage && (
-          <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
-        )}
+        <div className="p-6">
+          <div className="text-md text-left text-gray-600 m-3">Enter Renting Start Date</div>
+          <DateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
+          <div className="text-md text-left text-gray-600 m-3">Enter Renting End Date</div>
+          <DateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
+          <button
+            onClick={()=>{handleCreateRent(dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString());}}
+            className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
+          >
+            Reserve Now
+          </button>
+          {errorMessage && (
+            <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
+          )}
+        </div>
       </div>
       ) : null}
     </main>

@@ -163,6 +163,7 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
           </h2>
           <div className="flex justify-center">
             <ReactCalendar
+              className="text-black"
               tileClassName={({ date }) => {
                 if (isPreviousRentDate(date)) return "green-border";
                 if (isDateUnavailable(date)) return "red-border";
