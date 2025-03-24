@@ -2,6 +2,7 @@
 import deleteRent from "@/libs/deleteRent";
 import finishRent from "@/libs/finishRent";
 import getRents from "@/libs/getRents";
+import dayjs from "dayjs";
 import { BookingItem, BookingJson } from "interfaces";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -113,13 +114,23 @@ export default function RentPage() {
                         Start Date: {rentItem.startDate?.split('T')[0]}
                       </div>
                       <div className="text-gray-600">
-                        End Date: {rentItem.endDate?.split('T')[0]}
+                        End Date: {rentItem.endDate?.split('T')[0]} 
                       </div>
                       <div className="text-gray-600">
                         Status: {rentItem.status}
                       </div>
                       <div className="text-gray-600">
+                        Daily Price: ${rentItem.car_info.pricePerDay}
+                      </div>
+                      <div className="text-gray-600">
                         Confirmation Date: {rentItem.iDate}
+                      </div>
+                      <br/>
+                      <div className="text-gray-600 text-xl font-bold">
+                        Total Day: {(dayjs(rentItem.endDate).diff(dayjs(rentItem.startDate),"days")+1)}
+                      </div>
+                      <div className="text-gray-600 text-xl font-bold text-green-600">
+                        Total Cost: ${(dayjs(rentItem.endDate).diff(dayjs(rentItem.startDate),"days")+1)*rentItem.car_info.pricePerDay}
                       </div>
                     </div>
                   </div>
