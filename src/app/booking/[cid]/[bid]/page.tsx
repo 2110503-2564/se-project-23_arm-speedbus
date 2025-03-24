@@ -135,7 +135,7 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
 
   if (loading) return <p className="text-center p-8">Loading...</p>;
   if (!carItem) return <p className="text-center p-8 text-red-500">Car not found.</p>;
-  if (renderErrorMessage!=="") return <p className="text-center p-8 text-red-500">{renderErrorMessage}</p>;
+  if (renderErrorMessage!=="") return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{renderErrorMessage}</div>;
 
   return (
     <main className="min-h-screen p-6 flex flex-row items-start gap-6">
