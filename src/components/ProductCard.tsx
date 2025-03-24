@@ -20,7 +20,7 @@ export default function ProductCard({
           className="object-cover rounded-t-lg"
         />
       </div>
-      <div className="w-full h-[15%] p-[10px] font-[Verdana,Geneva,Tahoma,sans-serif] text-black">
+      <div className="w-full h-[15%] p-[30px] font-sans  text-black text-center text-xl font-medium">
         {Name}
       </div>
       {onCompare ? (
