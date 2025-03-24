@@ -47,7 +47,7 @@ export interface BookingVirtual_Car{
     _id: string,
     name: string,
     vin_plate: string,
-    pricePerDat: number,
+    pricePerDay: number,
     id: string
 }
 
