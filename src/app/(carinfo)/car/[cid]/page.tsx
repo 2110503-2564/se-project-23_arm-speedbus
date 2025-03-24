@@ -127,11 +127,11 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         <ReactCalendar
           className={`text-black`}
           tileClassName={({ date }) => {
-            return isDateUnavailable(date) ? "red-border" : "";
+            return isDateUnavailable(date) ? "red-border " : "";
           }}
           tileContent={({ date }) => {
             if (isDateUnavailable(date)) {
-              return <div style={{ background: '2px solid red' }}></div>;
+              return <div style={{ border: '2px solid red' }}></div>;
             }
           }}
         />

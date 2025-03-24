@@ -59,14 +59,14 @@ export default function RentPage() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
   return (
-    <main className="p-6 bg-gray-100 min-h-screen font-sans">
+    <main className="p-6 min-h-screen font-sans">
       <div className="max-w-4xl mx-auto">
         {session.user.User_info.role === "admin" ? (
           <div className="mb-8 text-center">
-            <h1 className="text-3xl font-semibold text-gray-800 mb-2 font-poppins">
+            <h1 className="text-4xl font-semibold text-gray-800 mb-2 font-poppins">
               All Rent History
             </h1>
-            <h2 className="text-lg text-gray-600 font-open-sans">
+            <h2 className="text-lg text-white font-open-sans">
               Manage and modify rental bookings for all users.
             </h2>
           </div>
@@ -75,13 +75,13 @@ export default function RentPage() {
             <h1 className="text-3xl font-semibold text-gray-800 mb-2 font-poppins">
               Your Rent History
             </h1>
-            <h2 className="text-lg text-gray-600 font-open-sans">
+            <h2 className="text-lg text-white font-open-sans">
               Manage your rental bookings and modify dates.
             </h2>
-            <h2 className="text-lg text-gray-600 font-open-sans">
+            <h2 className="text-lg text-white font-open-sans">
               A user can have up to 3 active bookings.
             </h2>
-            <h2 className="text-sm text-gray-500 font-open-sans">
+            <h2 className="text-sm text-white font-open-sans">
               (Finished bookings are not included.)
             </h2>
           </div>
