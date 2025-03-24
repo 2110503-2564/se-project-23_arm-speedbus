@@ -136,10 +136,9 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           }}
         />
         </div>
-        <div className="p-6">
-          <div className="text-md text-left text-gray-600 m-3">Enter Renting Start Date</div>
+          <div className="text-md text-left text-gray-800 m-3">Enter Renting Start Date</div>
           <DateReserve onDateChange={(value:Dayjs)=>{setStartDate(value)}}/>
-          <div className="text-md text-left text-gray-600 m-3">Enter Renting End Date</div>
+          <div className="text-md text-left text-gray-800 m-3">Enter Renting End Date</div>
           <DateReserve onDateChange={(value:Dayjs)=>{setEndDate(value)}}/>
           <button
             onClick={()=>{handleCreateRent(dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString());}}
@@ -151,7 +150,6 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
           )}
         </div>
-      </div>
       ) : null}
     </main>
   );

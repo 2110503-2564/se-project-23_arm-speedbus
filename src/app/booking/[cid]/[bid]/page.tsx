@@ -138,7 +138,7 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
   if (renderErrorMessage!=="") return <p className="text-center p-8 text-red-500">{renderErrorMessage}</p>;
 
   return (
-    <main className="min-h-screen p-6 flex flex-row items-start bg-gray-100 gap-6">
+    <main className="min-h-screen p-6 flex flex-row items-start gap-6">
       <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
         <Image
           src={carItem.picture}
@@ -156,8 +156,10 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
       </div>
 
       {session ? (
-        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl my-4">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">Choose Rental Dates</h2>
+        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
+          <h2 className="text-4xl font-bold my-4 text-[#2d336b] text-center">
+            Choose Rental Dates
+          </h2>
           <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
             Check The Calendar For This Car's Available Date. (Underlined Date Means Occupied, Green Means Previous Booking)
           </h2>
@@ -180,9 +182,9 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
             />
           </div>
 
-          <div className="text-md text-left text-gray-600">Renting Start Date</div>
+          <div className="text-md text-left text-gray-800 m-3">Enter Renting Start Date</div>
           <DateReserve onDateChange={(value: dayjs.Dayjs) => setFormStartDate(value)} />
-          <div className="text-md text-left text-gray-600">Renting End Date</div>
+          <div className="text-md text-left text-gray-800 m-3">Enter Renting End Date</div>
           <DateReserve onDateChange={(value: dayjs.Dayjs) => setFormEndDate(value)} />
 
           <button
