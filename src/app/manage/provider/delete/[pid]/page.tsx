@@ -79,6 +79,7 @@ export default function ProviderPidDeletePage({
           />
           <div className="p-6 flex flex-col justify-between w-full">
             <div className="space-y-2">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">{providerItem.name}</h1>
             <div className="text-sm text-gray-600">Address : {providerItem.address}</div>
             <div className="text-sm text-gray-600">Tel. : {providerItem.tel}</div>
             <div className="text-sm text-gray-600">Email : {providerItem.email}</div>

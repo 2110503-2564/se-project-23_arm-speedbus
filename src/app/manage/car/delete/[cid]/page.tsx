@@ -79,6 +79,7 @@ export default function CarCidDeletePage({
         />
         <div className="p-6 flex flex-col justify-between w-full">
           <div className="space-y-2">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6">{carItem.name}</h1>
             <div className="text-lg font-semibold text-gray-700">{carItem.model}</div>
             <div className="text-sm text-gray-600">VIN: {carItem.vin_plate}</div>
             <div className="text-sm text-gray-600">Provider: {carItem.provider_info.name}</div>
