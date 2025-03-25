@@ -7,7 +7,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
   return (
     <>
     <div className="flex flex-wrap justify-center gap-8 px-4">
-      {carJsonReady.data.slice(0, Math.min(carJsonReady.data.length, 3)).map((carItem: CarItem, index) => (
+      {carJsonReady.data.slice(1, Math.min(carJsonReady.data.length, 4)).map((carItem: CarItem, index) => (
         <Link
         href={`/car/${carItem.id}`}
         key={carItem.id}
@@ -29,7 +29,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
         style={{ animationDelay: `${3 * 0.15}s` }}
         >
         <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
-          <ProductCard Name={"more..."}/>
+          <ProductCard Name={"more..."} imgSrc={carJsonReady.data[0].picture}/>
           <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
           <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
             <span className="text-xl font-bold text-white">Explore All Cars</span>

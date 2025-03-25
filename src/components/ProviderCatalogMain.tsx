@@ -32,7 +32,7 @@ export default async function ProviderCatalogMain({ providerJson }: { providerJs
           style={{ animationDelay: `${MAX_PROVIDERS_DISPLAYED * 0.15}s` }}
         >
           <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
-            <ProductCard Name={"more..."} />
+            <ProductCard Name={"more..."} imgSrc="/img/user.svg" />
             <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
             <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
               <span className="text-xl font-bold text-white">Explore All Providers</span>
