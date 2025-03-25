@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function RentPage() {
+export default function AuditLogsPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [auditLogJson, setAuditLogJson] = useState<AuditLogJson>({
@@ -24,6 +24,10 @@ export default function RentPage() {
       try {
         const response = await getAugitLogs(session?.user.token);
         setAuditLogJson(response);
+        if(session.user.User_info.role!=='admin'){
+          setError("You are not an administrator. Access denied.")
+          return
+        }
         if(!response.success){
             setError("Could not fetch audit logs.");
         }
@@ -36,8 +40,8 @@ export default function RentPage() {
 
     fetchAuditLogs();
   }, [refresh]);
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
+  if (error) return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>
   return (
     <main className="p-6 min-h-screen font-sans">
         {session.user.User_info.role==='admin'?

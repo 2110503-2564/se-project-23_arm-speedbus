@@ -57,8 +57,8 @@ export default function RentPage() {
       setEditError(res.message);
     }
   };
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>
+  if (error) return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
   return (
     <main className="p-6 min-h-screen font-sans">
       <div className="max-w-4xl mx-auto">

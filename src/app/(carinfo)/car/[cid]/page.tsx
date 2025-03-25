@@ -89,9 +89,9 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     }
   }
 
-  if (loading) return <p className="text-center p-8">Loading...</p>;
+  if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
   if (!carItem)
-    return <p className="text-center p-8 text-red-500">Car not found.</p>;
+    return <div className="text-center text-xl text-black-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Car not found</div>;
 
   return (
     <main className="min-h-screen p-6 flex flex-row items-start gap-6">

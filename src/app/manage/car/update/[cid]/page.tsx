@@ -92,11 +92,11 @@ export default function CarCidUpdatePage({
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
   }
 
   if (!carItem) {
