@@ -72,3 +72,24 @@ export interface BookingJson{
     count:number,
     data:BookingItem[]
 }
+
+export interface AuditLogVirtual_User{
+    _id:string,
+    name:string
+}
+
+export interface AuditLogItem{
+    _id:string,
+    action:string,
+    user_id:AuditLogVirtual_User,
+    target:string,
+    target_id:string,
+    description:string,
+    timeStamp:string,
+    __v:number
+}
+
+export interface AuditLogJson{
+    success:boolean,
+    data:AuditLogItem[]
+}

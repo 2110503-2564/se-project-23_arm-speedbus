@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./topmenu.module.css";
-import { FaHome, FaUsers, FaCar, FaGamepad, FaTools } from "react-icons/fa";
+import { FaHome, FaUsers, FaCar, FaGamepad, FaTools, FaBook } from "react-icons/fa";
 export default function TopMenuItem({
   title,
   pageRef,
@@ -25,6 +25,9 @@ export default function TopMenuItem({
       break;
     case "Manage":
       icon = <FaTools className="mr-2" />;
+      break;
+    case "Audit Logs":
+      icon = <FaBook className="mr-2" />;
       break;
     default:
       icon = null;
