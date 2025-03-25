@@ -23,7 +23,6 @@ export default function AuditLogsPage() {
     const fetchAuditLogs = async () => {
       try {
         const response = await getAugitLogs(session?.user.token);
-        setAuditLogJson(response);
         if (session.user.User_info.role !== "admin") {
           setError("You are not an administrator. Access denied.");
           return;
@@ -31,6 +30,8 @@ export default function AuditLogsPage() {
         if (!response.success) {
           setError("Could not fetch audit logs.");
         }
+        response.data.reverse();
+        setAuditLogJson(response);
       } catch (err) {
         setError("Could not fetch audit logs.");
       } finally {
