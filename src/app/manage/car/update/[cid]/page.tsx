@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import getCar from "@/libs/getCar";
@@ -19,39 +19,40 @@ export default function CarCidUpdatePage({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [updateError, setUpdateError] = useState<string | null>(null);
-  if(!session||session.user.User_info.role!=='admin'){
+  if (!session || session.user.User_info.role !== "admin") {
     return (
-        <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
-          You are not an administrator. Access denied.
-        </div>
-    )
-}
-    const [formData, setFormData] = useState({
+      <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        You are not an administrator. Access denied.
+      </div>
+    );
+  }
+  const [formData, setFormData] = useState({
     name: "",
     vin_plate: "",
     provider_info: "",
     picture: "",
     capacity: 1,
-    model: "",
+    description: "",
     pricePerDay: 1,
-    });
+  });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-          ...prev,
-          [name]:
-            name === "capacity" || name === "pricePerDay" ? Number(value) : value,
-        }));
-      };
-    
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        name === "capacity" || name === "pricePerDay" ? Number(value) : value,
+    }));
+  };
+
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
         const carDetail = await getCar(params.cid);
         setCarItem(carDetail.data);
         let extractedProviderID = carDetail;
-        extractedProviderID.data.provider_info = carDetail.data.provider_info._id;
+        extractedProviderID.data.provider_info =
+          carDetail.data.provider_info._id;
         setFormData(carDetail.data);
       } catch (err) {
         setError("Failed to fetch car details.");
@@ -63,40 +64,50 @@ export default function CarCidUpdatePage({
     fetchCarDetails();
   }, [params.cid]);
 
-
   const handleUpdateCar = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-        if (!session?.user.token) {
-            return;
-        }
-    const res =  await updateCar(session.user.token,
+      if (!session?.user.token) {
+        return;
+      }
+      const res = await updateCar(
+        session.user.token,
         params.cid,
         formData.name,
         formData.vin_plate,
         formData.provider_info,
         formData.picture,
         formData.capacity,
-        formData.model,
-        formData.pricePerDay);
-      if(res.success){
-          alert("Updated car successfully")
-          router.push(`/car/${params.cid}`);
-      }
-      else{
+        formData.description,
+        formData.pricePerDay
+      );
+      if (res.success) {
+        alert("Updated car successfully");
+        router.push(`/car/${params.cid}`);
+      } else {
         setUpdateError(res.message);
       }
     } catch (err) {
-      setUpdateError("Failed to update the car. Check if provider id exist in database and/or VIN must be unique");
+      setUpdateError(
+        "Failed to update the car. Check if provider id exist in database and/or VIN must be unique"
+      );
     }
   };
 
   if (loading) {
-    return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
+    return (
+      <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
+    return (
+      <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        {error}
+      </div>
+    );
   }
 
   if (!carItem) {
@@ -105,7 +116,9 @@ export default function CarCidUpdatePage({
 
   return (
     <main className="text-center p-8 min-h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">{carItem.name}</h1>
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
+        {carItem.name}
+      </h1>
       <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
         <Image
           src={carItem.picture}
@@ -116,10 +129,18 @@ export default function CarCidUpdatePage({
         />
         <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
           <div>
-            <div className="text-lg font-medium text-gray-700 text-left">{carItem.model}</div>
-            <div className="text-md text-gray-600 text-left">VIN: {carItem.vin_plate}</div>
-            <div className="text-md text-gray-600 text-left">Provider: {carItem.provider_info.name}</div>
-            <div className="text-md text-gray-600 text-left">Capacity: {carItem.capacity} seats</div>
+            <div className="text-lg font-medium text-gray-700 text-left">
+              {carItem.description}
+            </div>
+            <div className="text-md text-gray-600 text-left">
+              VIN: {carItem.vin_plate}
+            </div>
+            <div className="text-md text-gray-600 text-left">
+              Provider: {carItem.provider_info.name}
+            </div>
+            <div className="text-md text-gray-600 text-left">
+              Capacity: {carItem.capacity} seats
+            </div>
             <div className="text-md text-gray-600 text-left font-semibold">
               Daily Rental Rate: ${carItem.pricePerDay}
             </div>
@@ -128,7 +149,7 @@ export default function CarCidUpdatePage({
       </div>
 
       <div className="m-4 text-2xl font-bold text-white">Update Data</div>
-      
+
       <form className="space-y-4" onSubmit={handleUpdateCar}>
         <div className="bg-white rounded-lg p-3 flex flex-row">
           <div className="flex flex-col m-5">
@@ -201,7 +222,7 @@ export default function CarCidUpdatePage({
               />
             </div>
           </div>
-          
+
           <div className="flex flex-col m-5">
             <div className="flex flex-col">
               <label
@@ -232,7 +253,7 @@ export default function CarCidUpdatePage({
                 type="text"
                 required
                 name="model"
-                value={formData.model}
+                value={formData.description}
                 onChange={handleChange}
                 placeholder="Enter model or description"
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
@@ -258,15 +279,15 @@ export default function CarCidUpdatePage({
             </div>
           </div>
         </div>
-            <button
-              type="submit"
-              className="mt-7 w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
-            >
-             Update Car
-            </button>
-            {updateError && (
-              <p className="text-red-500 mt-2 text-center">{updateError}</p>
-            )}
+        <button
+          type="submit"
+          className="mt-7 w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
+        >
+          Update Car
+        </button>
+        {updateError && (
+          <p className="text-red-500 mt-2 text-center">{updateError}</p>
+        )}
       </form>
     </main>
   );

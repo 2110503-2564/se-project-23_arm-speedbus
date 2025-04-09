@@ -13,7 +13,11 @@ import getRentsForCar from "@/libs/getRentsForCar"; // Function to fetch rent da
 import { useRouter } from "next/navigation";
 import changeRentDate from "@/libs/changeRentDate";
 
-export default function ChangeDatePage({ params }: { params: { cid: string, bid: string } }) {
+export default function ChangeDatePage({
+  params,
+}: {
+  params: { cid: string; bid: string };
+}) {
   const router = useRouter();
   const [carItem, setCarItem] = useState<CarItem | null>(null);
   const [loading, setLoading] = useState(true);
@@ -66,16 +70,19 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
       try {
         if (!session?.user.token) return;
         const rentData = await getRent(session.user.token, params.bid);
-        console.log(rentData.success)
-        if(!rentData.success||params.cid!==rentData.data.car_info._id){
+        console.log(rentData.success);
+        if (!rentData.success || params.cid !== rentData.data.car_info._id) {
           setRenderErrorMessage("Incorrect URL/Access Denied");
           return;
         }
-        if(rentData.data.status==='finished'){
+        if (rentData.data.status === "finished") {
           setRenderErrorMessage("Do not Change Date of the Finished Renting");
           return;
         }
-        if(session.user.User_info.role!=='admin'&&rentData.data.user_info._id!==session.user.User_info._id){
+        if (
+          session.user.User_info.role !== "admin" &&
+          rentData.data.user_info._id !== session.user.User_info._id
+        ) {
           setRenderErrorMessage("Access Denied, You cannot edit this renting");
           return;
         }
@@ -103,20 +110,24 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
   }, [params.cid, params.bid, session?.user.token]);
 
   const isDateUnavailable = (date: Date) => {
-    return rentedDates.some((rentedDate) => rentedDate.toDateString() === date.toDateString());
+    return rentedDates.some(
+      (rentedDate) => rentedDate.toDateString() === date.toDateString()
+    );
   };
 
   const isPreviousRentDate = (date: Date) => {
-    return previousRentDates.some((prevDate) => prevDate.toDateString() === date.toDateString());
+    return previousRentDates.some(
+      (prevDate) => prevDate.toDateString() === date.toDateString()
+    );
   };
 
   async function handleUpdateRent(startDate: string, endDate: string) {
     if (!session) return;
     console.log(startDate);
     console.log(endDate);
-    if(startDate==='Invalid Date'||endDate==='Invalid Date'){
-      setErrorMessage('You must fill a value for start date and end date');
-      console.log("should log")
+    if (startDate === "Invalid Date" || endDate === "Invalid Date") {
+      setErrorMessage("You must fill a value for start date and end date");
+      console.log("should log");
       return;
     }
     const res = await changeRentDate(
@@ -133,9 +144,24 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
     }
   }
 
-  if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
-  if (!carItem) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Car not found</div>;
-  if (renderErrorMessage!=="") return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{renderErrorMessage}</div>;
+  if (loading)
+    return (
+      <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        Loading...
+      </div>
+    );
+  if (!carItem)
+    return (
+      <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        Car not found
+      </div>
+    );
+  if (renderErrorMessage !== "")
+    return (
+      <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        {renderErrorMessage}
+      </div>
+    );
 
   return (
     <main className="min-h-screen p-6 flex flex-row items-start gap-6">
@@ -148,12 +174,20 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
           className="w-full object-cover rounded-t-xl"
         />
         <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">{carItem.name}</h1>
-          <p className="text-gray-600 mb-1">Model: {carItem.model}</p>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            {carItem.name}
+          </h1>
+          <p className="text-gray-600 mb-1">
+            Description: {carItem.description}
+          </p>
           <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
-          <p className="text-gray-600 mb-1">Provider: {carItem.provider_info.name}</p>
+          <p className="text-gray-600 mb-1">
+            Provider: {carItem.provider_info.name}
+          </p>
           <p className="text-gray-600 mb-1">Car ID: {carItem._id}</p>
-          <p className="text-xl font-semibold text-blue-600 mt-3">${carItem.pricePerDay}/day</p>
+          <p className="text-xl font-semibold text-blue-600 mt-3">
+            ${carItem.pricePerDay}/day
+          </p>
         </div>
       </div>
 
@@ -163,7 +197,8 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
             Choose Rental Dates
           </h2>
           <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
-            Check The Calendar For This Car's Available Date. (Underlined Date Means Occupied, Green Means Previous Booking)
+            Check The Calendar For This Car's Available Date. (Underlined Date
+            Means Occupied, Green Means Previous Booking)
           </h2>
           <div className="flex justify-center">
             <ReactCalendar
@@ -175,32 +210,46 @@ export default function ChangeDatePage({ params }: { params: { cid: string, bid:
               }}
               tileContent={({ date }) => {
                 if (isPreviousRentDate(date)) {
-                  return <div style={{ border: '2px solid green' }}></div>;
+                  return <div style={{ border: "2px solid green" }}></div>;
                 }
                 if (isDateUnavailable(date)) {
-                  return <div style={{ border: '2px solid red' }}></div>;
+                  return <div style={{ border: "2px solid red" }}></div>;
                 }
               }}
             />
           </div>
 
-          <div className="text-md text-left text-gray-800 m-3">Enter Renting Start Date</div>
-          <DateReserve onDateChange={(value: dayjs.Dayjs) => setFormStartDate(value)} />
-          <div className="text-md text-left text-gray-800 m-3">Enter Renting End Date</div>
-          <DateReserve onDateChange={(value: dayjs.Dayjs) => setFormEndDate(value)} />
+          <div className="text-md text-left text-gray-800 m-3">
+            Enter Renting Start Date
+          </div>
+          <DateReserve
+            onDateChange={(value: dayjs.Dayjs) => setFormStartDate(value)}
+          />
+          <div className="text-md text-left text-gray-800 m-3">
+            Enter Renting End Date
+          </div>
+          <DateReserve
+            onDateChange={(value: dayjs.Dayjs) => setFormEndDate(value)}
+          />
 
           <button
             onClick={() => {
               handleUpdateRent(
-                dayjs(formStartDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),
-                dayjs(formEndDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
+                dayjs(formStartDate)
+                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
+                  .toString(),
+                dayjs(formEndDate)
+                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
+                  .toString()
               );
             }}
             className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
           >
             Update Booking
           </button>
-          {errorMessage && <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>}
+          {errorMessage && (
+            <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
+          )}
         </div>
       ) : null}
     </main>

@@ -15,7 +15,7 @@ export default function AddCarPage() {
     provider_info: "",
     picture: "",
     capacity: 1,
-    model: "",
+    description: "",
     pricePerDay: 1,
   });
 
@@ -50,7 +50,7 @@ export default function AddCarPage() {
         formData.provider_info,
         formData.picture,
         formData.capacity,
-        formData.model,
+        formData.description,
         formData.pricePerDay
       );
 
@@ -174,7 +174,7 @@ export default function AddCarPage() {
                 type="text"
                 required
                 name="model"
-                value={formData.model}
+                value={formData.description}
                 onChange={handleChange}
                 placeholder="Enter model or description"
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"

@@ -89,9 +89,18 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     }
   }
 
-  if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
+  if (loading)
+    return (
+      <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        Loading...
+      </div>
+    );
   if (!carItem)
-    return <div className="text-center text-xl text-black-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Car not found</div>;
+    return (
+      <div className="text-center text-xl text-black-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        Car not found
+      </div>
+    );
 
   return (
     <main className="min-h-screen p-6 flex flex-row items-start gap-6">
@@ -107,14 +116,14 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
             {carItem.name}
           </h1>
-          <p className="text-gray-600 mb-1">Model: {carItem.model}</p>
+          <p className="text-gray-600 mb-1">
+            Description: {carItem.description}
+          </p>
           <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
           <p className="text-gray-600 mb-1">
             Provider: {carItem.provider_info.name}
           </p>
-          <p className="text-gray-600 mb-1">
-            Car ID: {carItem._id}
-          </p>
+          <p className="text-gray-600 mb-1">Car ID: {carItem._id}</p>
           <p className="text-xl font-semibold text-blue-600 mt-3">
             ${carItem.pricePerDay}/day
           </p>

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import getCar from "@/libs/getCar";
@@ -20,12 +20,12 @@ export default function CarCidDeletePage({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null); // Error state for deletion
-  if(!session||session.user.User_info.role!=='admin'){
+  if (!session || session.user.User_info.role !== "admin") {
     return (
-        <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
-          You are not an administrator. Access denied.
-        </div>
-    )
+      <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        You are not an administrator. Access denied.
+      </div>
+    );
   }
   useEffect(() => {
     const fetchCarDetails = async () => {
@@ -44,23 +44,31 @@ export default function CarCidDeletePage({
 
   const handleDeleteCar = async () => {
     try {
-        if (!session?.user.token) {
-            return;
-        }
-      await deleteCar(session.user.token,params.cid);  // Call the deleteCar function
-      alert("Deleted car successfully")
+      if (!session?.user.token) {
+        return;
+      }
+      await deleteCar(session.user.token, params.cid); // Call the deleteCar function
+      alert("Deleted car successfully");
       router.push("/car");
     } catch (err) {
-      setDeleteError("Failed to delete the car.");  // Handle deletion error
+      setDeleteError("Failed to delete the car."); // Handle deletion error
     }
   };
 
   if (loading) {
-    return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
+    return (
+      <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
+    return (
+      <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        {error}
+      </div>
+    );
   }
 
   if (!carItem) {
@@ -79,11 +87,21 @@ export default function CarCidDeletePage({
         />
         <div className="p-6 flex flex-col justify-between w-full">
           <div className="space-y-2">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6">{carItem.name}</h1>
-            <div className="text-lg font-semibold text-gray-700">{carItem.model}</div>
-            <div className="text-sm text-gray-600">VIN: {carItem.vin_plate}</div>
-            <div className="text-sm text-gray-600">Provider: {carItem.provider_info.name}</div>
-            <div className="text-sm text-gray-600">Capacity: {carItem.capacity} seats</div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6">
+              {carItem.name}
+            </h1>
+            <div className="text-lg font-semibold text-gray-700">
+              {carItem.description}
+            </div>
+            <div className="text-sm text-gray-600">
+              VIN: {carItem.vin_plate}
+            </div>
+            <div className="text-sm text-gray-600">
+              Provider: {carItem.provider_info.name}
+            </div>
+            <div className="text-sm text-gray-600">
+              Capacity: {carItem.capacity} seats
+            </div>
             <div className="text-lg font-semibold text-gray-800">
               Daily Rental Rate: ${carItem.pricePerDay}
             </div>
