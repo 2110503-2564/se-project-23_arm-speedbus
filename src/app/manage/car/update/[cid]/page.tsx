@@ -245,17 +245,17 @@ export default function CarCidUpdatePage({
             <div className="flex flex-col">
               <label
                 className="block text-sm font-medium text-gray-700 mb-1"
-                htmlFor="model"
+                htmlFor="description"
               >
-                Car Model
+                Car Description
               </label>
               <input
                 type="text"
                 required
-                name="model"
+                name="description"
                 value={formData.description}
                 onChange={handleChange}
-                placeholder="Enter model or description"
+                placeholder="Enter description"
                 className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
               />
             </div>
