@@ -28,13 +28,13 @@ export default function DropDownProfile({
         <div className="fixed top-0 right-0 w-[548px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
-              <Link href="/profile">
+              <Link href="/register">
                 <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
                   REGISTER
                 </h2>
               </Link>
 
-              <Link href="/coupon" className="pt-10">
+              <Link href="/api/auth/signin" className="pt-10">
                 <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
                   LOGIN
                 </h2>
@@ -52,13 +52,13 @@ export default function DropDownProfile({
                   PROFILE
                 </h2>
               </Link>
-              <div className="mt-2 text-[15px]">
+              <div className="mt-2 text-[15px] text-right">
                 <Link href="/booking">
                   <h3 className="pt-5 group hover:underline transition-all duration-300 ease-in-out">
                     BOOKING
                   </h3>
                 </Link>
-                <h3 className="pt-2 group hover:underline transition-all duration-300 ease-in-out">
+                <h3 className="pt-2 text-right group hover:underline transition-all duration-300 ease-in-out">
                   IDK
                 </h3>
               </div>
@@ -74,6 +74,16 @@ export default function DropDownProfile({
                 <h3 className="pt-2 group hover:underline transition-all duration-300 ease-in-out">
                   REDEEM COUPON
                 </h3>
+              </div>
+              <div
+                className="text-right mt-auto
+              "
+              >
+                <Link href="/api/auth/signout">
+                  <button className="text-[15px] text-white hover:underline transition-all duration-300 ease-in-out">
+                    LOGOUT
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
