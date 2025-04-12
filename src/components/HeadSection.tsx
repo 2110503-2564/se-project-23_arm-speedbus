@@ -33,7 +33,7 @@ export default function HeadSection() {
       />
 
       <h1
-        className={`text-6xl font-extrabold font-jubilee text-[#FFF2F2] opacity-0 transition-all duration-1000 ease-in ${
+        className={`text-6xl font-extrabold font-jubilee text-[#000000] opacity-0 transition-all duration-1000 ease-in ${
           welcomeAnimation ? "opacity-100 translate-y-0" : ""
         }`}
       >
@@ -41,7 +41,7 @@ export default function HeadSection() {
       </h1>
 
       <p
-        className={`text-4xl font-jubilee text-[#FFF2F2] opacity-0 transition-all duration-1000 ease-in ${
+        className={`text-4xl font-jubilee text-[#000000] opacity-0 transition-all duration-1000 ease-in ${
           headingAnimation ? "opacity-100 translate-y-0" : ""
         }`}
       >

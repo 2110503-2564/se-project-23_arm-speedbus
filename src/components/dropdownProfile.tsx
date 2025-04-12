@@ -20,12 +20,12 @@ export default function DropDownProfile({
     >
       <div
         className="flex flex-row bg-white [12px] py-1 px-2 rounded-xl text-[#000000]  cursor-pointer
-                      hover:text-[#7886c7] transition items-center justify-center"
+                      hover:text-[#7886c7] transition items-center justify-center text-[13px]"
       >
         {Text}
       </div>
       {!isLoggedIn && isOpen && (
-        <div className="fixed top-0 right-0 w-[548px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
+        <div className="fixed top-0 right-0 w-[500px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
               <Link href="/register">
@@ -44,7 +44,7 @@ export default function DropDownProfile({
         </div>
       )}
       {isLoggedIn && isOpen && (
-        <div className="fixed top-0 right-0 w-[548px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
+        <div className="fixed top-0 right-0 w-[500px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
               <Link href="/profile">

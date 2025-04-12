@@ -15,7 +15,7 @@ export default async function Home() {
   revalidateTag("providers");
 
   return (
-    <main className="bg-[#7886C7] min-h-screen" >
+    <main className="bg-[#ffffff] min-h-screen" >
       <HeadSection />
 
 

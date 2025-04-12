@@ -43,8 +43,8 @@ export default function TopMenuItem({
   return (
     <Link
       href={pageRef}
-      className="w-[120px] text-center my-auto font-[Roboto Mono] text-[12pt] text-[#000000] text-[14px]
-                 transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-[#8a7ff2] flex items-center justify-center"
+      className="w-[120px] text-center my-auto text-[#000000] text-[13px]
+                 transition-all duration-200 ease-in-out transform hover:scale-105 hover:text-[#8a7ff2] flex items-center justify-center"
     >
       {title}
     </Link>
