@@ -3,14 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-import {
-  FaUser,
-  FaShoppingCart,
-  FaSignOutAlt,
-  FaSignInAlt,
-  FaUserPlus,
-} from "react-icons/fa";
-
 export default function DropDownProfile({
   isLoggedIn,
   Text,
@@ -22,47 +14,70 @@ export default function DropDownProfile({
 
   return (
     <div
-      className="relative mt-4 font font-custom"
+      className="relative "
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <div className="flex flex-row bg-white py-1 px-2 rounded-xl text-[#2d336b] font-semibold cursor-pointer
-                      hover:text-[#7886c7] transition items-center justify-center">
-        <FaUser className="mr-2" />
+      <div
+        className="flex flex-row bg-white [12px] py-1 px-2 rounded-xl text-[#000000]  cursor-pointer
+                      hover:text-[#7886c7] transition items-center justify-center"
+      >
         {Text}
       </div>
       {!isLoggedIn && isOpen && (
-        <ul className="absolute top-10 right-0 w-44 bg-white border border-gray-200 rounded-xl shadow-lg p-2 transition-all duration-300 ease-in-out opacity-100 scale-100">
-          <Link href="/api/auth/signin">
-            <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition flex items-center">
-              <FaSignInAlt className="mr-2" /> Sign in
-            </li>
-          </Link>
-          <Link href="/register">
-            <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition flex items-center">
-              <FaUserPlus className="mr-2" /> Register
-            </li>
-          </Link>
-        </ul>
+        <div className="fixed top-0 right-0 w-[548px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
+          <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
+            <div className="flex flex-col justify-start items-end flex-1">
+              <Link href="/profile">
+                <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
+                  REGISTER
+                </h2>
+              </Link>
+
+              <Link href="/coupon" className="pt-10">
+                <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
+                  LOGIN
+                </h2>
+              </Link>
+            </div>
+          </div>
+        </div>
       )}
       {isLoggedIn && isOpen && (
-        <ul className="absolute top-10 right-0 w-44 bg-white border border-gray-200 rounded-xl shadow-lg p-2 transition-all duration-300 ease-in-out opacity-100 scale-100">
-          <Link href="/profile">
-            <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition flex items-center">
-              <FaUser className="mr-2" /> Profile
-            </li>
-          </Link>
-          <Link href="/booking">
-            <li className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg cursor-pointer transition flex items-center">
-              <FaShoppingCart className="mr-2" /> Bookings
-            </li>
-          </Link>
-          <Link href="/api/auth/signout">
-            <li className="px-4 py-2 text-red-600 hover:bg-red-100 rounded-lg cursor-pointer transition flex items-center">
-              <FaSignOutAlt className="mr-2" /> Logout
-            </li>
-          </Link>
-        </ul>
+        <div className="fixed top-0 right-0 w-[548px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
+          <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
+            <div className="flex flex-col justify-start items-end flex-1">
+              <Link href="/profile">
+                <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
+                  PROFILE
+                </h2>
+              </Link>
+              <div className="mt-2 text-[15px]">
+                <Link href="/booking">
+                  <h3 className="pt-5 group hover:underline transition-all duration-300 ease-in-out">
+                    BOOKING
+                  </h3>
+                </Link>
+                <h3 className="pt-2 group hover:underline transition-all duration-300 ease-in-out">
+                  IDK
+                </h3>
+              </div>
+              <Link href="/coupon" className="pt-10">
+                <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
+                  COUPON
+                </h2>
+              </Link>
+              <div className="mt-2 text-[15px] text-right">
+                <h3 className="pt-5 group hover:underline transition-all duration-300 ease-in-out">
+                  MY COUPON
+                </h3>
+                <h3 className="pt-2 group hover:underline transition-all duration-300 ease-in-out">
+                  REDEEM COUPON
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

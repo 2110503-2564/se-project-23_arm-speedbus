@@ -10,14 +10,15 @@ export default async function TopMenu() {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className="h-[60px] bg-[#2d336b] fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-4 shadow-md ">
-      <div className="flex items-center gap-2 mx-1  ">
-        <TopMenuItem title="Home" pageRef="/"></TopMenuItem>
+    <div className="h-[121px]  bg-[#ffffff] fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-6 ">
+      <div className="flex items-center gap-5 mx-1 left-6 ">
+        <TopMenuItem title="PROVIDER" pageRef="/provider"></TopMenuItem>
+        <TopMenuItem title="SELECT CAR" pageRef="/car"></TopMenuItem>
       </div>
       <div className="flex gap-6 absolute left-1/2 -translate-x-1/2">
-        <TopMenuItem title="Provider" pageRef="/provider" />
-        <TopMenuItem title="Select Car" pageRef="/car" />
-        <TopMenuItem title="Car Jumper" pageRef="/game" />
+        <div className="text-[45px] text-[#000000] font-[Roboto Mono] ">
+          Arm Speed Bus
+        </div>
         {session?.user.User_info.role === "admin" ? (
           <>
             <TopMenuItem title="Manage" pageRef="/manage" />
@@ -25,11 +26,14 @@ export default async function TopMenu() {
           </>
         ) : null}
       </div>
-      <div className="flex flex-row absolute right-2 h-full mx-5 ">
+      <div className="flex gap-6 absolute right-6 ">
         {session ? (
-          <DropDownProfile isLoggedIn={true} Text="Profile" />
+          <>
+            <TopMenuItem title="COUPON" pageRef="/coupon" />
+            <DropDownProfile isLoggedIn={true} Text="PROFILE" />
+          </>
         ) : (
-          <DropDownProfile isLoggedIn={false} Text="Login" />
+          <DropDownProfile isLoggedIn={false} Text="LOGIN" />
         )}
       </div>
     </div>
