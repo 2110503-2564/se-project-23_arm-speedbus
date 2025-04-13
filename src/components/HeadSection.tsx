@@ -41,34 +41,28 @@ export default function HeadSection() {
           Maroon
         </h1>
 
-        <p
+        <div
           className={`text-[13px] text-left font-[Roboto Mono] text-[#000000] opacity-0 transition-all duration-1000 ease-in ${
             headingAnimation ? "opacity-100 translate-y-0" : ""
           }`}
         >
-          {session ? (
-            `Welcome ${session?.user.User_info.name}`
-          ) : (
-            <div className="font-light">
-              <span>
-                The burgundy on my T-shirt when you splashed your wine into me
-              </span>
-              <br />
-              <span>
-                And how the blood rushed into my cheeks, so scarlet, it was
-              </span>
-              <br />
-              <span>
-                The mark you saw on my collarbone, the rust that grew between
-                telephones
-              </span>
-              <br />
-              <span>
-                The lips I used to call home, so scarlet, it was maroon
-              </span>
-            </div>
-          )}
-        </p>
+          <div className="font-light">
+            <span>
+              The burgundy on my T-shirt when you splashed your wine into me
+            </span>
+            <br />
+            <span>
+              And how the blood rushed into my cheeks, so scarlet, it was
+            </span>
+            <br />
+            <span>
+              The mark you saw on my collarbone, the rust that grew between
+              telephones
+            </span>
+            <br />
+            <span>The lips I used to call home, so scarlet, it was maroon</span>
+          </div>
+        </div>
       </div>
     </div>
   );

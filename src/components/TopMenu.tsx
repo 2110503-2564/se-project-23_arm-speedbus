@@ -3,7 +3,7 @@ import styles from "./topmenu.module.css";
 import TopMenuItem from "./TopMenuItem";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import { Link } from "@mui/material";
+import Link from "next/link";
 
 import DropDownProfile from "./dropdownProfile";
 export default async function TopMenu() {
@@ -17,12 +17,20 @@ export default async function TopMenu() {
       </div>
 
       <div className="absolute left-1/2 transform -translate-x-1/2">
-        <div className="text-[32px] text-black font-medium">ARM SPEED BUS</div>
+        <Link href={"/"}>
+          <div className="text-[32px] text-black font-medium">
+            ARM SPEED BUS
+          </div>
+        </Link>
       </div>
 
       <div className="flex gap-6 px-[140px]">
         <TopMenuItem title="COUPON" pageRef="/coupon" />
-        <DropDownProfile isLoggedIn={true} Text="PROFILE" />
+        {session ? (
+          <DropDownProfile isLoggedIn={true} Text="PROFILE" />
+        ) : (
+          <DropDownProfile isLoggedIn={false} Text="LOGIN" />
+        )}
       </div>
     </div>
   );
