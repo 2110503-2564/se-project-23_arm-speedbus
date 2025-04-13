@@ -75,7 +75,7 @@ export default function ChangeDatePage({
           setRenderErrorMessage("Incorrect URL/Access Denied");
           return;
         }
-        if (rentData.data.status === "finished") {
+        if (rentData.data.status === "Finished") {
           setRenderErrorMessage("Do not Change Date of the Finished Renting");
           return;
         }
