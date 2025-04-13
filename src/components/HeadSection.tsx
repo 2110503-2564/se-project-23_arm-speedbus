@@ -24,7 +24,7 @@ export default function HeadSection() {
         <Image
           src="/img/carbe.png"
           alt="Rental Car FrontShot Logo"
-          width={1221.2}
+          width={1225.2}
           height={387}
           className=" object-fit m-5 transition-opacity transition-transform duration-500 ease-in-out"
           quality={100}
