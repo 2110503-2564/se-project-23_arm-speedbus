@@ -21,7 +21,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
       </div>
 
       {/* Card Layout */}
-      <div className="w-full min-h-screen flex flex-wrap justify-center gap- p-4 overflow-x-hidden font-robotoMono">
+      <div className="w-full min-h-screen flex flex-wrap justify-center gap-2 p-4 overflow-x-hidden font-robotoMono">
         {carJsonReady.data
           .slice(1, Math.min(carJsonReady.data.length, 4))
           .map((carItem: CarItem, index) => (
