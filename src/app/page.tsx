@@ -19,11 +19,7 @@ export default async function Home() {
       <HeadSection />
 
 
-      <div className="text-center py-20 items-center bg-[#94a6f7]">
-        <h1 className={`text-4xl font-extrabold m-5 font-jubilee text-white`}>
-          View Our Amazing Car Catalogs...
-        </h1>
-
+      <div className="py-20 bg-[#ffffff]">
         <Suspense
           fallback={<p>Loading ... <LinearProgress /></p>}
         >
