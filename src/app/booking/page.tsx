@@ -139,10 +139,10 @@ export default function RentPage() {
                       </div>
                       <br/>
                       <div className="text-gray-600 text-xl font-bold">
-                        Total Day: {(dayjs(rentItem.endDate).diff(dayjs(rentItem.startDate),"days")+1)}
+                        Total Day: {rentItem.totalDays}
                       </div>
                       <div className="text-gray-600 text-xl font-bold text-green-600">
-                        Total Cost: ${(dayjs(rentItem.endDate).diff(dayjs(rentItem.startDate),"days")+1)*rentItem.car_info.pricePerDay}
+                        Total Cost: ${rentItem.totalPrice}
                       </div>
                     </div>
                   </div>

@@ -62,6 +62,8 @@ export interface BookingItem {
   user_info: BookingVirtual_User;
   startDate: string;
   endDate: string;
+  totalDays: number;
+  totalPrice: number;
   status: string;
   iDate: string;
   __v: number;
