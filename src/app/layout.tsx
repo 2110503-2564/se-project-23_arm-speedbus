@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
-  weight: ["400", "700"],
   variable: "--font-robotoMono"
 });
 

@@ -25,17 +25,9 @@ export default async function Home() {
         >
         <CarCatalogMain carJson={cars} />
         </Suspense>
-
-        <div className="flex flex-row text-center items-center justify-center text-white font-semibold text-xl">
-        <Link href="/car">
-          <div className="bg-blue-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
-            View Cars
-          </div>
-        </Link>
-        </div>
       </div>
 
-      <div className="text-center py-20 items-center bg-[#a9b6f5]">
+      <div className="text-center py-20 items-center bg-[#D9D9D9]">
         <h1 className={`text-4xl font-extrabold m-5 font-jubilee text-white`}>
           ...And Our Trusted Car Providers
         </h1>
@@ -55,8 +47,8 @@ export default async function Home() {
       </div>
       
 
-      <div className="text-center h-[100vh] py-16 px-4 items-center flex flex-col justify-center bg-gray-200 text-black snap-start">
-          <div className="bg-[#f7f7f7] w-full py-16">
+      <div className="text-center h-[100vh] py-16 px-4 items-center flex flex-col justify-center text-black snap-start">
+          <div className="bg-[#D9D9D9] w-full py-16">
             <h2 className="text-3xl font-bold text-gray-800 mb-8">
               Why Choose Us?
             </h2>
@@ -91,14 +83,6 @@ export default async function Home() {
             </div>
           </div>
           <ButtonsMain />
-          <div className="flex flex-row text-center items-center justify-center text-white font-semibold text-xl">
-            <Link href="/game">
-            <div className="bg-red-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
-              Play Car Jumper
-            </div>
-            </Link>
-          </div>
-
       </div>
     </main>
   );
