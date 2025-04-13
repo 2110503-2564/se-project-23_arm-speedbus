@@ -110,7 +110,7 @@ export default function RentPage() {
                         User: {rentItem.user_info?.name}
                       </div>
                       {
-                        rentItem.status == "confirmed" ? (
+                        rentItem.status == "Confirmed" ? (
                           <div className="text-blue-600">
                             Status: Confirmed
                           </div>
@@ -152,7 +152,7 @@ export default function RentPage() {
                     <div className="flex flex-row justify-start">
                       {" "}
                       {session.user.User_info.role === "admin" &&
-                      rentItem.status === "confirmed" ? (
+                      rentItem.status === "Confirmed" ? (
                         <div className="mt-4 flex justify-start">
                           <button
                             onClick={() => handleFinish(rentItem._id)}
@@ -163,7 +163,7 @@ export default function RentPage() {
                           </button>
                         </div>
                       ) : session.user.User_info.role === "user" &&
-                        rentItem.status === "finished" ? (
+                        rentItem.status === "Finished" ? (
                         <div className="mt-4 flex justify-end text-green-600">
                           <p className="items-center">Rent Finished</p>
                         </div>
@@ -171,7 +171,7 @@ export default function RentPage() {
                     </div>
 
                     <div className="mt-4 flex justify-end">
-                      {rentItem.status === "confirmed" && (
+                      {rentItem.status === "Confirmed" && (
                         <button
                           onClick={() =>
                             router.push(

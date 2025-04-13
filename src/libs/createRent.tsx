@@ -11,7 +11,7 @@ export default async function createBooking(token:string,car_id:string,user_id:s
             user_info:user_id,
             startDate:startDate,
             endDate:endDate,
-            status:"confirmed"
+            status:"Confirmed"
         })
     });
     return await response.json();
