@@ -132,7 +132,7 @@ export default function RentPage() {
                         Status: {rentItem.status}
                       </div>
                       <div className="text-gray-600">
-                        Daily Price: ${rentItem.car_info.pricePerDay}
+                        Daily Cost: ${rentItem.car_info.pricePerDay}
                       </div>
                       <div className="text-gray-600">
                         Confirmation Date: {rentItem.iDate}
