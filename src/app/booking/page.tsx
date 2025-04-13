@@ -60,7 +60,7 @@ export default function RentPage() {
   if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>
   if (error) return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
   return (
-    <main className="p-6 min-h-screen font-sans">
+    <main className="p-6 min-h-screen font-sans mt-10">
       <div className="max-w-4xl mx-auto">
         {session.user.User_info.role === "admin" ? (
           <div className="mb-8 text-center">
