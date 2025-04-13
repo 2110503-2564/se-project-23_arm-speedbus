@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 export default function DropDownProfile({
@@ -11,19 +11,35 @@ export default function DropDownProfile({
   Text: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
-      className="relative "
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      ref={dropdownRef}
+      className="relative"
+      onClick={() => setIsOpen((prevState) => !prevState)}
     >
-      <div
-        className="flex flex-row bg-white [12px] py-1 px-2 rounded-xl text-[#000000]  cursor-pointer
-                      hover:text-[#7886c7] transition items-center justify-center text-[13px]"
-      >
+      <div className="flex flex-row bg-white py-1 px-2 rounded-xl text-[#000000] cursor-pointer hover:text-[#7886c7] transition items-center justify-center text-[13px]">
         {Text}
       </div>
+
       {!isLoggedIn && isOpen && (
         <div className="fixed top-0 right-0 w-[500px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
@@ -33,7 +49,6 @@ export default function DropDownProfile({
                   REGISTER
                 </h2>
               </Link>
-
               <Link href="/api/auth/signin" className="pt-10">
                 <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
                   LOGIN
@@ -43,6 +58,7 @@ export default function DropDownProfile({
           </div>
         </div>
       )}
+
       {isLoggedIn && isOpen && (
         <div className="fixed top-0 right-0 w-[500px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
@@ -75,10 +91,7 @@ export default function DropDownProfile({
                   REDEEM COUPON
                 </h3>
               </div>
-              <div
-                className="text-right mt-auto
-              "
-              >
+              <div className="text-right mt-auto">
                 <Link href="/api/auth/signout">
                   <button className="text-[15px] text-white hover:underline transition-all duration-300 ease-in-out">
                     LOGOUT
