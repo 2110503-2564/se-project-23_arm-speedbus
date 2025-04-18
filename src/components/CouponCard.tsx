@@ -1,13 +1,15 @@
 "use client";
 import React from "react";
 
-export default function CouponCard() {
+export default function CouponCard( {couponName, percentage, minDisc, minSp, spent, valid}
+  : {couponName:string, percentage: number, minDisc: number, minSp: number, spent: number, valid: number} ) {
   return (
-    <div className="w-[230px] h-[333px] rounded-[24px] bg-black text-white overflow-hidden shadow-lg relative">
+    <div className="w-[230px] h-[333px] rounded-[24px] bg-black text-white overflow-hidden shadow-lg
+    relative m-10 hover:scale-105 transition-transform duration-300">  
       {/* ครึ่งวงกลมด้านบน */}
       <div className="w-full h-[125px] relative rounded-b-full flex items-center justify-center">
-        <span className="text-white text-[72px] font-bold leading-none font-rockwell font-robotoMono">
-          15%
+        <span className="text-white text-[96px] leading-none mt-4 font-rockwellCondensed">
+          {percentage}%
         </span>
       </div>
 
@@ -27,26 +29,30 @@ export default function CouponCard() {
       </div>
 
       {/* เนื้อหาคูปอง */}
-      <div className="px-6 mt-6 pb-6 text-[11px] space-y-3 text-white text-left leading-[12px]">
-        <div className="text-[18px] font-bold tracking-wide text-center">
-          New User Coupon
+      <div className="px-6 mt-3 pb-2 text-[11px] space-y-3 text-white text-left leading-[12px]">
+        <div className="text-[18px] font-bold tracking-wide text-center font-rockwellCondensed">
+          {couponName}
         </div>
 
         <p>
-          Maximum Discount: <span className="font-bold text-[15px]">$100</span>
+          Maximum Discount: <span className="font-bold text-[15px] font-rockwellCondensed">${minDisc}</span>
         </p>
         <p>
-          Min. spend: <span className="font-bold text-[15px]">$10</span>
+          Min. spend: <span className="font-bold text-[15px] font-rockwellCondensed">${minSp}</span>
         </p>
         <p>
-          Spent: <span className="font-bold text-[15px]">$1</span>
+          Spent: <span className="font-bold text-[15px] font-rockwellCondensed">${spent}</span>
         </p>
         <p>
-          Valid: <span className="font-bold text-[15px]">3 days</span>
+          Valid: <span className="font-bold text-[15px] font-rockwellCondensed">
+            {
+              valid > 1 ? valid + " days" : valid + " day"
+            }
+          </span>
         </p>
 
         <div className="text-center">
-          <button className="px-4 py-2 mt-1 bg-white text-black rounded shadow hover:bg-gray-200 transition font-semibold">
+          <button className="px-4 py-2 mt-1 bg-white text-black rounded shadow hover:bg-gray-300 hover:scale-105 transition-transform duration-300 transition font-semibold">
             REDEEM
           </button>
         </div>
