@@ -2,6 +2,7 @@ import Image from "next/image";
 import InteractiveCard from "./InteractiveCard";
 import { FaStar } from "react-icons/fa";
 import { CarItem, CarJson } from "interfaces";
+import Link from "next/link";
 
 export default function ProductCard({
   Name,
@@ -33,13 +34,29 @@ export default function ProductCard({
         <div className="text-sm text-gray-500">{provider}</div>{" "}
         {price !== null && (
           <div className="text-sm font-bold mt-2">
-            ${price} <span className="text-xs font-normal">/Day</span>
+            ${price}<span className="text-xs font-normal">/Day</span>
           </div>
         )}
         {price === null && <div className="text-xl font-bold mt-2"></div>}
-        <div className="flex items-center text-sm mt-1">
-          <FaStar className="mr-1 text-black" />
-          4.9
+        <div className="flex items-center justify-between text-sm mt-1 w-full">
+          {/* ซ้าย: ดาวกับคะแนน */}
+          <div className="flex items-center text-black">
+            <FaStar className="mr-1" />
+            <span className="font-semibold">4.9</span>
+          </div>
+
+          {/* ขวา: ลิงก์ */}
+          <Link
+            href={`/review`}
+            className="text-sm text-gray-500 flex items-center mr-8"
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              // router.push(`hotel/${hid}/review`);
+            }}
+          >
+            view review
+          </Link>
         </div>
       </div>
     </InteractiveCard>
