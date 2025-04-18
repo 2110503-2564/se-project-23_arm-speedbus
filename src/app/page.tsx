@@ -1,6 +1,8 @@
 import ButtonsMain from "@/components/ButtonsMain";
 import CarCatalogMain from "@/components/CarCatalogMain";
 import HeadSection from "@/components/HeadSection";
+import ProductCard from "@/components/ProductCard";
+import ProductCardprovider from "@/components/ProviderCard";
 import ProviderCatalogMain from "@/components/ProviderCatalogMain";
 import getCars from "@/libs/getCars";
 import getProviders from "@/libs/getProviders";
@@ -35,7 +37,7 @@ export default async function Home() {
         <Suspense
           fallback={<p>Loading ... <LinearProgress /></p>}
         >
-        <ProviderCatalogMain providerJson={providers} />
+        <ProviderCatalogMain providerJson={providers}/>
         </Suspense>
         <div className="flex flex-row text-center items-center justify-center text-white font-semibold text-xl">
         <Link href="/provider">
