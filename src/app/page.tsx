@@ -46,9 +46,9 @@ export default async function Home() {
         </Suspense>
         <div className="flex flex-row text-center items-center justify-center text-white font-semibold text-xl">
           <Link href="/provider">
-            <span className="bg-blue-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
+            <p className="bg-blue-800 rounded-lg text-white px-4 py-2 m-5 rounded-md hover:bg-blue-900 cursor-pointer">
               View Providers
-            </span>
+            </p>
           </Link>
         </div>
       </div>
