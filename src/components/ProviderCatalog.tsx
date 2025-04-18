@@ -3,6 +3,8 @@ import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { ProviderItem, ProviderJson } from "interfaces";
 
+import { FaFilter } from "react-icons/fa";
+
 export default async function ProviderCatalog({
   providerJson,
 }: {
@@ -11,12 +13,17 @@ export default async function ProviderCatalog({
   const providerJsonReady = await providerJson;
   return (
     <>
-      <div className="text-3xl text-left ml-20 mt-10 mb-[10vh] text-black opacity-0 transition-opacity duration-1000 animate-fade-in">
-        PROVIDER_
+
+      <div className="flex text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
+        Provider All_
       </div>
-      <div className="flex text-lg mb-8 opacity-0 text-gray-400 transition-opacity duration-1000 animate-fade-in">
-        <div className="ml-20 text-left">_ ITEMS</div>
+
+      <div className="flex text-m font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
+        <div className="flex-1">
+          _ items
+        </div>
       </div>
+
       <div className="flex flex-wrap justify-center gap-8 px-4">
         {providerJsonReady.data.map((providerItem: ProviderItem, index) => (
           <Link

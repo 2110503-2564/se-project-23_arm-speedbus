@@ -6,35 +6,9 @@ import getUserProfile from "@/libs/getUserProfile";
 import getCoupons from "@/libs/getCoupons";
 import getMyCoupon from "@/libs/getMyCoupon";
 
-export default function CouponCard( {couponName, percentage, minDisc, minSp, spent, valid}
+export default function CouponCardItem( {couponName, percentage, minDisc, minSp, spent, valid}
   : {couponName:string, percentage: number, minDisc: number, minSp: number, spent: number, valid: number} ) {
 
-    const { data: session } = useSession();
-    const [role, setRole] = useState<string>();
-    const [coupon, setCoupon] = useState<any>(null); // You can adjust type based on actual structure
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        if (!session?.user.token) return;
-  
-        try { 
-          setRole(session.user.User_info.role);
-          if (role === 'admin') {
-            const tmp = await getCoupons(session.user.token);
-            setCoupon(tmp);
-          } else if (role === 'user') {
-            const tmp = await getMyCoupon(session.user.token);
-            setCoupon(tmp);
-          }
-          console.log("coupon = " + JSON.stringify(coupon));
-         
-        } catch (err) {
-          console.error("Failed to load data:", err);
-        }
-      };
-  
-      fetchData();
-    }, [session?.user.token, role]);
   return (
     <div className="w-[230px] h-[333px] rounded-[24px] bg-black text-white overflow-hidden shadow-lg
     relative m-10 hover:scale-105 transition-transform duration-300">  
