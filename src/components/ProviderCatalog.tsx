@@ -4,6 +4,7 @@ import ProductCard from "./ProductCard";
 import { ProviderItem, ProviderJson } from "interfaces";
 
 import { FaFilter } from "react-icons/fa";
+import ProviderCard from "./ProviderCard";
 
 export default async function ProviderCatalog({
   providerJson,
@@ -13,15 +14,12 @@ export default async function ProviderCatalog({
   const providerJsonReady = await providerJson;
   return (
     <>
-
-      <div className="flex text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
+      <div className="flex text-3xl font-robotoMono text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
         Provider All_
       </div>
 
-      <div className="flex text-m font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
-        <div className="flex-1">
-          _ items
-        </div>
+      <div className="flex text-[15px]  text-left mt-24 mb-8 text-[#808080] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
+        <div className="flex-1  font-robotoMono ">_ ITEMS</div>
       </div>
 
       <div className="flex flex-wrap justify-center gap-8 px-4">
@@ -33,9 +31,11 @@ export default async function ProviderCatalog({
             style={{ animationDelay: `${index * 0.15}s` }}
           >
             <div className="border border-gray-300  overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
-              <ProductCard
-                Name={providerItem.name}
+              <ProviderCard
+                providerName={providerItem.name}
                 imgSrc={providerItem.picture}
+                email={providerItem.email}
+                phoneNum={providerItem.tel}
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
