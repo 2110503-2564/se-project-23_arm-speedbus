@@ -39,7 +39,7 @@ export default async function Home() {
         </h2>
         <div className="border-t border-black w-8 px-4 mr-auto"></div>
         <Link
-          href="/car"
+          href="/provider"
           className="text-black border border-black px-4 py-1 rounded-full text-sm hover:bg-black hover:text-white transition"
         >
           View all
