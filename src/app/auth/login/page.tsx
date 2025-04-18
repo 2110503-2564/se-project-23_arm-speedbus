@@ -20,7 +20,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-[#FFFF00] py-20 px-4 mt-32">
+    <div className="bg-[#FFFACD] py-[7vh] px-4 mt-32">
       <div className="max-w-md mx-auto flex flex-col items-center justify-center p-6">
         <h1 className="text-[32px] font-bold mb-4 text-black font-robotoMono">
           LOGIN
@@ -60,7 +60,7 @@ export default function LoginPage() {
           >
             Sign In
           </button>
-          <div className="mt-4 font-robotoMono mx-auto text-white py-2 rounded-[48px] text-[#808080] flex justify-center items-center">
+          <div className="mt-4 font-robotoMono mx-auto py-2  text-[#808080] flex justify-center items-center">
             <Link
               href="/register"
               className="items-center justify-center underline"
