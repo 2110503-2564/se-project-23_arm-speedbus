@@ -62,8 +62,7 @@ export default function ProductCard({
             </div>
 
             {/* Right: Link */}
-            <Link
-              href="/review"
+            <div
               className="text-sm text-gray-500 truncate "
               onClick={(e) => {
                 e.stopPropagation();
@@ -71,7 +70,7 @@ export default function ProductCard({
               }}
             >
               view review➜
-            </Link>
+            </div>
           </div>
         </div>
       </div>
