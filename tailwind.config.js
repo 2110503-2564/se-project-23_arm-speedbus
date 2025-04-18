@@ -18,6 +18,7 @@ module.exports = {
         montserrat: ["Montserrat", "sans-serif"],
         notosans: ["Noto Sans Thai", "sans-serif"],
         robotoMono: ["Roboto Mono", "monospace"],
+        rockwellCondensed: ['"Rockwell Condensed"', "sans-serif"],
       },
     },
   },
