@@ -13,19 +13,17 @@ export default async function ProviderCatalog({
   const providerJsonReady = await providerJson;
   return (
     <>
-      <div className="flex text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
-  Provider All_
-</div>
 
-<div className="flex text-m font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
-  <div className="flex-1">
-    _ items
-  </div>
-  <div className="flex-1 flex justify-end items-center gap-2">
-    <span>Filter</span>
-    <FaFilter />
-  </div>
-</div>
+      <div className="flex text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
+        Provider All_
+      </div>
+
+      <div className="flex text-m font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
+        <div className="flex-1">
+          _ items
+        </div>
+      </div>
+
       <div className="flex flex-wrap justify-center gap-8 px-4">
         {providerJsonReady.data.map((providerItem: ProviderItem, index) => (
           <Link

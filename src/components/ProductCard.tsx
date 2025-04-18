@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import InteractiveCard from "./InteractiveCard";
 import { FaStar } from "react-icons/fa";
 import { CarItem, CarJson } from "interfaces";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({
   Name,
@@ -17,6 +20,8 @@ export default function ProductCard({
   provider?: string | null;
   onCompare?: Function;
 }) {
+  const router = useRouter();
+
   return (
     <InteractiveCard contentName={Name}>
       <div className="w-[300px] h-[230px] relative bg-gray-200">
@@ -37,18 +42,17 @@ export default function ProductCard({
           <div className="text-xs text-gray-500 font-robotoMono">
             {provider}
           </div>
-
         </div>
         {price !== null && (
-
           <div className="text-[16px] font-bold font-robotoMono text-left mt-2">
             ${price}
             <span className="text-[8px] font-normal">/Day</span>
-
           </div>
         )}
         <div className="flex items-end">
-          {price === null && <div className="text-xl font-bold mt-2 items-left"></div>}
+          {price === null && (
+            <div className="text-xl font-bold mt-2 items-left"></div>
+          )}
 
           <div className="flex items-center justify-between text-sm mt-1 w-4/5">
             {/* Left: Star and Rating */}
@@ -58,19 +62,16 @@ export default function ProductCard({
             </div>
 
             {/* Right: Link */}
-            <Link
-              href="/review"
+            <div
               className="text-sm text-gray-500 truncate "
               onClick={(e) => {
                 e.stopPropagation();
-                e.preventDefault();
+                router.push(`/review`);
               }}
             >
               view review➜
-            </Link>
+            </div>
           </div>
-
-
         </div>
       </div>
     </InteractiveCard>
