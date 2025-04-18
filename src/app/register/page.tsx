@@ -4,8 +4,12 @@
 import React, { useState } from "react";
 import userRegister from "@/libs/userRegister";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const RegisterPage = () => {
+export default function RegisterPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,7 +35,20 @@ const RegisterPage = () => {
         formData.tel,
         formData.name
       );
-      setSuccess("Registration successful!");
+
+      const result = await signIn("credentials", {
+        redirect: true,
+        email: formData.email,
+        password: formData.password,
+        callbackUrl: "/",
+      });
+
+      if (result?.ok) router.push("/");
+      else console.log("Failed to register.");
+
+      console.log("is ok ? = " + result?.ok);
+
+      setSuccess("Registration and Login successful!");
     } catch (err) {
       setError("Failed to register. Please try again.");
     }
@@ -115,15 +132,7 @@ const RegisterPage = () => {
           </button>
         </form>
         {error && <p className="text-red-500">{error}</p>}
-        {success && (
-          <div>
-            <p className="text-green-500">{success}</p>{" "}
-            <Link href="/api/auth/signin">Please sign in - Click here</Link>
-          </div>
-        )}
       </div>
     </div>
   );
-};
-
-export default RegisterPage;
+}
