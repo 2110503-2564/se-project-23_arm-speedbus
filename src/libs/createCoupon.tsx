@@ -1,7 +1,9 @@
 export default async function createCoupon(
   token: string,
+  couponName: string,
   percentage: number,
-  requirement: string,
+  minDisc: number,
+  minSp: number,
   expirationDate: Date
 ) {
   const response = await fetch(`${process.env.BACKEND_URL}/api/v1/rewards`, {
@@ -12,8 +14,10 @@ export default async function createCoupon(
       "Content-type": "application/json",
     },
     body: JSON.stringify({
+      name: couponName,
       percentage: percentage,
-      requirement: requirement,
+      minDiscount: minDisc,
+      minSpend: minSp,
       expirationDate: expirationDate,
     }),
   });
