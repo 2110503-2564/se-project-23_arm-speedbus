@@ -6,16 +6,16 @@ import { Select, MenuItem} from "@mui/material"
 import { useState } from "react";
 import { Dayjs } from "dayjs";
 
-export default function DateReserve({value,onDateChange}:{value?:Dayjs|null,onDateChange:Function}){
+export default function DateReserve({value,onDateChange,label}:{value?:Dayjs|null,onDateChange:Function,label?: string;}){
     const [date,setDate] = useState<Dayjs|null>(null);
     const [location,setLocation] = useState('BKK');
     if(value){
         setDate(value);
     }
     return (
-        <div className="bg-slate-100 rounded-lg space-x-5 space-y-2 w-fit px-10 py-5 flex flex-row justify-center">
+        <div className="space-x-5 w-fit py-3 flex flex-row justify-center">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker className="bg-white" format="YYYY-MM-DD" value={date} onChange={(value)=>{setDate(value);onDateChange(value)}}/>
+                <DatePicker className="bg-white" label={label} value={date} onChange={(value)=>{setDate(value);onDateChange(value)}}/>
             </LocalizationProvider>
         </div>
     );
