@@ -24,7 +24,7 @@ export default function ProductCard({
 
   return (
     <InteractiveCard contentName={Name}>
-      <div className="w-[300px] h-[230px] relative bg-gray-200">
+      <div className="w-[300px] h-[230px] relative bg-gray-200 boarder-2border border-gray-300 rounded-lg">
         {imgSrc && (
           <Image
             src={imgSrc}
@@ -62,8 +62,7 @@ export default function ProductCard({
             </div>
 
             {/* Right: Link */}
-            <Link
-              href="/review"
+            <div
               className="text-sm text-gray-500 truncate "
               onClick={(e) => {
                 e.stopPropagation();
@@ -71,7 +70,7 @@ export default function ProductCard({
               }}
             >
               view review➜
-            </Link>
+            </div>
           </div>
         </div>
       </div>

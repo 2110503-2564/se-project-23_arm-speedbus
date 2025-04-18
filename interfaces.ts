@@ -95,3 +95,24 @@ export interface AuditLogJson {
   success: boolean;
   data: AuditLogItem[];
 }
+
+export interface CouponItem {
+  _id: string,
+  user_info: string,
+  name: string, 
+  percentage: number,
+  requirement: string,
+  minDisc: number,
+  minSp: number,
+  spent: number,
+  valid: number,
+  expirationDate: Date,
+  status: string,
+  __v: number
+}
+
+export interface CouponJson {
+  success: boolean;
+  count: number;
+  data: CouponItem[];
+}

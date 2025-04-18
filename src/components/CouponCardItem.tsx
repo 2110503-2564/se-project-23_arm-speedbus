@@ -5,7 +5,7 @@ import React from "react";
 
 const redeemCoupon = async (couponName: string, percentage: number, minDisc: number, minSp: number, valid: number) => {
   const session = await getSession();
-  if (!session?.user) {
+  if (!session?.user.token) {
     alert("You must be logged in to redeem a coupon.");
     return;
   }
@@ -17,6 +17,7 @@ const redeemCoupon = async (couponName: string, percentage: number, minDisc: num
 
 export default function CouponCard( {couponName, percentage, minDisc, minSp, spent, valid}
   : {couponName:string, percentage: number, minDisc: number, minSp: number, spent: number, valid: number} ) {
+
   return (
     <div className="w-[230px] h-[333px] rounded-[24px] bg-black text-white overflow-hidden shadow-lg
     relative m-10 hover:scale-105 transition-transform duration-300">  
@@ -49,6 +50,7 @@ export default function CouponCard( {couponName, percentage, minDisc, minSp, spe
         </div>
 
         <p>
+          Maximum Discount: <span className="font-bold text-[15px]">$100</span>
           Maximum Discount: <span className="font-bold text-[15px] font-rockwellCondensed">${minDisc}</span>
         </p>
         <p>
