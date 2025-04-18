@@ -29,12 +29,21 @@ export default function ProductCard({
           />
         )}
       </div>
-      <div className="w-[300px] h-[142px] flex flex-col gap-1 items-start justify-start px-4 py-3 font-sans text-black">
-        <div className="text-sm font-medium tracking-wide">{Name}</div>
-        <div className="text-sm text-gray-500">{provider}</div>{" "}
+      <div className="w-[300px] h-[142px] flex flex-col gap-2 items-start justify-start px-4 py-3 text-black">
+        <div className=" -space-y-1">
+          <div className="text-lg font-bold font-robotoMono tracking-wide ">
+            {Name}
+          </div>
+          <div className="text-sm text-gray-500 font-robotoMono ">
+            {provider}
+          </div>
+        </div>
         {price !== null && (
-          <div className="text-sm font-bold mt-2">
-            ${price}<span className="text-xs font-normal">/Day</span>
+
+          <div className="text-[16px] font-bold font-robotoMono mt-2">
+            ${price}
+            <span className="text-[8px] font-normal">/Day</span>
+
           </div>
         )}
         {price === null && <div className="text-xl font-bold mt-2"></div>}
