@@ -36,7 +36,7 @@ export default function ProviderCard(
         <div className="font-robotoMono font-extrabold tracking-wide text-lg">{providerName}</div>
         <div className="font-robotoMono text-[12px] font-medium text-black">popeangketpun@gmail.com</div>{" "}
         {email === null && <div className="text-xl font-medium mt-2"></div>}
-        <div className="font-robotoMono text-[12px] font-bold text-black">{phoneNum}</div>{" "}
+        <div className="font-robotoMono text-[12px] font-medium text-black">{phoneNum}</div>{" "}
         <span className="flex absolute bottom-0 font-robotoMono items-center text-sm mb-2">
           <FaStar className="font-robotoMono mr-1 text-black" />4.9
         </span>
