@@ -1,5 +1,19 @@
 "use client";
+import createCoupon from "@/libs/createCoupon";
+import { getSession } from "next-auth/react";
 import React from "react";
+
+const redeemCoupon = async (couponName: string, percentage: number, minDisc: number, minSp: number, valid: number) => {
+  const session = await getSession();
+  if (!session?.user.token) {
+    alert("You must be logged in to redeem a coupon.");
+    return;
+  }
+  const token = session.user.token;
+  const response = await createCoupon(token, couponName, percentage, minDisc, minSp, new Date(Date.now() + valid * 24 * 60 * 60 * 1000));
+  console.log(response);
+  alert("Coupon redeemed successfully!");
+}
 
 export default function CouponCard( {couponName, percentage, minDisc, minSp, spent, valid}
   : {couponName:string, percentage: number, minDisc: number, minSp: number, spent: number, valid: number} ) {
@@ -52,7 +66,10 @@ export default function CouponCard( {couponName, percentage, minDisc, minSp, spe
         </p>
 
         <div className="text-center">
-          <button className="px-4 py-2 mt-1 bg-white text-black rounded shadow hover:bg-gray-300 hover:scale-105 transition-transform duration-300 transition font-semibold">
+          <button className="px-4 py-2 mt-1 bg-white text-black rounded shadow hover:bg-gray-300 hover:scale-105 transition-transform duration-300 transition font-semibold"
+          onClick = {() => {
+            redeemCoupon(couponName, percentage, minDisc, minSp, valid);
+          }}>
             REDEEM
           </button>
         </div>
