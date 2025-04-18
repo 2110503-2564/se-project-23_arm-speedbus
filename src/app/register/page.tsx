@@ -4,8 +4,12 @@
 import React, { useState } from "react";
 import userRegister from "@/libs/userRegister";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const RegisterPage = () => {
+export default function RegisterPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,51 +35,104 @@ const RegisterPage = () => {
         formData.tel,
         formData.name
       );
-      setSuccess("Registration successful!");
+
+      const result = await signIn("credentials", {
+        redirect: true,
+        email: formData.email,
+        password: formData.password,
+        callbackUrl: "/",
+      });
+
+      if (result?.ok) router.push("/");
+      else console.log("Failed to register.");
+
+      console.log("is ok ? = " + result?.ok);
+
+      setSuccess("Registration and Login successful!");
     } catch (err) {
       setError("Failed to register. Please try again.");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-4 text-blue-900">Register</h1>
-      <form onSubmit={handleSubmit} className="w-full">
-        <table className="w-full border-collapse border-none text-black">
-          <tbody>
-            <tr>
-              <td className="p-2 text-black">Name:</td>
-              <td className="p-2">
-              <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
-              </td>
-            </tr>
-            
-            <tr>
-              <td className="p-2 text-black">Email:</td>
-              <td className="p-2">
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2 text-black">Password:</td>
-              <td className="p-2">
-              <input type="password" name="password" value={formData.password} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2 text-black">Telephone:</td>
-              <td className="p-2">
-              <input type="tel" name="tel" value={formData.tel} onChange={handleChange} required className="w-full p-2 border rounded-md bg-gray-100" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button type="submit" className="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Register</button>
-      </form>
-      {error && <p className="text-red-500">{error}</p>}
-      {success && <div><p className="text-green-500">{success}</p> <Link href="/api/auth/signin">Please sign in - Click here</Link></div>}
+    <div className="bg-[#FFFACD] py-[7vh] px-4 mt-32">
+      <div className="max-w-md mx-auto flex flex-col items-center justify-center p-6">
+        <h1 className="text-[32px] font-bold mb-4 text-black font-robotoMono">
+          REGISTER
+        </h1>
+        <form onSubmit={handleSubmit} className="w-full">
+          <table className="w-full border-collapse border-none text-black">
+            <tbody>
+              <tr>
+                <td className="p-2 text-black"></td>
+                <td className="p-2">
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full  p-2 border border-black  bg-gray-100"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td className="p-2 text-black"></td>
+                <td className="p-2">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full  p-2 border border-black  bg-gray-100"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2 text-black"></td>
+                <td className="p-2">
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                    className="w-full  p-2 border border-black  bg-gray-100"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2 text-black"></td>
+                <td className="p-2">
+                  <input
+                    type="tel"
+                    name="tel"
+                    placeholder="Telephone"
+                    value={formData.tel}
+                    onChange={handleChange}
+                    required
+                    className="w-full  p-2 border border-black  bg-gray-100"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button
+            type="submit"
+            className="mt-4 w-[195px] font-robotoMono bg-black mx-auto text-white py-2 rounded-[48px] 
+             flex justify-center items-center 
+             transition-transform duration-200 transform hover:scale-105"
+          >
+            Register
+          </button>
+        </form>
+        {error && <p className="text-red-500">{error}</p>}
+      </div>
     </div>
   );
-};
-
-export default RegisterPage;
+}
