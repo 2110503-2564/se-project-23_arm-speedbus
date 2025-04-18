@@ -11,8 +11,8 @@ export default async function ProviderCatalog({
   const providerJsonReady = await providerJson;
   return (
     <>
-      <div className="text-4xl text-left ml-20 mt-10 mb-[20vh] text-black opacity-0 transition-opacity duration-1000 animate-fade-in">
-        PROVIDER__
+      <div className="text-3xl text-left ml-20 mt-10 mb-[10vh] text-black opacity-0 transition-opacity duration-1000 animate-fade-in">
+        PROVIDER_
       </div>
       <div className="flex text-lg mb-8 opacity-0 text-gray-400 transition-opacity duration-1000 animate-fade-in">
         <div className="ml-20 text-left">_ ITEMS</div>
