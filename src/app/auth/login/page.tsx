@@ -20,7 +20,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-[#FFFACD] py-[7vh] px-4 mt-32">
+    <div className="bg-gray-100 items-center justify-center p-20 ">
       <div className="max-w-md mx-auto flex flex-col items-center justify-center p-6">
         <h1 className="text-[32px] font-bold mb-4 text-black font-robotoMono">
           LOGIN
@@ -36,7 +36,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full  p-2 border border-black  bg-gray-100"
+                    className="w-full  p-2 border border-black  bg-white font-mono"
                   />
                 </td>
               </tr>
@@ -48,7 +48,7 @@ export default function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full p-2 border border-black bg-gray-100"
+                    className="w-full p-2 border border-black bg-white font-mono"
                   />
                 </td>
               </tr>
@@ -56,14 +56,14 @@ export default function LoginPage() {
           </table>
           <button
             type="submit"
-            className="mt-4 w-[195px] font-robotoMono bg-black mx-auto text-white py-2 rounded-[48px] hover:bg-green-600 flex justify-center items-center"
+            className="mt-4 w-[195px] font-robotoMono bg-black mx-auto text-white py-2 rounded-[48px] hover:bg-gray-700 flex justify-center items-center"
           >
             Sign In
           </button>
           <div className="mt-4 font-robotoMono mx-auto py-2  text-[#808080] flex justify-center items-center">
             <Link
               href="/register"
-              className="items-center justify-center underline"
+              className="items-center justify-center hover:underline hover:text-gray-600"
             >
               Create account?
             </Link>

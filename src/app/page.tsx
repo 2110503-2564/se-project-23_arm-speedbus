@@ -15,10 +15,10 @@ export default async function Home() {
   revalidateTag("providers");
 
   return (
-    <main className="bg-[#ffffff] min-h-screen">
+    <main className="bg-gray-100 min-h-screen">
       <HeadSection />
 
-      <div className="py-20 bg-[#ffffff]">
+      <div className="py-20 bg-gray-100">
         <Suspense
           fallback={
             <p>

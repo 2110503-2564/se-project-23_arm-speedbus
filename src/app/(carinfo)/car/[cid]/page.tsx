@@ -16,6 +16,8 @@ import redeemCoupon from "@/components/CouponCard";
 import { useRouter } from "next/navigation";
 import "./calendar.css";
 import CouponCardWrapper from "@/components/CouponCardWrapper";
+import { CouponItem } from "interfaces";
+import updateCoupon from "@/libs/updateCoupon";
 
 import getMyCoupon from "@/libs/getMyCoupon";
 
@@ -28,9 +30,10 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const [rentedDates, setRentedDates] = useState<Date[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [discountedPrice, setDiscountedPrice] = useState<number | null>(null);
 
   const { data: session } = useSession();
-  const [coupons, setCoupons] = useState([]);
+  const [coupons, setCoupons] = useState<CouponItem[]>([]);
   const [selectedCoupon, setSelectedCoupon] = useState("");
 
   useEffect(() => {
@@ -97,6 +100,22 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     }
   }, [startDate, endDate, carItem]);
 
+  useEffect(() => {
+    if (!selectedCoupon || !totalPrice) {
+      setDiscountedPrice(null);
+      return;
+    }
+
+    const selected = coupons.find((c) => c._id === selectedCoupon);
+    if (selected) {
+      const rawDiscount = (totalPrice * selected.percentage) / 100;
+      const discount = Math.min(rawDiscount, selected.maxDiscount);
+      console.log(selected.maxDiscount);
+      console.log(selected.percentage);
+      setDiscountedPrice(Math.round(totalPrice - discount));
+    }
+  }, [selectedCoupon, totalPrice, coupons]);
+
   const isDateUnavailable = (date: Date) => {
     return rentedDates.some(
       (rentedDate) => rentedDate.toDateString() === date.toDateString()
@@ -105,6 +124,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
   async function handleCreateRent(startDate: string, endDate: string) {
     if (!session) return;
+
     const res = await createRent(
       session.user.token,
       params.cid,
@@ -112,7 +132,24 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       startDate,
       endDate
     );
+
     if (res.success) {
+      if (selectedCoupon) {
+        const selected = coupons.find((c) => c._id === selectedCoupon);
+        if (selected) {
+          await updateCoupon(
+            session.user.token,
+            selected._id,
+            selected.percentage,
+            selected.name,
+            selected.maxDiscount,
+            selected.minSpend,
+            selected.expirationDate,
+            "Used"
+          );
+        }
+      }
+
       alert("Create Booking Successfully");
       router.push("/booking");
     } else {
@@ -181,12 +218,28 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           </p>
           <p className="mt-4 text-md font-bold font-robotoMono">
             Total:&nbsp;
-            <span className="text-black font-normal text-2xl">
-              ${totalPrice}
-            </span>
-            <span className="text-sm text-gray-600 font-normal ml-2">
-              (${carItem.pricePerDay}/day)
-            </span>
+            {discountedPrice !== null ? (
+              <>
+                <span className="text-gray-500 line-through text-xl mr-2">
+                  ${totalPrice}
+                </span>
+                <span className="text-black text-2xl font-semibold">
+                  ${discountedPrice}
+                </span>
+                <span className="text-sm text-gray-600 font-normal ml-2">
+                  (${carItem.pricePerDay}/day)
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="text-black font-normal text-2xl">
+                  ${totalPrice}
+                </span>
+                <span className="text-sm text-gray-600 font-normal ml-2">
+                  (${carItem.pricePerDay}/day)
+                </span>
+              </>
+            )}
           </p>
         </div>
 
@@ -210,11 +263,13 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                 className="mt-3 border border-black text-white rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
               >
                 <option value="">Select a coupon</option>
-                {coupons.map((coupon: any) => (
-                  <option key={coupon._id} value={coupon._id}>
-                    {coupon.name} - {coupon.percentage}%
-                  </option>
-                ))}
+                {coupons
+                  .filter((coupon) => coupon.status !== "Used")
+                  .map((coupon: any) => (
+                    <option key={coupon._id} value={coupon._id}>
+                      {coupon.name} - {coupon.percentage}%
+                    </option>
+                  ))}
               </select>
 
               <button

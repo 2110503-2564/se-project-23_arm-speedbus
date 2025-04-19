@@ -60,8 +60,8 @@ export default function RentPage() {
   if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>
   if (error) return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
   return (
-    <main className="p-6 min-h-screen font-robotoMono mt-10">
-        <h1 className="text-4xl font-semibold text-gray-800 font-robotoMono text-center mb-6">
+    <main className="p-6 min-h-screen font-robotoMono mt-10 bg-gray-100">
+        <h1 className="text-4xl font-semibold text-gray-800 font-robotoMono text-center mb-6 mt-3">
               All Rent Booking History
         </h1>
         {session.user.User_info.role === "admin" ? (
