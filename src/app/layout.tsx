@@ -5,6 +5,7 @@ import TopMenu from "@/components/TopMenu";
 import { getServerSession } from "next-auth";
 import {authOptions} from "@/app/api/auth/[...nextauth]/authOptions"
 import NextAuthProvider from "@/providers/NextAuthProvider";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default async function RootLayout({
         <NextAuthProvider session={session}>
         <TopMenu/>
         {children}
+        <Footer/>
         </NextAuthProvider>
         </body>
     </html>

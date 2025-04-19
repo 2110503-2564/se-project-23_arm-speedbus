@@ -98,23 +98,28 @@ export interface AuditLogJson {
 }
 
 export interface CouponItem {
-  _id: string,
-  user_info: string,
-  name: string, 
-  percentage: number,
-  requirement: string,
-  maxDisc: number,
-  minSp: number,
-  spent: number,
-  valid: number,
-  expirationDate: Date,
-  redeemed: boolean,
-  status: string,
-  __v: number
+  _id: string;
+  user_info: string;
+  name: string;
+  percentage: number;
+  maxDiscount: number;
+  minSpend: number;
+  spent: number;
+  expirationDate: Date;
+  status: string;
+  __v: number;
 }
 
 export interface CouponJson {
   success: boolean;
   count: number;
   data: CouponItem[];
+}
+
+export interface CouponTemplateItem {
+  _id: string;
+  percentage: number;
+  name: string;
+  maxDiscount: number;
+  minSpend: number;
 }

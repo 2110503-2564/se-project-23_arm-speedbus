@@ -55,7 +55,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="bg-[#FFFACD] py-[7vh] px-4 mt-32">
+    <div className="bg-white items-center justify-center pt-[7vh]">
       <div className="max-w-md mx-auto flex flex-col items-center justify-center p-6">
         <h1 className="text-[32px] font-bold mb-4 text-black font-robotoMono">
           REGISTER
@@ -73,7 +73,7 @@ export default function RegisterPage() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full  p-2 border border-black  bg-gray-100"
+                    className="w-full p-2 border border-black bg-white font-mono"
                   />
                 </td>
               </tr>
@@ -88,7 +88,7 @@ export default function RegisterPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full  p-2 border border-black  bg-gray-100"
+                    className="w-full  p-2 border border-black bg-white font-mono"
                   />
                 </td>
               </tr>
@@ -102,7 +102,7 @@ export default function RegisterPage() {
                     value={formData.password}
                     onChange={handleChange}
                     required
-                    className="w-full  p-2 border border-black  bg-gray-100"
+                    className="w-full  p-2 border border-black bg-white font-mono"
                   />
                 </td>
               </tr>
@@ -116,7 +116,7 @@ export default function RegisterPage() {
                     value={formData.tel}
                     onChange={handleChange}
                     required
-                    className="w-full  p-2 border border-black  bg-gray-100"
+                    className="w-full  p-2 border border-black bg-white font-mono"
                   />
                 </td>
               </tr>

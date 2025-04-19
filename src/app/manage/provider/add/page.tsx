@@ -71,14 +71,14 @@ export default function AddProviderPage() {
   return (
     <>
       {session?.user.User_info.role === "admin" ? (
-        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md font-[BlinkMacSystemFont] mt-5">
-          <h2 className="text-4xl font-semibold mb-6 text-indigo-600 text-center">
+        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md font-robotoMono mt-10">
+          <h2 className="text-4xl font-semibold mb-6 text-indigo-600 text-center font-robotoMono">
             Add New Provider
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="name"
               >
                 Provider Name
@@ -90,12 +90,12 @@ export default function AddProviderPage() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter provider name"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="address"
               >
                 Address
@@ -107,12 +107,12 @@ export default function AddProviderPage() {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Enter Address"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="tel"
               >
                 Tel.
@@ -124,12 +124,12 @@ export default function AddProviderPage() {
                 value={formData.tel}
                 onChange={handleChange}
                 placeholder="Enter provider's Telephone Number"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="email"
               >
                 Provider Email
@@ -141,12 +141,12 @@ export default function AddProviderPage() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter Provider Email"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="picture"
               >
                 Provider Picture
@@ -158,12 +158,12 @@ export default function AddProviderPage() {
                 value={formData.picture}
                 onChange={handleChange}
                 placeholder="Enter picture URL"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="openTime"
               >
                 Provider Open Time
@@ -176,12 +176,12 @@ export default function AddProviderPage() {
                 onChange={handleChange}
                 placeholder="Enter Provider Open Time (must be in HH:MM:SS format)"
                 min={1}
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="closeTime"
               >
                 Provider Close Time
@@ -193,22 +193,22 @@ export default function AddProviderPage() {
                 value={formData.closeTime}
                 onChange={handleChange}
                 placeholder="Enter Provider Close Time (must be in HH:MM:SS format)"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300 font-robotoMono"
             >
               Add New Provider
             </button>
             {error && (
-              <p className="text-red-500 mt-2 text-center">{errorMessage}</p>
+              <p className="text-red-500 mt-2 text-center font-robotoMono">{errorMessage}</p>
             )}
           </form>
         </div>
       ) : (
-        <div className="text-center text-xl text-red-500 p-4">
+        <div className="text-center text-xl text-red-500 p-4 font-robotoMono">
           You are not an admin. Access denied.
         </div>
       )}
