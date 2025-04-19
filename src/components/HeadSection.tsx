@@ -38,7 +38,7 @@ export default function HeadSection() {
             welcomeAnimation ? "opacity-100 translate-y-0" : ""
           }`}
         >
-          Maroon
+          Car Rental
         </h1>
 
         <div
@@ -48,19 +48,18 @@ export default function HeadSection() {
         >
           <div className="font-light">
             <span>
-              The burgundy on my T-shirt when you splashed your wine into me
+              Experience hassle-free travel with our wide selection of quality
+              vehicles
             </span>
             <br />
             <span>
-              And how the blood rushed into my cheeks, so scarlet, it was
+              — perfect for business trips, vacations, or long-term use.
             </span>
             <br />
             <span>
-              The mark you saw on my collarbone, the rust that grew between
-              telephones
+              Affordable rates, safety assurance, and friendly service to make
+              every ride smooth
             </span>
-            <br />
-            <span>The lips I used to call home, so scarlet, it was maroon</span>
           </div>
         </div>
       </div>
