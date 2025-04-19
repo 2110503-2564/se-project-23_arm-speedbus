@@ -1,6 +1,5 @@
 "use client";
 
-import { CouponItem } from "interfaces";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import CouponCard from "./CouponCard";
 
@@ -85,12 +84,14 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
         >
           <div
             className="relative flex items-start gap-6 pb-16 pt-10"
-            style={{ width: `${milestones.length * CARD_WIDTH}px` }}
+            style={{ width: "100%" }}
           >
             <div
               className="absolute top-5 left-0 h-6 bg-gray-100 rounded-full overflow-hidden border border-gray-300 z-0"
               style={{
                 width: `${coupon.length * CARD_WIDTH + 100}px`,
+                marginLeft: "50%",
+                transform: "translateX(-50%)",
               }}
             >
               <div
@@ -101,11 +102,16 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
 
             {coupon.map((item, index) => {
               const reached = currentSpending >= item.spent;
+
+              const position = (index / (coupon.length - 1)) * 100; // คำนวณตำแหน่งของแต่ละ milestone
+
               return (
                 <div
                   key={index}
                   className="flex-shrink-0 relative z-10"
-                  style={{ width: CARD_WIDTH }}
+                  style={{
+                    width: CARD_WIDTH,
+                  }}
                 >
                   <div className="flex justify-center">
                     <div
