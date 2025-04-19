@@ -2,7 +2,7 @@ export default async function createCoupon(
   token: string,
   couponName: string,
   percentage: number,
-  minDisc: number,
+  maxDisc: number,
   minSp: number,
   expirationDate: Date
 ) {
@@ -16,7 +16,7 @@ export default async function createCoupon(
     body: JSON.stringify({
       name: couponName,
       percentage: percentage,
-      minDiscount: minDisc,
+      maxDiscount: maxDisc,
       minSpend: minSp,
       expirationDate: expirationDate,
     }),
