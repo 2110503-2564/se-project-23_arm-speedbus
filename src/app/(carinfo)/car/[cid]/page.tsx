@@ -20,6 +20,8 @@ import { CouponItem } from "interfaces";
 import updateCoupon from "@/libs/updateCoupon";
 
 import getMyCoupon from "@/libs/getMyCoupon";
+import CouponDropDownList from "@/components/CouponDropDownList";
+import { set } from "mongoose";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
@@ -34,7 +36,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
   const { data: session } = useSession();
   const [coupons, setCoupons] = useState<CouponItem[]>([]);
-  const [selectedCoupon, setSelectedCoupon] = useState("");
+  const [selectedCoupon, setSelectedCoupon] = useState<string|null>("");
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -257,7 +259,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                 onDateChange={(value: Dayjs | null) => setEndDate(value)}
                 label="Check-Out Date"
               />
-              <select
+              {/* <select
                 value={selectedCoupon}
                 onChange={(e) => setSelectedCoupon(e.target.value)}
                 className="mt-3 border border-black text-white rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
@@ -270,7 +272,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                       {coupon.name} - {coupon.percentage}%
                     </option>
                   ))}
-              </select>
+              </select> */}
+
+              <CouponDropDownList
+                couponList={coupons}
+                onSelectCoupon={(couponId) => setSelectedCoupon(couponId)}
+              />
 
               <button
                 onClick={() => {
@@ -285,7 +292,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                 }}
                 className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
               >
-                Book
+                <div className="font-rockwell">Book</div>
               </button>
               {errorMessage && (
                 <p className="text-red-500 mt-2 text-sm text-center">
