@@ -24,7 +24,7 @@ export default function ProductCard({
 
   return (
     <InteractiveCard contentName={Name}>
-      <div className="w-[21vw] h-[230px] relative bg-gray-200 boarder-2border border-gray-300 rounded-lg">
+      <div className="w-[17vw] h-[230px] relative bg-gray-200 boarder-2border border-gray-300 rounded-lg">
         {imgSrc && (
           <Image
             src={imgSrc}
@@ -34,7 +34,7 @@ export default function ProductCard({
           />
         )}
       </div>
-      <div className="w-[300px] h-[142px] flex flex-col gap-2 items-left justify-start px-4 py-3 text-black">
+      <div className="w-[300px] h-[142px] flex flex-col gap-2 items-left justify-start px-3 py-3 text-black">
         <div className="-space-y-1 text-left">
           <div className="text-xl font-bold font-robotoMono tracking-wide">
             {Name}

@@ -21,14 +21,14 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
       </div>
 
       {/* Card Layout */}
-      <div className="w-full h-auto flex flex-wrap justify-center gap-4 p-4 overflow-x-hidden font-robotoMono">
+      <div className="w-full h-auto flex flex-wrap justify-center gap-10 p-4 overflow-x-hidden font-robotoMono">
         {carJsonReady.data
           .slice(0, Math.min(carJsonReady.data.length, 4))
           .map((carItem: CarItem, index) => (
             <Link
               href={`/car/${carItem.id}`}
               key={carItem.id}
-              className={`w-full w-[17vw] p-2 group opacity-0 transition-transform duration-1000 animate-slide-up`}
+              className={`w-[17vw] p-2 group opacity-0 transition-transform duration-1000 animate-slide-up`}
               style={{ animationDelay: `${index * 0.15}s` }}
             >
               <div className="border border-gray-300  overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
