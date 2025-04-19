@@ -29,24 +29,5 @@ export default function Page() {
     fetchCouponData();
   }, []);
 
-  return (
-    <div className="flex flex-wrap justify-center items-center min-h-screen bg-white">
-      {couponList.length > 0 ? (
-        couponList.map((c: CouponTemplateItem) => (
-          <CouponCardItem
-            key={c._id}
-            couponName={c.name}
-            percentage={c.percentage}
-            maxDisc={c.maxDiscount}
-            minSp={c.minSpend}
-            spent={c.spent}
-            valid={c.valid}
-            redeemed={false} // This is Mock
-          />
-        ))
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div>
-  );
+  return <SpendingMilestoneBar currentSpending={2000} coupon={couponList} />;
 }
