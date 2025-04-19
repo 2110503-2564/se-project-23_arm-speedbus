@@ -72,14 +72,14 @@ export default function AddCarPage() {
   return (
     <>
       {session?.user.User_info.role === "admin" ? (
-        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md font-[BlinkMacSystemFont] mt-5">
-          <h2 className="text-4xl font-semibold mb-6 text-indigo-600 text-center">
+        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md font-robotoMono mt-10">
+          <h2 className="text-2xl font-medium mb-6 text-black text-center font-robotoMono">
             Add New Car
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="flex flex-col">
+            <div className="flex flex-col font-robotoMono">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-medium text-gray-700 mb-1 font-robotoMono"
                 htmlFor="name"
               >
                 Car Name
