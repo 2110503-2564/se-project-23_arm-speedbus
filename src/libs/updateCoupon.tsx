@@ -2,7 +2,9 @@ export default async function updateCoupon(
   token: string,
   id: string,
   percentage: Number,
-  requirement: string,
+  name: String,
+  maxDiscount: Number,
+  minSpend: Number,
   expirationDate: Date,
   status: string
 ) {
@@ -17,7 +19,9 @@ export default async function updateCoupon(
       },
       body: JSON.stringify({
         percentage: percentage,
-        requirement: requirement,
+        name,
+        maxDiscount: maxDiscount,
+        minSpend: minSpend,
         expirationDate: expirationDate,
         status: status,
       }),
