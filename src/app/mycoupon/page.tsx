@@ -28,7 +28,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100 font-robotoMono">
-      <div className="border px-6 pt-4 rounded-md font-robotoMono shadow-md font-mono max-w-3xl w-full bg-white">
+      <div className="border px-6 pt-4 rounded-md font-robotoMono shadow-md font-mono max-w-3xl w-full bg-white mt-[15vh]">
         {myCoupon?.data.map((coupon) => (
           <div key={coupon._id} className="mb-4 border-b pb-4">
             <div className="flex justify-between text-lg text-black">

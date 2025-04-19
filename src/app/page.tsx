@@ -8,6 +8,7 @@ import { LinearProgress } from "@mui/material";
 import { revalidateTag } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
+import Footer from "@/components/Footer";
 
 export default async function Home() {
   const cars = await getCars();
@@ -15,10 +16,10 @@ export default async function Home() {
   revalidateTag("providers");
 
   return (
-    <main className="bg-gray-100 min-h-screen">
+    <main className="bg-white min-h-screen">
       <HeadSection />
 
-      <div className="py-20 bg-gray-100">
+      <div className="py-20 white">
         <Suspense
           fallback={
             <p>

@@ -20,7 +20,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-gray-100 items-center justify-center p-20 ">
+    <div className="bg-white items-center justify-center pt-[7vh] ">
       <div className="max-w-md mx-auto flex flex-col items-center justify-center p-6">
         <h1 className="text-[32px] font-bold mb-4 text-black font-robotoMono">
           LOGIN
@@ -56,7 +56,9 @@ export default function LoginPage() {
           </table>
           <button
             type="submit"
-            className="mt-4 w-[195px] font-robotoMono bg-black mx-auto text-white py-2 rounded-[48px] hover:bg-gray-700 flex justify-center items-center"
+            className="mt-4 w-[195px] font-robotoMono bg-black mx-auto text-white py-2 rounded-[48px] 
+             flex justify-center items-center 
+             transition-transform duration-200 transform hover:scale-105"
           >
             Sign In
           </button>

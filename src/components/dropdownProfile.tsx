@@ -43,7 +43,7 @@ export default function DropDownProfile({
       </div>
 
       {!isLoggedIn && isOpen && (
-        <div className="fixed top-0 right-0 w-[500px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform">
+        <div className="fixed top-0 right-0 w-[500px] h-full bg-gray-600 bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
               <Link href="/register">
@@ -62,7 +62,7 @@ export default function DropDownProfile({
       )}
 
       {isLoggedIn && isOpen && (
-        <div className="fixed top-0 right-0 w-[500px] h-full bg-[#800000] bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
+        <div className="fixed top-0 right-0 w-[500px] h-full bg-gray-600 bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
               <Link href="/profile">
