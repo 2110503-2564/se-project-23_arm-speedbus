@@ -12,8 +12,10 @@ import DateReserve from "@/components/DateReserve";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import createRent from "@/libs/createRent";
+import redeemCoupon from "@/components/CouponCard"
 import { useRouter } from "next/navigation";
 import "./calendar.css"
+import CouponCardWrapper from "@/components/CouponCardWrapper";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
@@ -165,6 +167,19 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                 onDateChange={(value: Dayjs | null) => setEndDate(value)}
                 label="Check-Out Date"
               />
+              <select 
+              className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
+              > 
+              <option value="default">Select a coupon</option>
+              </select>
+
+              <button className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
+                onClick={() => {
+                  alert("Redeem coupon successfully!");
+                }}
+              >
+                Redeem Coupon
+              </button>
               <button
                 onClick={() => {
                   handleCreateRent(
