@@ -24,7 +24,7 @@ export default function ProductCard({
 
   return (
     <InteractiveCard contentName={Name}>
-      <div className="w-[300px] h-[230px] relative bg-gray-200 boarder-2border border-gray-300 rounded-lg">
+      <div className="w-[21vw] h-[230px] relative bg-gray-200 boarder-2border border-gray-300 rounded-lg">
         {imgSrc && (
           <Image
             src={imgSrc}
@@ -54,7 +54,7 @@ export default function ProductCard({
             <div className="text-xl font-bold mt-2 items-left"></div>
           )}
 
-          <div className="flex items-center justify-between text-sm mt-1 w-4/5">
+          <div className="flex items-center justify-between text-sm mt-1 w-max">
             {/* Left: Star and Rating */}
             <div className="flex items-center text-black">
               <FaStar className="mr-1" />
@@ -63,7 +63,7 @@ export default function ProductCard({
 
             {/* Right: Link */}
             <div
-              className="text-sm text-gray-500 truncate "
+              className="text-sm text-gray-500 ml-7"
               onClick={(e) => {
                 e.stopPropagation();
                 router.push(`/review`);
