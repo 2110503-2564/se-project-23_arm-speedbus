@@ -7,8 +7,7 @@ export default async function CarOfProvider({params}:{params:{pid:string}}) {
   const cars = await getCars();
   revalidateTag("cars");
   return (
-    <main className="text-center p-5">
-      <h1 className="text-xl font-medium">Select Your Desired Car</h1>
+    <main className="text-center p-5 pt-0">
       <Suspense
         fallback={
           <p>

@@ -71,14 +71,14 @@ export default function AddProviderPage() {
   return (
     <>
       {session?.user.User_info.role === "admin" ? (
-        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md font-robotoMono mt-10">
-          <h2 className="text-4xl font-semibold mb-6 text-indigo-600 text-center font-robotoMono">
+        <div className="max-w-md mx-auto p-6 bg-white rounded-lg mb-[150px] mt-[80px] font-robotoMono border border-black">
+          <h2 className="text-2xl font-medium mb-6 text-black text-center font-robotoMono">
             Add New Provider
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex flex-col">
               <label
-                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
+                className="block text-md text-black font-bold te1xt-gray-700 mb-1 font-robotoMono"
                 htmlFor="name"
               >
                 Provider Name
