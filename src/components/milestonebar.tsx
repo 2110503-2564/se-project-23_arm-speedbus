@@ -1,17 +1,16 @@
-'use client';
+"use client";
 
-import { CouponItem } from 'interfaces';
-import React, { useRef, useState, useEffect, useMemo } from 'react';
+import { CouponItem } from "interfaces";
+import React, { useRef, useState, useEffect, useMemo } from "react";
+import CouponCard from "./CouponCard";
 
 type Coupon = {
-  name: string,
-  percentage: number,
-  maxDisc: number,
-  minSp: number,
-  spent: number,
-  valid: number,
-  redeemed: boolean,
-  milestones: number
+  percentage: number;
+  name: string;
+  maxDiscount: number;
+  minSpend: number;
+  spent: number;
+  valid: number;
 };
 
 type Props = {
@@ -19,10 +18,10 @@ type Props = {
   coupon: Coupon[];
 };
 
-const CARD_WIDTH = 180;
+const CARD_WIDTH = 270;
 
 const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
-  const milestones = coupon.map(c => c.milestones);
+  const milestones = coupon.map((c) => c.spent);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -36,14 +35,17 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
 
   useEffect(() => {
     checkScroll();
-    window.addEventListener('resize', checkScroll);
-    return () => window.removeEventListener('resize', checkScroll);
+    window.addEventListener("resize", checkScroll);
+    return () => window.removeEventListener("resize", checkScroll);
   }, []);
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
     const amount = 300;
-    scrollRef.current.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
+    scrollRef.current.scrollBy({
+      left: direction === "left" ? -amount : amount,
+      behavior: "smooth",
+    });
   };
 
   const progressPx = useMemo(() => {
@@ -65,6 +67,14 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
     return Math.min(progress, milestones.length * CARD_WIDTH);
   }, [currentSpending, milestones]);
 
+  console.log("currentSpending", currentSpending);
+  console.log("milestones", milestones);
+  coupon.forEach((c) => {
+    console.log(
+      `${c.name}: spent=${c.spent}, reached=${currentSpending >= c.spent}`
+    );
+  });
+
   return (
     <div className="w-full py-10 bg-white overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4">
@@ -77,7 +87,12 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
             className="relative flex items-start gap-6 pb-16 pt-10"
             style={{ width: `${milestones.length * CARD_WIDTH}px` }}
           >
-            <div className="absolute top-5 left-0 w-full h-6 bg-gray-100 rounded-full overflow-hidden border border-gray-300 z-0">
+            <div
+              className="absolute top-5 left-0 h-6 bg-gray-100 rounded-full overflow-hidden border border-gray-300 z-0"
+              style={{
+                width: `${coupon.length * CARD_WIDTH + 100}px`,
+              }}
+            >
               <div
                 className="h-full bg-gray-500 rounded-full transition-all duration-300"
                 style={{ width: `${progressPx}px` }}
@@ -85,42 +100,47 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
             </div>
 
             {coupon.map((item, index) => {
-              const reached = currentSpending >= item.milestones;
+              const reached = currentSpending >= item.spent;
               return (
                 <div
                   key={index}
                   className="flex-shrink-0 relative z-10"
                   style={{ width: CARD_WIDTH }}
                 >
-                  {/* Vertical line spot */}
                   <div className="flex justify-center">
                     <div
                       className={`absolute top-0 w-[4px] h-12 z-10 transform -translate-y-1/2 ${
-                        reached ? 'bg-black' : 'bg-gray-300'
+                        reached ? "bg-black" : "bg-gray-300"
                       }`}
-                      style={{ left: '50%', transform: 'translate(-50%, -50%)' }}
+                      style={{
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                      }}
                     />
                   </div>
 
-                  <div
-                    className={`rounded-xl shadow-md px-4 py-6 text-center border-2 transition-all duration-300 mt-6 ${
-                      reached ? 'border-gray-400 bg-gray-100' : 'border-dashed border-gray-300 bg-white'
-                    }`}
-                  >
-                    <div className="text-2xl font-bold text-gray-700">{item.percentage}%</div>
-                    {reached && (
-                      <>
-                        <hr className="my-2 border-dashed border-t-2 border-gray-300" />
-                        <div className="text-sm font-medium text-gray-700">{item.name}</div>
-                        <p className="text-xs text-gray-500 mt-1">Max Discount: ${item.maxDisc}</p>
-                        <p className="text-xs text-gray-500">Spend: ${item.milestones}</p>
-                        <p className="text-xs text-gray-500">Valid for {item.valid} days</p>
-                        <button className="mt-4 px-3 py-1 bg-gray-500 text-white text-xs rounded">
-                          Redeem
-                        </button>
-                      </>
-                    )}
-                  </div>
+                  {reached ? (
+                    <CouponCard
+                      couponName={item.name}
+                      percentage={item.percentage}
+                      minDisc={item.maxDiscount}
+                      minSp={item.minSpend}
+                      spent={item.spent}
+                      valid={item.valid}
+                    />
+                  ) : (
+                    <div
+                      style={{ width: CARD_WIDTH }}
+                      className=" rounded-xl border-dashed border-2 border-gray-300 bg-white shadow px-4 py-6 text-center mt-6 h-[260px] flex flex-col justify-center"
+                    >
+                      <div className="text-xl font-bold text-gray-400 mb-2">
+                        {item.percentage}%
+                      </div>
+                      <p className="text-xs text-gray-400">
+                        Spend ${item.spent} to unlock
+                      </p>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -128,7 +148,10 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
         </div>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          You've spent <span className="font-bold text-gray-700">${currentSpending.toFixed(2)}</span>
+          You've spent{" "}
+          <span className="font-bold text-gray-700">
+            ${currentSpending.toFixed(2)}
+          </span>
         </p>
       </div>
     </div>

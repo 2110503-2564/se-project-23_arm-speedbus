@@ -2,7 +2,8 @@
 import createCoupon from "@/libs/createCoupon";
 import { getSession } from "next-auth/react";
 import React from "react";
-
+import getMyCoupon from "@/libs/getMyCoupon";
+import { useEffect, useState } from "react";
 const redeemCoupon = async (
   couponName: string,
   percentage: number,
@@ -16,6 +17,15 @@ const redeemCoupon = async (
     return;
   }
   const token = session.user.token;
+  const existing = await getMyCoupon(token);
+  const hasCoupon = existing?.data?.some(
+    (c: any) => c.name === couponName && c.status !== "used"
+  );
+
+  if (hasCoupon) {
+    alert("You already redeemed this coupon.");
+    return;
+  }
   const response = await createCoupon(
     token,
     couponName,
@@ -43,10 +53,27 @@ export default function CouponCard({
   spent: number;
   valid: number;
 }) {
+  const [hasCoupon, setHasCoupon] = useState<boolean | null>(null);
+  useEffect(() => {
+    const checkCoupon = async () => {
+      const session = await getSession();
+      if (!session?.user?.token) return;
+
+      const myCoupons = await getMyCoupon(session.user.token);
+      const found = myCoupons?.data?.some(
+        (c: any) => c.name === couponName && c.status !== "used"
+      );
+      setHasCoupon(found); // true = already has
+    };
+
+    checkCoupon();
+  }, []);
   return (
     <div
-      className="w-[230px] h-[333px] rounded-[24px] bg-black text-white overflow-hidden 
-    relative m-10 hover:scale-105 transition-transform duration-300"
+      className={`w-[230px] h-[333px] rounded-[24px] ${
+        hasCoupon === true ? "bg-gray-400" : "bg-black"
+      } text-white overflow-hidden 
+  relative m-10 hover:scale-105 transition-transform duration-300`}
     >
       {/* ครึ่งวงกลมด้านบน */}
       <div className="w-full h-[125px] relative rounded-b-full flex items-center justify-center">
@@ -95,12 +122,19 @@ export default function CouponCard({
 
         <div className="text-center">
           <button
-            className="px-4 py-2 mt-1 bg-white text-black rounded  hover:bg-gray-300 hover:scale-105 transition-transform duration-300 transition font-semibold"
+            className={`px-4 py-2 mt-1 rounded font-semibold transition-transform duration-300 ${
+              hasCoupon === true
+                ? "bg-white text-gray-400 cursor-not-allowed"
+                : "bg-white text-black hover:bg-gray-300 hover:scale-105"
+            }`}
+            disabled={hasCoupon === true}
             onClick={() => {
-              redeemCoupon(couponName, percentage, minDisc, minSp, valid);
+              if (hasCoupon === false) {
+                redeemCoupon(couponName, percentage, minDisc, minSp, valid);
+              }
             }}
           >
-            REDEEM
+            {hasCoupon === true ? "REDEEMED" : "REDEEM"}
           </button>
         </div>
       </div>
