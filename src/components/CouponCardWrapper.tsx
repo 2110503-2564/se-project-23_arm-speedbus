@@ -52,7 +52,7 @@ export default function CouponCardWrapper() {
           key={c._id}
           couponName={c.name}
           percentage={c.percentage}
-          minDisc={c.minDisc}
+          maxDisc={c.maxDisc}
           minSp={c.minSp}
           spent={c.spent ?? 0}
           valid={c.valid}

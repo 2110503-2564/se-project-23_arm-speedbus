@@ -1,6 +1,6 @@
 export default async function deleteCoupon(token: string, id: string) {
   const response = await fetch(
-    `${process.env.BACKEND_URL}/api/v1/rewards/${id}`,
+    `${process.env.BACKEND_URL}/api/v1/coupons/${id}`,
     {
       cache: "no-store",
       method: "DELETE",
