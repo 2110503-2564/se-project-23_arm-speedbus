@@ -30,7 +30,9 @@ export default async function RootLayout({
       <body className={robotoMono.className}>
         <NextAuthProvider session={session}>
         <TopMenu/>
-        {children}
+        <main className="pt-[10px]">
+          {children}
+        </main>
         <Footer/>
         </NextAuthProvider>
         </body>

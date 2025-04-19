@@ -122,5 +122,6 @@ export interface CouponTemplateItem {
   name: string;
   maxDiscount: number;
   minSpend: number;
+  spent: number;
   valid: number;
 }

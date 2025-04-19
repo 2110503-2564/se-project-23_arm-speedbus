@@ -8,7 +8,6 @@ export default async function Car() {
   revalidateTag("cars");
   return (
     <main className="text-center p-5">
-      <h1 className="text-xl font-medium">Select Your Desired Car</h1>
       <Suspense
         fallback={
           <p>
