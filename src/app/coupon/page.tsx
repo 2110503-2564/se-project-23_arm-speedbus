@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import CouponCardItem from "@/components/CouponCardItem"; // adjust the path if necessary
 import getCouponTemplates from "@/libs/getCouponTemplates"; // make sure the path is correct
 import { CouponTemplateItem } from "interfaces";
+import SpendingMilestoneBar from "@/components/milestonebar";
 
 export default function Page() {
   const [couponList, setCouponList] = useState([]);
