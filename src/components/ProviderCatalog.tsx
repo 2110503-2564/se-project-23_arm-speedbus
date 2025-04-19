@@ -18,8 +18,8 @@ export default async function ProviderCatalog({
         Provider All_
       </div>
 
-      <div className="flex text-[15px]  text-left mt-24 mb-8 text-[#808080] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
-        <div className="flex-1  font-robotoMono ">_ ITEMS</div>
+      <div className="flex text-m font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
+        <div className="flex-1">_items</div>
       </div>
 
       <div className="flex flex-wrap justify-center gap-8 px-4">
