@@ -12,6 +12,7 @@ import getRent from "@/libs/getRent"; // Function to fetch rent details
 import getRentsForCar from "@/libs/getRentsForCar"; // Function to fetch rent data for a car
 import { useRouter } from "next/navigation";
 import changeRentDate from "@/libs/changeRentDate";
+import "./calendar.css";
 
 export default function ChangeDatePage({
   params,
@@ -30,6 +31,7 @@ export default function ChangeDatePage({
   const [errorMessage, setErrorMessage] = useState("");
   const [renderErrorMessage, setRenderErrorMessage] = useState("");
   const { data: session } = useSession();
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -65,6 +67,7 @@ export default function ChangeDatePage({
         console.error("Failed to fetch rents:", error);
       }
     };
+
 
     const fetchRentData = async () => {
       try {
@@ -108,6 +111,17 @@ export default function ChangeDatePage({
     fetchRentsForCar();
     fetchRentData();
   }, [params.cid, params.bid, session?.user.token]);
+
+  
+  useEffect(() => {
+    if (startDate && endDate && carItem) {
+      const days = endDate.diff(startDate, "day") + 1;
+      const price = days * carItem.pricePerDay;
+      setTotalPrice(price > 0 ? price : 0);
+    } else {
+      setTotalPrice(0);
+    }
+  }, [startDate, endDate, carItem]);
 
   const isDateUnavailable = (date: Date) => {
     return rentedDates.some(
@@ -164,94 +178,89 @@ export default function ChangeDatePage({
     );
 
   return (
-    <main className="min-h-screen p-6 flex flex-row items-start gap-6">
-      <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
-        <Image
-          src={carItem.picture}
-          alt="Car"
-          width={600}
-          height={400}
-          className="w-full object-cover rounded-t-xl"
-        />
-        <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            {carItem.name}
-          </h1>
-          <p className="text-gray-600 mb-1">
-            Description: {carItem.description}
-          </p>
-          <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
-          <p className="text-gray-600 mb-1">
-            Provider: {carItem.provider_info.name}
-          </p>
-          <p className="text-gray-600 mb-1">Car ID: {carItem._id}</p>
-          <p className="text-xl font-semibold text-blue-600 mt-3">
-            ${carItem.pricePerDay}/day
-          </p>
+    <main className="min-h-screen px-[5vw] py-10 font-robotoMono text-black flex flex-col gap-12 mt-10">
+      <div className="flex flex-row items-center gap-20">
+        <div className="flex flex-col items-start ml-20">
+            <h1 className="text-[45px] tracking-wider mb-4 font-robotoMono">{carItem.name}</h1>
+            <div className="w-[457px] h-[468px] bg-gray-200 overflow-hidden">
+              <Image
+                src={carItem.picture}
+                alt="Car"
+                width={457}
+                height={468}
+                className="object-cover w-full h-full"
+              />
+            </div>
         </div>
-      </div>
-
-      {session ? (
-        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
-          <h2 className="text-4xl font-bold my-4 text-[#2d336b] text-center">
+        <div className="flex flex-col items-center justify-center mx-auto">
+          <h2 className="text-4xl font-bold my-4 text-black text-center font-robotoMono">
             Choose Rental Dates
           </h2>
-          <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
+          <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center font-robotoMono">
             Check The Calendar For This Car's Available Date. (Underlined Date
             Means Occupied, Green Means Previous Booking)
           </h2>
-          <div className="flex justify-center">
             <ReactCalendar
-              className="text-black"
+              className="text-black react-calendar"
               tileClassName={({ date }) => {
-                if (isPreviousRentDate(date)) return "green-border";
-                if (isDateUnavailable(date)) return "red-border";
+                if (isPreviousRentDate(date)) return "green-underline";
+                if (isDateUnavailable(date)) return "red-underline";
                 return "";
               }}
-              tileContent={({ date }) => {
-                if (isPreviousRentDate(date)) {
-                  return <div style={{ border: "2px solid green" }}></div>;
-                }
-                if (isDateUnavailable(date)) {
-                  return <div style={{ border: "2px solid red" }}></div>;
-                }
-              }}
             />
-          </div>
-
-          <div className="text-md text-left text-gray-800 m-3">
-            Enter Renting Start Date
-          </div>
-          <DateReserve
-            onDateChange={(value: dayjs.Dayjs | null) => setFormStartDate(value)} label="Check-In Date"
-          />
-          <div className="text-md text-left text-gray-800 m-3">
-            Enter Renting End Date
-          </div>
-          <DateReserve
-            onDateChange={(value: dayjs.Dayjs | null) => setFormEndDate(value)} label="Check-Out Date"
-          />
-
-          <button
-            onClick={() => {
-              handleUpdateRent(
-                dayjs(formStartDate)
-                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
-                  .toString(),
-                dayjs(formEndDate)
-                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
-                  .toString()
-              );
-            }}
-            className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
-          >
-            Update Booking
-          </button>
-          {errorMessage && (
-            <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
-          )}
         </div>
-      ) : null}
+      </div>
+      <div className="flex flex-row ml-20 gap-12 min-h-[320px]">
+      <div className="w-1/2 max-w-md h-full ">
+          <h2 className="text-[45px]  tracking-wide mb-2 font-robotoMono">
+            DESCRIPTION
+          </h2>
+          <p className="text-sm leading-5 text-light text-black/80 whitespace-pre-line font-robotoMono">
+            {carItem.description}
+          </p>
+          <p className="mt-4 text-md font-bold font-robotoMono">
+            Total:&nbsp;
+            <span className="text-black font-normal text-2xl">
+              ${totalPrice}
+            </span>
+            <span className="text-sm text-gray-600 font-normal ml-2">
+              (${carItem.pricePerDay}/day)
+            </span>
+          </p>
+        </div>
+        <div className="w-1/2 flex items-center justify-center h-full mx-auto">
+          {session ? (
+            <div className="flex flex-col items-center w-full max-w-sm font-robotoMono">
+              
+              <DateReserve
+                onDateChange={(value: dayjs.Dayjs | null) => setFormStartDate(value)} label="Check-In Date"
+              />
+              <DateReserve
+                onDateChange={(value: dayjs.Dayjs | null) => setFormEndDate(value)} label="Check-Out Date"
+              />
+
+              <button
+                onClick={() => {
+                  handleUpdateRent(
+                    dayjs(formStartDate)
+                      .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
+                      .toString(),
+                    dayjs(formEndDate)
+                      .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
+                      .toString()
+                  );
+                }}
+                className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
+              >
+                Update Booking
+              </button>
+              {errorMessage && (
+                <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
+              )}
+            </div>
+          ) : null}
+        </div>
+      </div>
     </main>
   );
 }
