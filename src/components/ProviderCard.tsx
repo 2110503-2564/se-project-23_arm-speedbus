@@ -34,7 +34,7 @@ export default function ProviderCard(
       </div>
       <span className="font-robotoMono tracking-wide w-[300px] h-[142px] flex flex-col gap-1 items-start justify-start px-4 py-3 font-sans text-black">
         <div className="font-robotoMono font-extrabold tracking-wide text-lg">{providerName}</div>
-        <div className="font-robotoMono text-[12px] font-medium text-black">popeangketpun@gmail.com</div>{" "}
+        <div className="font-robotoMono text-[12px] font-medium text-black">{email}</div>{" "}
         {email === null && <div className="text-xl font-medium mt-2"></div>}
         <div className="font-robotoMono text-[12px] font-medium text-black">{phoneNum}</div>{" "}
         <span className="flex absolute bottom-0 font-robotoMono items-center text-sm mb-2">
