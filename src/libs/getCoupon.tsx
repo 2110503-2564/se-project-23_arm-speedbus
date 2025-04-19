@@ -1,4 +1,4 @@
-export default async function getCoupons(token: string, id: string) {
+export default async function getCoupon(token: string, id: string) {
   // await new Promise((resolve)=>{setTimeout(resolve,5000);})
   const response = await fetch(
     `${process.env.BACKEND_URL}/api/v1/coupons/${id}`,
