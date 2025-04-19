@@ -223,13 +223,13 @@ export default function ChangeDatePage({
             Enter Renting Start Date
           </div>
           <DateReserve
-            onDateChange={(value: dayjs.Dayjs) => setFormStartDate(value)} label="Check-In Date"
+            onDateChange={(value: dayjs.Dayjs | null) => setFormStartDate(value)} label="Check-In Date"
           />
           <div className="text-md text-left text-gray-800 m-3">
             Enter Renting End Date
           </div>
           <DateReserve
-            onDateChange={(value: dayjs.Dayjs) => setFormEndDate(value)} label="Check-Out Date"
+            onDateChange={(value: dayjs.Dayjs | null) => setFormEndDate(value)} label="Check-Out Date"
           />
 
           <button

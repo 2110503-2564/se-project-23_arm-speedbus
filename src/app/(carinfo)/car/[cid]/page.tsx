@@ -157,12 +157,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             <div className="flex flex-col items-center w-full max-w-sm font-robotoMono">
               <DateReserve
                 value={startDate}
-                onDateChange={(value: Dayjs) => setStartDate(value)}
+                onDateChange={(value: Dayjs | null) => setStartDate(value)}
                 label="Check-In Date"
               />
               <DateReserve
                 value={endDate}
-                onDateChange={(value: Dayjs) => setEndDate(value)}
+                onDateChange={(value: Dayjs | null) => setEndDate(value)}
                 label="Check-Out Date"
               />
               <button
