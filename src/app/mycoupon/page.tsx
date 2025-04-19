@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import CouponCardItem from "@/components/CouponCardItem";
 import { useSession } from "next-auth/react";
@@ -22,28 +22,46 @@ export default function Page() {
     };
 
     fetchCoupons();
-  }, [session,]); // Run this effect when session changes
+  }, [session]); // Run this effect when session changes
 
   console.log(JSON.stringify(myCoupon));
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="border px-6 pt-4 rounded-md shadow-md font-mono max-w-3xl w-full bg-white">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 font-robotoMono">
+      <div className="border px-6 pt-4 rounded-md font-robotoMono shadow-md font-mono max-w-3xl w-full bg-white mt-[15vh]">
         {myCoupon?.data.map((coupon) => (
           <div key={coupon._id} className="mb-4 border-b pb-4">
             <div className="flex justify-between text-lg text-black">
               <div>
-                <p><strong>Name:</strong> {coupon.name}</p>
-                <p><strong>Status:</strong> <span className="text-green-600">{coupon.status}</span></p>
-                <p><strong>Redeemed:</strong> {coupon.redeemed ? "Yes" : "No"}</p>
+                <p>
+                  <strong className="font-robotoMono">Name:</strong>{" "}
+                  {coupon.name}
+                </p>
+                <p>
+                  <strong className="font-robotoMono">Status:</strong>{" "}
+                  <span className="font-robotoMono text-green-600">
+                    {coupon.status}
+                  </span>
+                </p>
               </div>
               <div>
-                <p><strong>Requirement:</strong> {coupon.requirement}</p>
-                <p><strong>Minimum Spend:</strong> ${coupon.minSp}</p>
-                <p><strong>Max Discount:</strong> ${coupon.maxDisc}</p>
-                <p><strong>Discount %:</strong> {coupon.percentage}%</p>
-                <p><strong>Valid For:</strong> {coupon.valid} days</p>
-                <p><strong>Expiration Date:</strong> {new Date(coupon.expirationDate).toLocaleString()}</p>
+                <p>
+                  <strong className="font-robotoMono">Minimum Spend:</strong> $
+                  {coupon.minSpend}
+                </p>
+                <p>
+                  <strong className="font-robotoMono">Max Discount:</strong> $
+                  {coupon.maxDiscount}
+                </p>
+                <p>
+                  <strong className="font-robotoMono">Discount %:</strong>{" "}
+                  {coupon.percentage}%
+                </p>
+
+                <p>
+                  <strong className="font-robotoMono">Expiration Date:</strong>{" "}
+                  {new Date(coupon.expirationDate).toLocaleString()}
+                </p>
               </div>
             </div>
           </div>
@@ -51,7 +69,4 @@ export default function Page() {
       </div>
     </div>
   );
-  
-  
-  
 }

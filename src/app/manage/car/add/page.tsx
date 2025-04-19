@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import createCar from "@/libs/createCar";
+import { ClassNames } from "@emotion/react";
 
 export default function AddCarPage() {
   const { data: session } = useSession();
@@ -72,14 +73,15 @@ export default function AddCarPage() {
   return (
     <>
       {session?.user.User_info.role === "admin" ? (
-        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md font-[BlinkMacSystemFont] mt-5">
-          <h2 className="text-4xl font-semibold mb-6 text-indigo-600 text-center">
+        <div className="max-w-md mx-auto p-6 bg-white rounded-lg mb-[150px] mt-[80px] font-robotoMono border border-black">
+          <p className="mt-3"></p>
+          <h2 className="text-2xl font-medium mb-6 text-black text-center font-robotoMono">
             Add New Car
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="flex flex-col">
+            <div className="flex flex-col font-robotoMono">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="name"
               >
                 Car Name
@@ -91,12 +93,12 @@ export default function AddCarPage() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter car name"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="vin_plate"
               >
                 VIN
@@ -108,12 +110,12 @@ export default function AddCarPage() {
                 value={formData.vin_plate}
                 onChange={handleChange}
                 placeholder="Enter VIN"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="provider_info"
               >
                 Car Provider ID
@@ -125,7 +127,7 @@ export default function AddCarPage() {
                 value={formData.provider_info}
                 onChange={handleChange}
                 placeholder="Enter provider's ID"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
@@ -142,7 +144,7 @@ export default function AddCarPage() {
                 value={formData.picture}
                 onChange={handleChange}
                 placeholder="Enter picture URL"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
@@ -160,7 +162,7 @@ export default function AddCarPage() {
                 onChange={handleChange}
                 placeholder="Enter capacity"
                 min={1}
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
@@ -177,7 +179,7 @@ export default function AddCarPage() {
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Enter description"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
@@ -195,7 +197,7 @@ export default function AddCarPage() {
                 onChange={handleChange}
                 placeholder="Enter daily rate"
                 min={1}
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <button

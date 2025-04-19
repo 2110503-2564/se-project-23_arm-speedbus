@@ -5,6 +5,7 @@ import TopMenu from "@/components/TopMenu";
 import { getServerSession } from "next-auth";
 import {authOptions} from "@/app/api/auth/[...nextauth]/authOptions"
 import NextAuthProvider from "@/providers/NextAuthProvider";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +30,10 @@ export default async function RootLayout({
       <body className={robotoMono.className}>
         <NextAuthProvider session={session}>
         <TopMenu/>
-        {children}
+        <main className="pt-[10px]">
+          {children}
+        </main>
+        <Footer/>
         </NextAuthProvider>
         </body>
     </html>
