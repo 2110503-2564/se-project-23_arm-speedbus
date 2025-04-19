@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FaChevronDown, FaChevronUp, FaTimes } from "react-icons/fa";
 
 export default function CouponDropDownList( {couponList, onSelectCoupon}
-    : {couponList: CouponItem[], onSelectCoupon: (coupon: string|null) => void} ) {
+    : {couponList: CouponItem[], onSelectCoupon: (coupon: string) => void} ) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedCouponId, setSelectedCouponId] = useState<string|null>(null);
   const [selectedCouponName, setSelectedCouponName] = useState<string|null>("Select a coupon");
@@ -23,7 +23,7 @@ export default function CouponDropDownList( {couponList, onSelectCoupon}
                         onClick={(e) => {
                         setSelectedCouponName("Select a coupon");
                         setSelectedCouponId(null);
-                        onSelectCoupon(null);
+                        onSelectCoupon("");
                         e.stopPropagation();
                         e.preventDefault();
                         }}
