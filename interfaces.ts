@@ -64,6 +64,7 @@ export interface BookingItem {
   startDate: string;
   endDate: string;
   discount: number,
+  maxDiscount: number,
   totalDays: number;
   totalPrice: number;
   status: string;

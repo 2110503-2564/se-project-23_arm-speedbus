@@ -102,7 +102,9 @@ export default function RentPage() {
                       {
                         rentItem.discount > 0 ? (
                           <div className="text-md text-green-500 font-robotoMono">
-                            Discount: <span className="text-green-500 font-extrabold font-robotoMono text-xl">{rentItem.discount}%</span>
+                            Discount: <span className="text-green-500 font-extrabold font-robotoMono text-xl">
+                              {rentItem.discount}% (up to ${rentItem.maxDiscount})
+                            </span>
                           </div>
                         )
                         : null
