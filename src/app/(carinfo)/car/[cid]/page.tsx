@@ -36,7 +36,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
   const { data: session } = useSession();
   const [coupons, setCoupons] = useState<CouponItem[]>([]);
-  const [selectedCoupon, setSelectedCoupon] = useState<string|null>("");
+  const [selectedCoupon, setSelectedCoupon] = useState<string>("");
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -133,7 +133,8 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       params.cid,
       session.user.User_info._id,
       startDate,
-      endDate
+      endDate,
+      selectedCoupon ? coupons.find((c) => c._id === selectedCoupon)?.percentage ?? 0 : 0
     );
 
     if (res.success) {
