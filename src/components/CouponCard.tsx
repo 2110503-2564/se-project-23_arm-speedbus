@@ -113,15 +113,12 @@ export default function CouponCard({
             ${spent}
           </span>
         </p>
-        {hasCoupon === false && (
-          <p>
-            Valid:{" "}
-            <span className="font-bold text-[15px] font-rockwellCondensed">
-              {valid > 1 ? valid + " days" : valid + " day"}
-            </span>
-          </p>
-        )}
-
+        <p>
+          Valid:{" "}
+          <span className="font-bold text-[15px] font-rockwellCondensed">
+            {valid > 1 ? valid + " days" : valid + " day"}
+          </span>
+        </p>
         <div className="text-center">
           <button
             className={`px-4 py-2 mt-1 rounded font-semibold transition-transform duration-300 ${
