@@ -36,7 +36,7 @@ export default function DropDownProfile({
       className="relative"
       onClick={() => setIsOpen((prevState) => !prevState)}
     >
-      <div className="flex flex-row bg-white py-1 px-2 rounded-xl text-[#000000] cursor-pointer hover:text-[#7886c7] transition items-center justify-center text-[13px]">
+      <div className="flex flex-row bg-white py-1 px-2 rounded-xl text-[#000000] cursor-pointer hover:text-gray-500 hover:scale-105 transition items-center justify-center text-[13px]">
         {Text}
       </div>
 

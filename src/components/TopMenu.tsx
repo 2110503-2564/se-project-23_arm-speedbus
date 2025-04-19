@@ -24,7 +24,7 @@ export default async function TopMenu() {
         </Link>
       </div>
 
-      <div className="flex gap-6 px-[140px] hover:text-indigo-500">
+      <div className="flex gap-6 px-[140px] ">
         <TopMenuItem title="COUPON" pageRef="/coupon" />
         {session ? (
           <DropDownProfile isLoggedIn={true} Text="PROFILE" />
