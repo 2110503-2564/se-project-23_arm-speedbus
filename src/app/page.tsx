@@ -19,7 +19,7 @@ export default async function Home() {
     <main className="bg-white min-h-screen">
       <HeadSection />
 
-      <div className="py-20 white">
+      <div className="py-10 white">
         <Suspense
           fallback={
             <p>
