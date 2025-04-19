@@ -113,12 +113,14 @@ export default function CouponCard({
             ${spent}
           </span>
         </p>
-        <p>
-          Valid:{" "}
-          <span className="font-bold text-[15px] font-rockwellCondensed">
-            {valid > 1 ? valid + " days" : valid + " day"}
-          </span>
-        </p>
+        {hasCoupon === false && (
+          <p>
+            Valid:{" "}
+            <span className="font-bold text-[15px] font-rockwellCondensed">
+              {valid > 1 ? valid + " days" : valid + " day"}
+            </span>
+          </p>
+        )}
 
         <div className="text-center">
           <button
@@ -128,9 +130,37 @@ export default function CouponCard({
                 : "bg-white text-black hover:bg-gray-300 hover:scale-105"
             }`}
             disabled={hasCoupon === true}
-            onClick={() => {
+            onClick={async () => {
               if (hasCoupon === false) {
-                redeemCoupon(couponName, percentage, minDisc, minSp, valid);
+                const session = await getSession();
+                if (!session?.user?.token) {
+                  alert("You must be logged in to redeem a coupon.");
+                  return;
+                }
+                const token = session.user.token;
+
+                const existing = await getMyCoupon(token);
+                const alreadyHas = existing?.data?.some(
+                  (c: any) => c.name === couponName && c.status !== "used"
+                );
+                if (alreadyHas) {
+                  alert("You already redeemed this coupon.");
+                  setHasCoupon(true);
+                  return;
+                }
+
+                const response = await createCoupon(
+                  token,
+                  couponName,
+                  percentage,
+                  minDisc,
+                  minSp,
+                  new Date(Date.now() + valid * 24 * 60 * 60 * 1000)
+                );
+
+                console.log(response);
+                alert("Coupon redeemed successfully!");
+                setHasCoupon(true);
               }
             }}
           >
