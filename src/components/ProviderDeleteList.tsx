@@ -11,9 +11,9 @@ export default async function ProviderDeleteList({
   const providerJsonReady = await providerJson;
   return (
     <>
-      <div className="text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-center mb-8 text-[#333] text-[#FFF2F2] opacity-0 transition-opacity duration-1000 animate-fade-in">
+      <h2 className="text-4xl font-semibold mb-6 text-indigo-600 text-center font-robotoMono">
         We have up to {providerJsonReady.data.length} providers to be deleted.
-      </div>
+      </h2>
       <div className="flex flex-wrap justify-center gap-8 px-4">
         {providerJsonReady.data.map((providerItem: ProviderItem, index) => (
           <Link
@@ -29,7 +29,7 @@ export default async function ProviderDeleteList({
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-xl font-bold text-white">Delete</span>
+                <span className="text-xl font-bold text-white font-robotoMono">Delete</span>
               </div>
             </div>
           </Link>
