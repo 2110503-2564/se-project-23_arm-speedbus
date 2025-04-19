@@ -100,6 +100,14 @@ export default function RentPage() {
                         User: <span className="text-gray-700 font-extrabold font-robotoMono text-xl">{rentItem.user_info?.name}</span>
                       </div>
                       {
+                        rentItem.discount > 0 ? (
+                          <div className="text-md text-green-500 font-robotoMono">
+                            Discount: <span className="text-green-500 font-extrabold font-robotoMono text-xl">{rentItem.discount}%</span>
+                          </div>
+                        )
+                        : null
+                      }
+                      {
                         rentItem.status == "Confirmed" ? (
                           <div className="text-md text-blue-600 font-robotoMono">
                             Status: <span className="text-blue-600 font-extrabold font-robotoMono text-xl">Confirmed</span>
