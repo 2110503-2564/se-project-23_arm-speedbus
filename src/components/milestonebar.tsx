@@ -156,7 +156,10 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
         <p className="text-center text-sm text-gray-600 mt-4">
           You've spent{" "}
           <span className="font-bold text-gray-700">
-            ${currentSpending.toFixed(2)}
+            $
+            {Number.isFinite(currentSpending)
+              ? currentSpending.toFixed(2)
+              : "0.00"}
           </span>
         </p>
       </div>
