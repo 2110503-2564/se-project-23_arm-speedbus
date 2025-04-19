@@ -1,7 +1,6 @@
 "use client";
 import deleteRent from "@/libs/deleteRent";
 import finishRent from "@/libs/finishRent";
-import redeemCoupon from "@/libs/redeemCoupon";
 import getRents from "@/libs/getRents";
 import dayjs from "dayjs";
 import { BookingItem, BookingJson } from "interfaces";
@@ -47,17 +46,6 @@ export default function RentPage() {
     } else {
       setEditError(res.message);
     }
-  };
-  const handleCoupon = async (rentId: string) => {
-    /*if (!session.user.token) return;
-    const res = await redeemCoupon(session.user.token, rentId);
-    if (res.success) {
-      alert("Deleted Booking Successfully");
-      setRefresh((prev) => prev + 1);
-    } else {
-      setEditError(res.message);
-    }*/
-   alert("Redeem coupon");
   };
   const handleFinish = async (rentId: string) => {
     if (!session.user.token) return;
@@ -194,12 +182,6 @@ export default function RentPage() {
                           Change Date
                         </button>
                       )}
-                      <button
-                        onClick={() => handleCoupon(rentItem._id)}
-                        className="m-2 px-4 py-2 bg-green-500 text-white rounded-md transition duration-300 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 font-robotoMono"
-                      >
-                        Redeem Coupon
-                      </button>
                       <button
                         onClick={() => handleDelete(rentItem._id)}
                         className="m-2 px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 font-robotoMono"
