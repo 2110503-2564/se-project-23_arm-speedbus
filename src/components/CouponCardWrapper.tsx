@@ -32,18 +32,18 @@ export default function CouponCardWrapper() {
         }
 
         setCouponList(coupons);
-        couponList?.data.map((c)=> {
-            console.log(c);
+        couponList?.data.map((c) => {
+          console.log(c);
         });
 
-        console.log(JSON.stringify(couponList))
+        console.log(JSON.stringify(couponList));
       } catch (error) {
         console.error("Error loading coupons:", error);
       }
     };
 
     fetchData();
-  }, [session,]);
+  }, [session]);
 
   return (
     <div className="flex flex-wrap justify-center">
