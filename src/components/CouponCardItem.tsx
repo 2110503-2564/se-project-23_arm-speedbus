@@ -35,6 +35,7 @@ export default function CouponCard({
   percentage,
   maxDisc,
   minSp,
+  spent,
   valid,
   redeemed,
 }: {
@@ -42,6 +43,7 @@ export default function CouponCard({
   percentage: number;
   maxDisc: number;
   minSp: number;
+  spent: number;
   valid: number;
   redeemed: boolean;
 }) {
@@ -90,6 +92,12 @@ export default function CouponCard({
               Min. spend:{" "}
               <span className="font-bold text-[15px] font-rockwellCondensed">
                 ${minSp}
+              </span>
+            </p>
+            <p>
+              Spent:{" "}
+              <span className="font-bold text-[15px] font-rockwellCondensed">
+                ${spent}
               </span>
             </p>
             <p>
@@ -152,6 +160,12 @@ export default function CouponCard({
               Min. spend:{" "}
               <span className="font-bold text-[15px] font-rockwellCondensed">
                 ${minSp}
+              </span>
+            </p>
+            <p>
+              Spent:{" "}
+              <span className="font-bold text-[15px] font-rockwellCondensed">
+                ${spent}
               </span>
             </p>
             <p>
