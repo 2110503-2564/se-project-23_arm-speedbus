@@ -92,7 +92,7 @@ export default function DropDownProfile({
                 </h3>
               </div>
               <div className="text-right mt-auto">
-                <Link href="/api/auth/signout">
+                <Link href="/signout">
                   <button className="text-[15px] text-white hover:underline transition-all duration-300 ease-in-out">
                     LOGOUT
                   </button>

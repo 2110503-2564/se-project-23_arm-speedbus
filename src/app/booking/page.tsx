@@ -66,23 +66,14 @@ export default function RentPage() {
         </h1>
         {session.user.User_info.role === "admin" ? (
           <div className="mb-8 text-center">
-            <h2 className="text-med text-black font-robotoMono mt-3">
+            <h2 className="text-lg text-black font-robotoMono mt-3">
               Manage and modify rental bookings for all users.
             </h2>
           </div>
         ) : (
           <div className="mb-8 text-center">
-            <h1 className="text-3xl font-semibold text-gray-800 mb-2 font-robotoMono">
-              Your Rent Booking History
-            </h1>
-            <h2 className="text-lg text-white font-robotoMono">
-              Manage your rental bookings and modify dates.
-            </h2>
-            <h2 className="text-lg text-white font-robotoMono">
+            <h2 className="text-lg text-black font-robotoMono mt-3">
               A user can have up to 3 active bookings.
-            </h2>
-            <h2 className="text-sm text-white font-robotoMono">
-              (Finished bookings are not included.)
             </h2>
           </div>
         )}
@@ -155,8 +146,7 @@ export default function RentPage() {
                         <div className="mt-4 flex justify-start font-robotoMono">
                           <button
                             onClick={() => handleFinish(rentItem._id)}
-                            className="px-4 py-2 bg-blue-500 text-white rounded-md transition duration-300
-                            hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 font-robotoMono"
+                            className="text-green-600 border border-green-600 px-5 py-2 rounded-full text-sm hover:bg-green-600 hover:text-white transition text-center"
                           >
                             Mark as Finished
                           </button>
@@ -169,7 +159,7 @@ export default function RentPage() {
                       ) : null}
                     </div>
 
-                    <div className="mt-4 flex justify-end font-robotoMono">
+                    <div className="mt-4 flex justify-end items-center gap-2 font-robotoMono">
                       {rentItem.status === "Confirmed" && (
                         <button
                           onClick={() =>
@@ -177,17 +167,18 @@ export default function RentPage() {
                               `/booking/${rentItem.car_info._id}/${rentItem._id}`
                             )
                           }
-                          className="m-2 px-4 py-2 bg-purple-500 text-white rounded-md transition duration-300 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 font-robotoMono"
+                          className="text-blue-600 border border-blue-600 px-5 py-2 rounded-full text-sm hover:bg-blue-600 hover:text-white transition text-center"
                         >
                           Change Date
                         </button>
                       )}
-                      <button
+                     <button
                         onClick={() => handleDelete(rentItem._id)}
-                        className="m-2 px-4 py-2 bg-red-500 text-white rounded-md transition duration-300 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 font-robotoMono"
+                        className="text-red-600 border border-red-600 px-5 py-2 rounded-full text-sm hover:bg-red-600 hover:text-white transition text-center"
                       >
                         Delete
                       </button>
+
                     </div>
                     {editError && (
                       <div className="text-red-500 mt-2 font-robotoMono">{editError}</div>

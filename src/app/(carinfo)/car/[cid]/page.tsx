@@ -12,10 +12,12 @@ import DateReserve from "@/components/DateReserve";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import createRent from "@/libs/createRent";
-import redeemCoupon from "@/components/CouponCard"
+import redeemCoupon from "@/components/CouponCard";
 import { useRouter } from "next/navigation";
-import "./calendar.css"
+import "./calendar.css";
 import CouponCardWrapper from "@/components/CouponCardWrapper";
+
+import getMyCoupon from "@/libs/getMyCoupon";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
@@ -25,7 +27,11 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [rentedDates, setRentedDates] = useState<Date[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+
   const { data: session } = useSession();
+  const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState("");
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -41,8 +47,8 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
     const fetchRentsForCar = async () => {
       try {
-        if (!session?.user.token) return;
-        const rentJson = await getRentsForCar(session?.user.token, params.cid); // Fetch rents for the car
+        if (!session?.user?.token) return;
+        const rentJson = await getRentsForCar(session.user.token, params.cid);
         const unavailableDates = rentJson.data
           .map((rentItem: BookingItem) => {
             const startDate = new Date(rentItem.startDate);
@@ -52,7 +58,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
             while (currentDate <= endDate) {
               dates.push(new Date(currentDate));
-              currentDate.setDate(currentDate.getDate() + 1); // Increment day by day
+              currentDate.setDate(currentDate.getDate() + 1);
             }
 
             return dates;
@@ -67,7 +73,29 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
     fetchCar();
     fetchRentsForCar();
-  }, [params.cid]);
+  }, [params.cid, session?.user?.token]);
+
+  useEffect(() => {
+    const fetchCoupons = async () => {
+      if (!session?.user?.token) return;
+      const response = await getMyCoupon(session.user.token);
+      if (response.success && response.data) {
+        setCoupons(response.data);
+      }
+    };
+
+    fetchCoupons();
+  }, [session?.user?.token]);
+
+  useEffect(() => {
+    if (startDate && endDate && carItem) {
+      const days = endDate.diff(startDate, "day") + 1;
+      const price = days * carItem.pricePerDay;
+      setTotalPrice(price > 0 ? price : 0);
+    } else {
+      setTotalPrice(0);
+    }
+  }, [startDate, endDate, carItem]);
 
   const isDateUnavailable = (date: Date) => {
     return rentedDates.some(
@@ -126,7 +154,10 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         </div>
 
         {/* Calendar */}
-        <div className="flex items-center justify-center mt-12 mx-auto" style={{ height: "468px" }}>
+        <div
+          className="flex items-center justify-center mt-12 mx-auto"
+          style={{ height: "468px" }}
+        >
           <ReactCalendar
             className="text-black react-calendar"
             tileClassName={({ date }) =>
@@ -135,21 +166,27 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           />
         </div>
       </div>
-            
 
       <hr className="border-t border-black/40" />
-        
-      
+
       {/* Description and Form */}
       <div className="flex flex-row ml-20 gap-12 min-h-[320px]">
         {/* Description: ครึ่งซ้าย */}
         <div className="w-1/2 max-w-md h-full ">
-          <h2 className="text-[45px] font-bold tracking-wide mb-2 font-robotoMono">DESCRIPTION</h2>
-          <p className="text-sm leading-5 text-black/80 whitespace-pre-line font-robotoMono">
+          <h2 className="text-[45px]  tracking-wide mb-2 font-robotoMono">
+            DESCRIPTION
+          </h2>
+          <p className="text-sm leading-5 text-light text-black/80 whitespace-pre-line font-robotoMono">
             {carItem.description}
           </p>
           <p className="mt-4 text-md font-bold font-robotoMono">
-            Total: <span className="text-black text-xl font-robotoMono">${carItem.pricePerDay}</span>
+            Total:&nbsp;
+            <span className="text-black font-normal text-2xl">
+              ${totalPrice}
+            </span>
+            <span className="text-sm text-gray-600 font-normal ml-2">
+              (${carItem.pricePerDay}/day)
+            </span>
           </p>
         </div>
 
@@ -167,24 +204,28 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                 onDateChange={(value: Dayjs | null) => setEndDate(value)}
                 label="Check-Out Date"
               />
-              <select 
-              className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
-              > 
-              <option value="default">Select a coupon</option>
+              <select
+                value={selectedCoupon}
+                onChange={(e) => setSelectedCoupon(e.target.value)}
+                className="mt-3 border border-black text-white rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
+              >
+                <option value="">Select a coupon</option>
+                {coupons.map((coupon: any) => (
+                  <option key={coupon._id} value={coupon._id}>
+                    {coupon.name} - {coupon.percentage}%
+                  </option>
+                ))}
               </select>
 
-              <button className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
-                onClick={() => {
-                  alert("Redeem coupon successfully!");
-                }}
-              >
-                Redeem Coupon
-              </button>
               <button
                 onClick={() => {
                   handleCreateRent(
-                    dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),
-                    dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
+                    dayjs(startDate)
+                      .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
+                      .toString(),
+                    dayjs(endDate)
+                      .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
+                      .toString()
                   );
                 }}
                 className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
@@ -192,7 +233,9 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                 Book
               </button>
               {errorMessage && (
-                <p className="text-red-500 mt-2 text-sm text-center">{errorMessage}</p>
+                <p className="text-red-500 mt-2 text-sm text-center">
+                  {errorMessage}
+                </p>
               )}
             </div>
           ) : (
@@ -207,6 +250,5 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         </div>
       </div>
     </main>
-
   );
 }
