@@ -21,7 +21,7 @@ export default function ProviderPidUpdatePage({
   const [updateError, setUpdateError] = useState<string | null>(null);
   if(!session||session.user.User_info.role!=='admin'){
     return (
-        <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto font-robotoMono">
           You are not an administrator. Access denied.
         </div>
     )
@@ -90,11 +90,11 @@ export default function ProviderPidUpdatePage({
   };
 
   if (loading) {
-    return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>;
+    return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto font-robotoMono">Loading...</div>;
   }
 
   if (error) {
-    return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
+    return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto font-robotoMono">{error}</div>;
   }
 
   if (!providerItem) {
@@ -102,8 +102,8 @@ export default function ProviderPidUpdatePage({
   }
 
   return (
-    <main className="text-center p-8 min-h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">{providerItem.name}</h1>
+    <main className="text-center p-8 min-h-screen flex flex-col items-center mt-10">
+      <h1 className="text-2xl font-semibold text-gray-800 mb-4 font-robotoMono">{providerItem.name}</h1>
       <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
         <Image
           src={providerItem.picture}
@@ -112,14 +112,12 @@ export default function ProviderPidUpdatePage({
           height={300}
           className="rounded-lg w-full md:w-1/2 object-cover"
         />
-        <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
-          <div>
-          <div className="text-md mx-5">Address : {providerItem.address}</div>
-            <div className="text-md mx-5">Tel. : {providerItem.tel}</div>
-            <div className="text-md mx-5">Email : {providerItem.email}</div>
-            <div className="text-md mx-5">Open Time : {providerItem.openTime}</div>
-            <div className="text-md mx-5">Close Time : {providerItem.closeTime}</div>
-          </div>
+        <div className="md:ml-6 mt-4 md:mt-0 flex flex-col items-start w-full p-2">
+            <div className="text-lg text-white font-robotoMono">Address : {providerItem.address}</div>
+            <div className="text-lg text-white font-robotoMono">Tel. : {providerItem.tel}</div>
+            <div className="text-lg text-white font-robotoMono">Email : {providerItem.email}</div>
+            <div className="text-lg text-white font-robotoMono">Open Time : {providerItem.openTime}</div>
+            <div className="text-lg text-white font-robotoMono">Close Time : {providerItem.closeTime}</div>
         </div>
       </div>
 
@@ -128,9 +126,9 @@ export default function ProviderPidUpdatePage({
       <form onSubmit={handleUpdateProvider} className="space-y-4">
         <div className="bg-white rounded-lg p-3 flex flex-row">
           <div className="flex flex-col m-5">
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="name"
               >
                 Provider Name
@@ -142,12 +140,12 @@ export default function ProviderPidUpdatePage({
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter provider name"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200 border border-gray-300 border-2 bg-white font-robotoMono text-gray-700"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="address"
               >
                 Address
@@ -159,12 +157,12 @@ export default function ProviderPidUpdatePage({
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Enter Address"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200 border border-gray-300 border-2 bg-white font-robotoMono text-gray-700"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="tel"
               >
                 Tel.
@@ -176,12 +174,12 @@ export default function ProviderPidUpdatePage({
                 value={formData.tel}
                 onChange={handleChange}
                 placeholder="Enter provider's Telephone Number"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200 border border-gray-300 border-2 bg-white font-robotoMono text-gray-700"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="email"
               >
                 Provider Email
@@ -193,15 +191,15 @@ export default function ProviderPidUpdatePage({
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter Provider Email"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200 border border-gray-300 border-2 bg-white font-robotoMono text-gray-700"
               />
             </div>
           </div>
 
           <div className="flex flex-col m-5">
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="picture"
               >
                 Provider Picture
@@ -213,12 +211,12 @@ export default function ProviderPidUpdatePage({
                 value={formData.picture}
                 onChange={handleChange}
                 placeholder="Enter picture URL"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200 border border-gray-300 border-2 bg-white font-robotoMono text-gray-700"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="openTime"
               >
                 Provider Open Time
@@ -231,12 +229,12 @@ export default function ProviderPidUpdatePage({
                 onChange={handleChange}
                 placeholder="Enter Provider Open Time (must be in HH:MM:SS format)"
                 min={1}
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200 border border-gray-300 border-2 bg-white font-robotoMono text-gray-700"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-start">
               <label
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
                 htmlFor="closeTime"
               >
                 Provider Close Time
@@ -248,7 +246,7 @@ export default function ProviderPidUpdatePage({
                 value={formData.closeTime}
                 onChange={handleChange}
                 placeholder="Enter Provider Close Time (must be in HH:MM:SS format)"
-                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200"
+                className="mt-1 p-2 border rounded-md w-full focus:ring focus:ring-indigo-200 border border-gray-300 border-2 bg-white font-robotoMono text-gray-700"
               />
             </div>
           </div>

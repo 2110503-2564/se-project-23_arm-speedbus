@@ -115,3 +115,11 @@ export interface CouponJson {
   count: number;
   data: CouponItem[];
 }
+
+export interface CouponTemplateItem {
+  _id: string;
+  percentage: number;
+  name: string;
+  maxDiscount: number;
+  minSpend: number;
+}

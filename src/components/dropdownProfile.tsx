@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function DropDownProfile({
   isLoggedIn,
@@ -12,6 +13,7 @@ export default function DropDownProfile({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -91,6 +93,25 @@ export default function DropDownProfile({
                   REDEEM COUPON
                 </h3>
               </div>
+              {
+                session?.user.User_info.role === "admin"?(
+                  <div className="pt-10">
+                      <h2 className="text-[25px] text-right group hover:underline transition-all duration-300 ease-in-out">
+                        MANAGE
+                      </h2>
+                    <div className="text-[15px] text-right flex flex-col">
+                      <Link className="pt-5 group hover:underline transition-all duration-300 ease-in-out" href="/manage/car">
+                      MANAGE CARS
+                      </Link >
+                      <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/manage/provider" >
+                      MANAGE PROVIDER
+                      </Link>
+                      <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/booking" >
+                      MANAGE BOOKING
+                      </Link>
+                    </div>
+                  </div>
+                ): null}
               <div className="text-right mt-auto">
                 <Link href="/signout">
                   <button className="text-[15px] text-white hover:underline transition-all duration-300 ease-in-out">

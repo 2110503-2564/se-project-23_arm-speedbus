@@ -67,8 +67,8 @@ export default function ProviderPidDeletePage({
     return <div>No provider details found.</div>;
   }
   return (
-      <main className="text-left p-8 min-h-screen flex flex-col items-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">Provider {providerItem.name}</h1>
+      <main className="text-left p-8 min-h-screen flex flex-col items-center mt-10">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 font-robotoMono">Provider {providerItem.name}</h1>
         <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-4xl">
           <Image
             src={providerItem.picture}
@@ -79,15 +79,15 @@ export default function ProviderPidDeletePage({
           />
           <div className="p-6 flex flex-col justify-between w-full">
             <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">{providerItem.name}</h1>
-            <div className="text-sm text-gray-600">Address : {providerItem.address}</div>
-            <div className="text-sm text-gray-600">Tel. : {providerItem.tel}</div>
-            <div className="text-sm text-gray-600">Email : {providerItem.email}</div>
-            <div className="text-sm text-gray-600">Open Time : {providerItem.openTime}</div>
-            <div className="text-sm text-gray-600">Close Time : {providerItem.closeTime}</div>
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 font-robotoMono">{providerItem.name}</h1>
+            <div className="text-lg text-gray-600 font-robotoMono">Address : {providerItem.address}</div>
+            <div className="text-lg text-gray-600 font-robotoMono">Tel. : {providerItem.tel}</div>
+            <div className="text-lg text-gray-600 font-robotoMono">Email : {providerItem.email}</div>
+            <div className="text-lg text-gray-600 font-robotoMono">Open Time : {providerItem.openTime}</div>
+            <div className="text-lg text-gray-600 font-robotoMono">Close Time : {providerItem.closeTime}</div>
             </div>
             {deleteError && (
-              <div className="mt-4 text-sm text-red-600 bg-red-100 p-2 rounded">
+              <div className="mt-4 text-md text-red-600 bg-red-100 p-2 rounded">
                 {deleteError}
               </div>
             )}
