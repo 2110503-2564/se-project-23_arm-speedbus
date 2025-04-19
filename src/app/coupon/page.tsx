@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 
 export default function Page() {
   const [couponList, setCouponList] = useState([]);
-  const { data : session } = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchCouponData = async () => {
@@ -31,5 +31,10 @@ export default function Page() {
     fetchCouponData();
   }, []);
 
-  return <SpendingMilestoneBar currentSpending={session?.user.User_info.totalPaymentThisYear as number} coupon={couponList} />;
+  return (
+    <SpendingMilestoneBar
+      currentSpending={session?.user.User_info.totalPaymentThisYear as number}
+      coupon={couponList}
+    />
+  );
 }
