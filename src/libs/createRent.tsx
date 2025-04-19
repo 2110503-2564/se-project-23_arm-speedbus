@@ -3,7 +3,8 @@ export default async function createBooking(
   car_id: string,
   user_id: string,
   startDate: string,
-  endDate: string
+  endDate: string,
+  discount: number
 ) {
   const response = await fetch(
     `${process.env.BACKEND_URL}/api/v1/cars/${car_id}/rents`,
@@ -19,6 +20,7 @@ export default async function createBooking(
         user_info: user_id,
         startDate: startDate,
         endDate: endDate,
+        discount: discount,
         status: "Confirmed",
       }),
     }
