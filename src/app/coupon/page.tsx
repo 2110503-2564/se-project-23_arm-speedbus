@@ -8,8 +8,7 @@ import { useSession } from "next-auth/react";
 
 export default function Page() {
   const [couponList, setCouponList] = useState([]);
-  const { data : session } = useSession();
-  const [totalPaymentThisYear, setTotalPaymentThisYear] = useState<number>();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchCouponData = async () => {
@@ -17,7 +16,6 @@ export default function Page() {
         // ดึงข้อมูลคูปองจาก API โดยไม่ใช้ token
         const coupons = await getCouponTemplates(); // No token required
         console.log(JSON.stringify(session?.user.User_info, null, 2));
-        setTotalPaymentThisYear(session?.user.User_info.totalPaymentThisYear as number);
         // ตรวจสอบว่าได้รับข้อมูลคูปองจาก API
         if (coupons?.data) {
           setCouponList(coupons.data); // เก็บข้อมูลที่ได้จาก API
@@ -31,6 +29,6 @@ export default function Page() {
 
     fetchCouponData();
   }, []);
-
-  return <SpendingMilestoneBar currentSpending={totalPaymentThisYear as number} coupon={couponList} />;
+  console.log("couponList", couponList);
+  return <SpendingMilestoneBar coupon={couponList} />;
 }
