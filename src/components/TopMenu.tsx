@@ -11,15 +11,15 @@ export default async function TopMenu() {
 
   return (
     <div className="h-[104px] bg-white fixed top-0 left-0 right-0 z-30 flex items-center justify-between ">
-      <div className="flex gap-6 px-[80px]">
-        <img className="flex" src="img/logo.jpg"></img>
+      <div className="flex gap-6 ml-[2vw]">
+        <img className="flex h-[100px] left-0" src="img/logo.jpg"></img>
         <TopMenuItem title="PROVIDER" pageRef="/provider" />
         <TopMenuItem title="SELECT CAR" pageRef="/car" />
       </div>
 
       <div className="absolute left-1/2 transform -translate-x-1/2">
         <Link href={"/"}>
-          <div className="text-[32px] text-black font-medium">
+          <div className="text-[32px] text-black font-medium hover:text-gray-700">
             ARM SPEED BUS
           </div>
         </Link>
