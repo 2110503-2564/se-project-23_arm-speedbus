@@ -38,7 +38,7 @@ export default function Page() {
             percentage={c.percentage}
             maxDisc={c.maxDiscount}
             minSp={c.minSpend}
-            spent={1} // This is Mock
+            spent={c.spent}
             valid={1} // This is Mock
             redeemed={false} // This is Mock
           />
