@@ -6,7 +6,7 @@ export default async function manageCarsPage() {
   return (
     <>
       {session?.user.User_info.role === "admin" ? (
-        <div className="bg-slate-100 p-6 rounded-lg shadow-md max-w-md mx-auto mt-10">
+        <div className="bg-white p-6 rounded-lg max-w-md mx-auto my-10">
           <h2 className="text-2xl font-semibold mb-6 text-indigo-800 text-center">
             Manage Cars
           </h2>
