@@ -108,14 +108,15 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
     const selected = coupons.find((c) => c._id === selectedCoupon);
     if (selected) {
-      const rawDiscount = (totalPrice * selected.percentage) / 100;
-      const discount = Math.min(rawDiscount, selected.maxDiscount);
-      console.log(selected.maxDiscount);
-      console.log(selected.percentage);
-      setDiscountedPrice(Math.round(totalPrice - discount));
+      if (totalPrice < selected.minSpend) {
+        setDiscountedPrice(null);
+      } else {
+        const rawDiscount = (totalPrice * selected.percentage) / 100;
+        const discount = Math.min(rawDiscount, selected.maxDiscount);
+        setDiscountedPrice(Math.round(totalPrice - discount));
+      }
     }
   }, [selectedCoupon, totalPrice, coupons]);
-
   const isDateUnavailable = (date: Date) => {
     return rentedDates.some(
       (rentedDate) => rentedDate.toDateString() === date.toDateString()
@@ -239,6 +240,11 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                   (${carItem.pricePerDay}/day)
                 </span>
               </>
+            )}
+            {discountedPrice === null && selectedCoupon && (
+              <p className="text-red-500 text-sm mt-1">
+                Coupon not applicable: your total is below minimum spend.
+              </p>
             )}
           </p>
         </div>
