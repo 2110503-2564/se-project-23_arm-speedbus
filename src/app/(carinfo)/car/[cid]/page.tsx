@@ -15,7 +15,7 @@ import createRent from "@/libs/createRent";
 import redeemCoupon from "@/components/CouponCard";
 import { useRouter } from "next/navigation";
 import "./calendar.css";
-import CouponCardWrapper from "@/components/CouponCardWrapper";
+
 import { CouponItem } from "interfaces";
 import updateCoupon from "@/libs/updateCoupon";
 
@@ -134,7 +134,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       session.user.User_info._id,
       startDate,
       endDate,
-      selectedCoupon ? coupons.find((c) => c._id === selectedCoupon)?.percentage ?? 0 : 0
+      selectedCoupon
+        ? coupons.find((c) => c._id === selectedCoupon)?.percentage ?? 0
+        : 0,
+      selectedCoupon
+        ? coupons.find((c) => c._id === selectedCoupon)?.maxDiscount ?? 0
+        : 0
     );
 
     if (res.success) {

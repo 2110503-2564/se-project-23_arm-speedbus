@@ -2,6 +2,10 @@
 
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import CouponCard from "./CouponCard";
+import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+
+const CARD_WIDTH = 270;
 
 type Coupon = {
   percentage: number;
@@ -13,17 +17,35 @@ type Coupon = {
 };
 
 type Props = {
-  currentSpending: number;
   coupon: Coupon[];
 };
 
-const CARD_WIDTH = 270;
-
-const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
+const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
+  const [currentSpending, setCurrentSpending] = useState<number>(0);
   const milestones = coupon.map((c) => c.spent);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const { data: session } = useSession();
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!session?.user?.token) return;
+
+      const res = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${session.user.token}`,
+        },
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setCurrentSpending(data.data.totalPayment);
+      }
+    };
+
+    fetchUser();
+  }, [session?.user?.token]);
 
   const checkScroll = () => {
     if (!scrollRef.current) return;
@@ -66,14 +88,6 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
     return Math.min(progress, milestones.length * CARD_WIDTH);
   }, [currentSpending, milestones]);
 
-  console.log("currentSpending", currentSpending);
-  console.log("milestones", milestones);
-  coupon.forEach((c) => {
-    console.log(
-      `${c.name}: spent=${c.spent}, reached=${currentSpending >= c.spent}`
-    );
-  });
-
   return (
     <div className="w-full py-10 bg-white overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4">
@@ -103,15 +117,11 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
             {coupon.map((item, index) => {
               const reached = currentSpending >= item.spent;
 
-              const position = (index / (coupon.length - 1)) * 100; // คำนวณตำแหน่งของแต่ละ milestone
-
               return (
                 <div
                   key={index}
                   className="flex-shrink-0 relative z-10"
-                  style={{
-                    width: CARD_WIDTH,
-                  }}
+                  style={{ width: CARD_WIDTH }}
                 >
                   <div className="flex justify-center">
                     <div
@@ -137,7 +147,7 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
                   ) : (
                     <div
                       style={{ width: CARD_WIDTH }}
-                      className=" rounded-xl border-dashed border-2 border-gray-300 bg-white shadow px-4 py-6 text-center mt-6 h-[260px] flex flex-col justify-center"
+                      className="rounded-xl border-dashed border-2 border-gray-300 bg-white shadow px-4 py-6 text-center mt-6 h-[260px] flex flex-col justify-center"
                     >
                       <div className="text-xl font-bold text-gray-400 mb-2">
                         {item.percentage}%
@@ -156,7 +166,10 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
         <p className="text-center text-sm text-gray-600 mt-4">
           You've spent{" "}
           <span className="font-bold text-gray-700">
-            ${currentSpending.toFixed(2)}
+            $
+            {Number.isFinite(currentSpending)
+              ? currentSpending.toFixed(2)
+              : "0.00"}
           </span>
         </p>
       </div>
