@@ -108,6 +108,7 @@ export interface CouponItem {
   spent: number,
   valid: number,
   expirationDate: Date,
+  redeemed: boolean,
   status: string,
   __v: number
 }

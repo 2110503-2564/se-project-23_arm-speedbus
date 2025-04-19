@@ -46,6 +46,7 @@ export default function Page() {
       {/* <CouponCardWrapper/> */}
       {couponData.map((c, i) => (
         <CouponCardItem
+          key={c.name}
           couponName={c.name}
           percentage={c.percentage}
           maxDisc={c.maxDisc}
