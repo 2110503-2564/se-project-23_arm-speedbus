@@ -75,8 +75,7 @@ export default function CarCidDeletePage({
     return <div>No car details found.</div>;
   }
   return (
-    <main className="text-left p-8 min-h-screen flex flex-col items-center">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">{carItem.name}</h1>
+    <main className="text-left p-8 min-h-screen flex flex-col items-center mt-[80px]">
       <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-4xl">
         <Image
           src={carItem.picture}
@@ -87,33 +86,33 @@ export default function CarCidDeletePage({
         />
         <div className="p-6 flex flex-col justify-between w-full">
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">
+            <h1 className="text-3xl font-bold text-gray-800 mb-6 font-robotoMono">
               {carItem.name}
             </h1>
-            <div className="text-lg font-semibold text-gray-700">
+            <div className="text-lg font-semibold text-gray-700 font-robotoMono">
               {carItem.description}
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 font-robotoMono">
               VIN: {carItem.vin_plate}
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 font-robotoMono">
               Provider: {carItem.provider_info.name}
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 font-robotoMono">
               Capacity: {carItem.capacity} seats
             </div>
-            <div className="text-lg font-semibold text-gray-800">
+            <div className="text-lg font-semibold text-gray-800 font-robotoMono">
               Daily Rental Rate: ${carItem.pricePerDay}
             </div>
           </div>
           {deleteError && (
-            <div className="mt-4 text-sm text-red-600 bg-red-100 p-2 rounded">
+            <div className="mt-4 text-sm text-red-600 bg-red-100 p-2 rounded font-robotoMono">
               {deleteError}
             </div>
           )}
           <button
             onClick={handleDeleteCar}
-            className="mt-6 px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300"
+            className="text-red-600 border border-red-600 px-5 py-2 rounded-full text-sm hover:bg-red-600 hover:text-white transition text-center font-robotoMono"
           >
             Delete Car
           </button>

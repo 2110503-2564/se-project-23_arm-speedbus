@@ -14,7 +14,7 @@ export default async function DeleteCarPage(){
             {
                 session?.user.User_info.role==='admin'? 
                 <div>
-                    <h1 className="text-xl font-medium">Select the Car You Want to Delete</h1>
+                    <h1 className="text-xl text-black font-medium font-robotoMono">Select the Car You Want to Delete</h1>
                     <Suspense fallback={<p>Loading ... <LinearProgress/></p>}>
                         <CarDeleteList carJson={cars}/>
                     </Suspense>
