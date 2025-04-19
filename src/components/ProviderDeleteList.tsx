@@ -2,6 +2,7 @@
 import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { ProviderItem, ProviderJson } from "interfaces";
+import ProviderCard from "./ProviderCard";
 
 export default async function ProviderDeleteList({
   providerJson,
@@ -11,7 +12,7 @@ export default async function ProviderDeleteList({
   const providerJsonReady = await providerJson;
   return (
     <>
-      <h2 className="text-4xl font-semibold mb-6 text-indigo-600 text-center font-robotoMono">
+      <h2 className="text-2xl font-medium mb-6 text-black text-center font-robotoMono">
         We have up to {providerJsonReady.data.length} providers to be deleted.
       </h2>
       <div className="flex flex-wrap justify-center gap-8 px-4">
@@ -23,9 +24,11 @@ export default async function ProviderDeleteList({
             style={{ animationDelay: `${index * 0.15}s` }}
           >
             <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
-              <ProductCard
-                Name={providerItem.name}
+              <ProviderCard
+                providerName={providerItem.name}
                 imgSrc={providerItem.picture}
+                email={providerItem.email}
+                phoneNum={providerItem.tel}
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">

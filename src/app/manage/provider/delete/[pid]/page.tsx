@@ -68,7 +68,6 @@ export default function ProviderPidDeletePage({
   }
   return (
       <main className="text-left p-8 min-h-screen flex flex-col items-center mt-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6 font-robotoMono">Provider {providerItem.name}</h1>
         <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden w-full max-w-4xl">
           <Image
             src={providerItem.picture}
@@ -93,7 +92,7 @@ export default function ProviderPidDeletePage({
             )}
             <button
               onClick={handleDeleteProvider}
-              className="mt-6 px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition duration-300"
+              className="text-red-600 border border-red-600 px-5 py-2 rounded-full text-sm hover:bg-red-600 hover:text-white transition text-center font-robotoMono"
             >
               Delete Provider
             </button>

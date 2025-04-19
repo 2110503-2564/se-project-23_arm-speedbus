@@ -103,25 +103,24 @@ export default function ProviderPidUpdatePage({
 
   return (
     <main className="text-center p-8 min-h-screen flex flex-col items-center mt-10">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4 font-robotoMono">{providerItem.name}</h1>
-      <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
+      <div className="flex flex-col md:flex-row p-6 w-full max-w-3xl border border-black pl-[100px]">
         <Image
           src={providerItem.picture}
           alt="Provider Image"
           width={500}
           height={300}
-          className="rounded-lg w-full md:w-1/2 object-cover"
+          className="w-full md:w-1/2 object-cover"
         />
-        <div className="md:ml-6 mt-4 md:mt-0 flex flex-col items-start w-full p-2">
-            <div className="text-lg text-white font-robotoMono">Address : {providerItem.address}</div>
-            <div className="text-lg text-white font-robotoMono">Tel. : {providerItem.tel}</div>
-            <div className="text-lg text-white font-robotoMono">Email : {providerItem.email}</div>
-            <div className="text-lg text-white font-robotoMono">Open Time : {providerItem.openTime}</div>
-            <div className="text-lg text-white font-robotoMono">Close Time : {providerItem.closeTime}</div>
+        <div className="mt-4 md:mt-0 flex flex-col items-start w-full p-2 justify-center ml-[100px] border-l border-black pl-[70px] font-robotoMono">
+            <div className="text-lg text-black font-robotoMono">Address : {providerItem.address}</div>
+            <div className="text-lg text-black font-robotoMono">Tel. : {providerItem.tel}</div>
+            <div className="text-lg text-black font-robotoMono">Email : {providerItem.email}</div>
+            <div className="text-lg text-black font-robotoMono">Open Time : {providerItem.openTime}</div>
+            <div className="text-lg text-black font-robotoMono">Close Time : {providerItem.closeTime}</div>
         </div>
       </div>
 
-      <div className="m-4 text-2xl font-bold text-white">Update Data</div>
+      <div className="m-4 text-2xl font-bold text-black">Update Data</div>
 
       <form onSubmit={handleUpdateProvider} className="space-y-4">
         <div className="bg-white rounded-lg p-3 flex flex-row">
@@ -253,7 +252,7 @@ export default function ProviderPidUpdatePage({
         </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
+              className="text-blue-600 border border-blue-600 px-5 py-2 rounded-full text-sm hover:bg-blue-600 hover:text-white transition text-center font-robotoMono"
             >
               Update Provider
             </button>

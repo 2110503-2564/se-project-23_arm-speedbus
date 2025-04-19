@@ -115,33 +115,30 @@ export default function CarCidUpdatePage({
   }
 
   return (
-    <main className="text-center p-8 min-h-screen flex flex-col items-center">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-4">
-        {carItem.name}
-      </h1>
-      <div className="flex flex-col md:flex-row bg-[#A9B5DF] shadow-lg rounded-lg p-6 w-full max-w-3xl">
+    <main className="text-center p-8 min-h-screen flex flex-col items-center mt-10">
+      <div className="flex flex-col md:flex-row p-6 w-full max-w-3xl border border-black pl-[100px]">
         <Image
           src={carItem.picture}
           alt="Car Image"
           width={500}
           height={300}
-          className="rounded-lg w-full md:w-1/2 object-cover"
+          className="w-full md:w-1/2 object-cover"
         />
-        <div className="md:ml-6 mt-4 md:mt-0 flex flex-col justify-between w-full">
+        <div className="mt-4 md:mt-0 flex flex-col items-start w-full p-2 justify-center ml-[100px] border-l border-black pl-[70px]">
           <div>
             <div className="text-lg font-medium text-gray-700 text-left">
               {carItem.description}
             </div>
-            <div className="text-md text-gray-600 text-left">
+            <div className="text-lg text-black font-robotoMono">
               VIN: {carItem.vin_plate}
             </div>
-            <div className="text-md text-gray-600 text-left">
+            <div className="text-lg text-black font-robotoMono">
               Provider: {carItem.provider_info.name}
             </div>
-            <div className="text-md text-gray-600 text-left">
+            <div className="text-lg text-black font-robotoMono">
               Capacity: {carItem.capacity} seats
             </div>
-            <div className="text-md text-gray-600 text-left font-semibold">
+            <div className="text-lg text-black font-robotoMono font-semibold">
               Daily Rental Rate: ${carItem.pricePerDay}
             </div>
           </div>
@@ -281,7 +278,7 @@ export default function CarCidUpdatePage({
         </div>
         <button
           type="submit"
-          className="mt-7 w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md transition-colors duration-300"
+          className="text-blue-600 border border-blue-600 px-5 py-2 rounded-full text-sm hover:bg-blue-600 hover:text-white transition text-center font-robotoMono"
         >
           Update Car
         </button>
