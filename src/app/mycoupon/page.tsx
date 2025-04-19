@@ -22,22 +22,37 @@ export default function Page() {
     };
 
     fetchCoupons();
-  }, [session]); // Run this effect when session changes
+  }, [session,]); // Run this effect when session changes
+
+  console.log(JSON.stringify(myCoupon));
 
   return (
-    <div className="flex flex-wrap justify-center items-center mt-10">
-      {myCoupon?.data.map((couponItem) => (
-        <div key={couponItem._id} >
-          <CouponCardItem
-            couponName={couponItem.name}
-            minDisc={couponItem.minDisc}
-            minSp={couponItem.minSp}
-            percentage={couponItem.percentage}
-            spent={couponItem.spent}
-            valid={couponItem.valid}
-          />
-        </div>
-      ))}
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="border p-6 rounded-md shadow-md font-mono max-w-3xl w-full bg-white">
+        {myCoupon?.data.map((coupon) => (
+          <div key={coupon._id} className="mb-6 border-b pb-4">
+            <div className="flex justify-between text-lg text-black">
+              <div>
+                <p><strong>Coupon ID:</strong> {coupon._id}</p>
+                <p><strong>Name:</strong> {coupon.name}</p>
+                <p><strong>Status:</strong> <span className="text-green-600">{coupon.status}</span></p>
+                <p><strong>Redeemed:</strong> {coupon.redeemed ? "Yes" : "No"}</p>
+              </div>
+              <div>
+                <p><strong>Requirement:</strong> {coupon.requirement}</p>
+                <p><strong>Minimum Spend:</strong> ${coupon.minSp}</p>
+                <p><strong>Max Discount:</strong> ${coupon.maxDisc}</p>
+                <p><strong>Discount %:</strong> {coupon.percentage}%</p>
+                <p><strong>Valid For:</strong> {coupon.valid} days</p>
+                <p><strong>Expiration Date:</strong> {new Date(coupon.expirationDate).toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
+  
+  
+  
 }
