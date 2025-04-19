@@ -7,7 +7,7 @@ export default async function updateCoupon(
   status: string
 ) {
   const response = await fetch(
-    `${process.env.BACKEND_URL}/api/v1/rewards/${id}`,
+    `${process.env.BACKEND_URL}/api/v1/coupons/${id}`,
     {
       cache: "no-store",
       method: "PUT",

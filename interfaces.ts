@@ -38,6 +38,7 @@ export interface UserItem {
   email: string;
   tel: string;
   role: string;
+  totalPayment: number;
   createdAt: string;
   __v: number;
   id: string;
@@ -102,7 +103,7 @@ export interface CouponItem {
   name: string, 
   percentage: number,
   requirement: string,
-  minDisc: number,
+  maxDisc: number,
   minSp: number,
   spent: number,
   valid: number,

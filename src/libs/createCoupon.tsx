@@ -6,7 +6,7 @@ export default async function createCoupon(
   minSp: number,
   expirationDate: Date
 ) {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/rewards`, {
+  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/coupons`, {
     cache: "no-store",
     method: "POST",
     headers: {
