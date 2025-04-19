@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-// import CouponCardItem from "@/components/CouponCardItem"; // adjust the path if necessary
 import getCouponTemplates from "@/libs/getCouponTemplates"; // make sure the path is correct
+import { CouponTemplateItem } from "interfaces";
 import SpendingMilestoneBar from "@/components/milestonebar";
 import { useSession } from "next-auth/react";
 
 export default function Page() {
   const [couponList, setCouponList] = useState([]);
-  const { data : session } = useSession();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchCouponData = async () => {
@@ -29,6 +29,6 @@ export default function Page() {
 
     fetchCouponData();
   }, []);
-
-  return <SpendingMilestoneBar currentSpending={session?.user.User_info.totalPaymentThisYear as number} coupon={couponList} />;
+  console.log("couponList", couponList);
+  return <SpendingMilestoneBar coupon={couponList} />;
 }
