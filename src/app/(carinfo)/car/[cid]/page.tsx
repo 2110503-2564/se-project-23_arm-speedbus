@@ -12,7 +12,10 @@ import DateReserve from "@/components/DateReserve";
 import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import createRent from "@/libs/createRent";
+import redeemCoupon from "@/components/CouponCard"
 import { useRouter } from "next/navigation";
+import "./calendar.css"
+import CouponCardWrapper from "@/components/CouponCardWrapper";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
@@ -103,100 +106,107 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     );
 
   return (
-    <main className="min-h-screen p-6 flex flex-row items-start gap-6">
-      <div className="max-w-3xl w-full bg-white shadow-md rounded-xl overflow-hidden">
-        <Image
-          src={carItem.picture}
-          alt="Car"
-          width={600}
-          height={400}
-          className="w-full object-cover rounded-t-xl"
-        />
-        <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            {carItem.name}
-          </h1>
-          <p className="text-gray-600 mb-1">
-            Description: {carItem.description}
-          </p>
-          <p className="text-gray-600 mb-1">Seats: {carItem.capacity}</p>
-          <p className="text-gray-600 mb-1">
-            Provider: {carItem.provider_info.name}
-          </p>
-          <p className="text-gray-600 mb-1">Car ID: {carItem._id}</p>
-          <p className="text-xl font-semibold text-blue-600 mt-3">
-            ${carItem.pricePerDay}/day
-          </p>
+    /* layout ใหม่ตามภาพ UI */
+
+    <main className="min-h-screen px-[5vw] py-10 font-robotoMono text-black flex flex-col gap-12 mt-10">
+      {/* Section: Title and Main Content */}
+      <div className="flex flex-row items-center gap-20">
+        {/* รูป + ชื่อรถ */}
+        <div className="flex flex-col items-start ml-20">
+          <h1 className="text-[45px] tracking-wider mb-4">{carItem.name}</h1>
+          <div className="w-[457px] h-[468px] bg-gray-200 overflow-hidden">
+            <Image
+              src={carItem.picture}
+              alt="Car"
+              width={457}
+              height={468}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        </div>
+
+        {/* Calendar */}
+        <div className="flex items-center justify-center mt-12 mx-auto" style={{ height: "468px" }}>
+          <ReactCalendar
+            className="text-black react-calendar"
+            tileClassName={({ date }) =>
+              isDateUnavailable(date) ? "red-underline" : ""
+            }
+          />
         </div>
       </div>
-      {session ? (
-        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
-          <h2 className="text-4xl font-bold my-4 text-[#2d336b] text-center">
-            Choose Rental Dates
-          </h2>
-          <h2 className="text-sm font-semibold mb-4 text-gray-800 text-center">
-            Check The Calendar For This Car's Available Date. (Underlined Date
-            Means Occupied)
-          </h2>
-          <div className="flex justify-center">
-            {" "}
-            <ReactCalendar
-              className={`text-black`}
-              tileClassName={({ date }) => {
-                return isDateUnavailable(date) ? "red-border " : "";
-              }}
-              tileContent={({ date }) => {
-                if (isDateUnavailable(date)) {
-                  return <div style={{ border: "2px solid red" }}></div>;
-                }
-              }}
-            />
-          </div>
+            
 
-          <div className="flex flex-col items-center">
-            <div className="text-md text-gray-800 m-3">
-              Enter Renting Start Date
+      <hr className="border-t border-black/40" />
+        
+      
+      {/* Description and Form */}
+      <div className="flex flex-row ml-20 gap-12 min-h-[320px]">
+        {/* Description: ครึ่งซ้าย */}
+        <div className="w-1/2 max-w-md h-full ">
+          <h2 className="text-[45px] font-bold tracking-wide mb-2 font-robotoMono">DESCRIPTION</h2>
+          <p className="text-sm leading-5 text-black/80 whitespace-pre-line font-robotoMono">
+            {carItem.description}
+          </p>
+          <p className="mt-4 text-md font-bold font-robotoMono">
+            Total: <span className="text-black text-xl font-robotoMono">${carItem.pricePerDay}</span>
+          </p>
+        </div>
+
+        {/* Form: ครึ่งขวา */}
+        <div className="w-1/2 flex items-center justify-center h-full mx-auto">
+          {session ? (
+            <div className="flex flex-col items-center w-full max-w-sm font-robotoMono">
+              <DateReserve
+                value={startDate}
+                onDateChange={(value: Dayjs | null) => setStartDate(value)}
+                label="Check-In Date"
+              />
+              <DateReserve
+                value={endDate}
+                onDateChange={(value: Dayjs | null) => setEndDate(value)}
+                label="Check-Out Date"
+              />
+              <select 
+              className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
+              > 
+              <option value="default">Select a coupon</option>
+              </select>
+
+              <button className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
+                onClick={() => {
+                  alert("Redeem coupon successfully!");
+                }}
+              >
+                Redeem Coupon
+              </button>
+              <button
+                onClick={() => {
+                  handleCreateRent(
+                    dayjs(startDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString(),
+                    dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
+                  );
+                }}
+                className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
+              >
+                Book
+              </button>
+              {errorMessage && (
+                <p className="text-red-500 mt-2 text-sm text-center">{errorMessage}</p>
+              )}
             </div>
-            <DateReserve
-              onDateChange={(value: Dayjs) => {
-                setStartDate(value);
-              }}
-            />
-            <div className="text-md text-gray-800 m-3">
-              Enter Renting End Date
+          ) : (
+            <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl font-robotoMono">
+              <Link href="/api/auth/signin">
+                <h2 className="text-xl my-4 text-[#2d336b] text-center hover:text-[#7886c7] transition font-robotoMono">
+                  Sign in to book your rent
+                </h2>
+              </Link>
             </div>
-            <DateReserve
-              onDateChange={(value: Dayjs) => {
-                setEndDate(value);
-              }}
-            />
-          </div>
-          <button
-            onClick={() => {
-              handleCreateRent(
-                dayjs(startDate)
-                  .format("YYYY-MM-DDTHH:mm:ss[+00:00]")
-                  .toString(),
-                dayjs(endDate).format("YYYY-MM-DDTHH:mm:ss[+00:00]").toString()
-              );
-            }}
-            className="mt-6 w-full bg-indigo-600 text-white py-3 rounded-md font-semibold hover:bg-indigo-700 transition"
-          >
-            Reserve Now
-          </button>
-          {errorMessage && (
-            <p className="text-red-500 mt-2 text-sm">{errorMessage}</p>
           )}
         </div>
-      ) : (
-        <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl">
-          <Link href="/api/auth/signin">
-            <h2 className="text-xl my-4 text-[#2d336b] text-center hover:text-[#7886c7] transition">
-              Sign in to book your rent
-            </h2>
-          </Link>
-        </div>
-      )}
+      </div>
     </main>
+
   );
 }
