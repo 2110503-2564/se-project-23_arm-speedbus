@@ -120,14 +120,16 @@ const SpendingMilestoneBar: React.FC<Props> = ({ currentSpending, coupon }) => {
                   </div>
 
                   {reached ? (
-                    <CouponCard
-                      couponName={item.name}
-                      percentage={item.percentage}
-                      minDisc={item.maxDiscount}
-                      minSp={item.minSpend}
-                      spent={item.spent}
-                      valid={item.valid}
-                    />
+                    <div className="flex justify-center mt-6">
+                      <CouponCard
+                        couponName={item.name}
+                        percentage={item.percentage}
+                        minDisc={item.maxDiscount}
+                        minSp={item.minSpend}
+                        spent={item.spent}
+                        valid={item.valid}
+                      />
+                    </div>
                   ) : (
                     <div
                       style={{ width: CARD_WIDTH }}

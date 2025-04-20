@@ -72,8 +72,7 @@ export default function CouponCard({
     <div
       className={`w-[230px] h-[333px] rounded-[24px] ${
         hasCoupon === true ? "bg-gray-400" : "bg-black"
-      } text-white overflow-hidden 
-  relative m-10 hover:scale-105 transition-transform duration-300`}
+      } text-white overflow-hidden relative hover:scale-105 transition-transform duration-300`}
     >
       {/* ครึ่งวงกลมด้านบน */}
       <div className="w-full h-[125px] relative rounded-b-full flex items-center justify-center">
