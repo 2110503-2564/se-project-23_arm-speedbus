@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Footer() {
@@ -29,7 +30,7 @@ export default function Footer() {
           </p>
           <div>
             <p className="font-semibold underline">Social</p>
-            <p>Instagram</p>
+            <Link href="https://www.instagram.com/rtxp.pp/">Instagram</Link>
           </div>
         </div>
 
