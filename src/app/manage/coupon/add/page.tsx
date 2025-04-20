@@ -69,64 +69,64 @@ export default function AddCouponPage() {
   return (
     <>
       {session?.user.User_info.role === "admin" ? (
-        <div className="max-w-md mx-auto p-6 bg-gray-200 rounded-lg mt-[80px] mb-[150px] font-robotoMono shadow-md">
-          <h2 className="text-3xl font-medium mb-6 text-black text-center font-robotoMono">
+        <div className="max-w-md mx-auto p-6 bg-white rounded-lg mb-[150px] mt-[80px] font-robotoMono border border-black">
+          <h2 className="text-2xl font-medium mb-6 text-black text-center font-robotoMono">
             Add New Coupon
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex flex-col">
-              <label className="text-black font-robotoMono">Coupon Name</label>
+              <label className="block text-md font-bold text-black mb-1 font-robotoMono">Coupon Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="mt-1 p-2 border border-gray-300 rounded-md w-full font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-black font-robotoMono">Percentage</label>
+              <label className="block text-md font-bold text-black mb-1 font-robotoMono">Percentage</label>
               <input
                 type="number"
                 name="percentage"
                 value={formData.percentage}
                 onChange={handleChange}
                 required
-                className="mt-1 p-2 border border-gray-300 rounded-md w-full font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-black font-robotoMono">Maximum Discount</label>
+              <label className="block text-md font-bold text-black mb-1 font-robotoMono">Maximum Discount</label>
               <input
                 type="number"
                 name="maxDiscount"
                 value={formData.maxDiscount}
                 onChange={handleChange}
                 required
-                className="mt-1 p-2 border border-gray-300 rounded-md w-full font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-black font-robotoMono">Minimum Spend</label>
+              <label className="block text-md font-bold text-black mb-1 font-robotoMono">Minimum Spend</label>
               <input
                 type="number"
                 name="minSpend"
                 value={formData.minSpend}
                 onChange={handleChange}
                 required
-                className="mt-1 p-2 border border-gray-300 rounded-md w-full font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
-              <label className="text-black font-robotoMono">Expiration Date</label>
+              <label className="block text-md font-bold text-black mb-1 font-robotoMono">Expiration Date</label>
               <input
                 type="date"
                 name="expirationDate"
                 value={formData.expirationDate}
                 onChange={handleChange}
                 required
-                className="mt-1 p-2 border border-gray-300 rounded-md w-full font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <button

@@ -109,6 +109,9 @@ export default function DropDownProfile({
                       <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/booking" >
                       MANAGE BOOKING
                       </Link>
+                      <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/manage/coupon" >
+                      MANAGE COUPON
+                      </Link>
                     </div>
                   </div>
                 ): null}
