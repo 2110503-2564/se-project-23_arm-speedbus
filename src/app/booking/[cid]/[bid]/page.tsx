@@ -226,7 +226,7 @@ export default function ChangeDatePage({
           </p>
           <p className="mt-4 text-md font-bold font-robotoMono">
             Total:&nbsp;
-            { rentItem ? (
+            { rentItem && rentItem.couponName != "No coupon Applied" ? (
                 <>
                   <span className="text-gray-500 line-through text-xl mr-2">
                     ${totalPrice}
@@ -236,7 +236,7 @@ export default function ChangeDatePage({
                   </span>
                   <span className="text-sm text-gray-600 font-normal ml-2">
                     (${Math.max(carItem.pricePerDay * (100 - rentItem.discount) / 100, (totalPrice - rentItem.maxDiscount) / dayjs(rentItem.endDate).diff(startDate, "day") + 1).toFixed(2)}/day)
-                  </span> 
+                  </span>
                 </>
               ) : (
                 <>
@@ -263,10 +263,10 @@ export default function ChangeDatePage({
               />
               <div>
                 {
-                  rentItem?.couponName === "No coupon applied" ? (
+                  rentItem?.couponName == "No coupon selected" ? (
                     <div className="mt-3 w-[250px] border border-black text-Black rounded-full py-1.5 px-6
                       text-center text-sm font-robotoMono flex flex-row items-center justify-center gap-4">
-                      No coupon applied
+                      No coupon selected
                     </div>
                     ) : (
                     <div className="mt-3 w-[275px] border border-black text-Black rounded-full py-1.5 px-6
