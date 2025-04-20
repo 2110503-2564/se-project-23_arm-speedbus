@@ -1,4 +1,3 @@
-// "use client" – เพื่อให้ใช้ useSession ได้
 "use client";
 
 import { useSession } from "next-auth/react";
@@ -13,7 +12,7 @@ export default function TopMenu() {
   return (
     <div className="h-[104px] bg-white fixed top-0 left-0 right-0 z-30 flex items-center justify-between ">
       <div className="flex gap-6 ml-[2vw]">
-        <img className="flex h-[100px] left-0" src="img/logo.jpg" />
+        <img className="flex h-[100px] left-0" src="img/logo.ico" />
         <TopMenuItem title="PROVIDER" pageRef="/provider" />
         <TopMenuItem title="SELECT CAR" pageRef="/car" />
       </div>

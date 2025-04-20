@@ -43,7 +43,7 @@ export default function DropDownProfile({
       </div>
 
       {!isLoggedIn && isOpen && (
-        <div className="fixed top-0 right-0 w-[500px] h-full bg-gray-600 bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform">
+        <div className="fixed top-0 right-0 w-1/4 h-full bg-gray-600 bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
               <Link href="/register">
@@ -62,61 +62,81 @@ export default function DropDownProfile({
       )}
 
       {isLoggedIn && isOpen && (
-        <div className="fixed top-0 right-0 w-[500px] h-full bg-gray-600 bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
+        <div className="fixed top-0 right-0 w-1/4 h-full bg-gray-600 bg-opacity-50 backdrop-blur-sm shadow-lg z-40 transition-transform font-[Roboto Mono]">
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
-              <Link href="/profile">
-                <h2 className="text-[25px] text-right group hover:underline transition-all duration-300 ease-in-out">
-                  PROFILE
-                </h2>
-              </Link>
-              <div className="text-[15px] text-right flex flex-col">
-                <Link href="/booking">
-                  <h3 className="pt-5 group hover:underline transition-all duration-300 ease-in-out">
-                    MY BOOKING
-                  </h3>
-                </Link>
-                <Link href="/mycoupon">
-                  <h3 className="pt-2 text-right group hover:underline transition-all duration-300 ease-in-out">
-                    MY COUPON
-                  </h3>
-                </Link>
-              </div>
-              {/* <Link href="/coupon" className="pt-10">
-                <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
-                  COUPON
-                </h2>
-              </Link>
-              <div className="mt-2 text-[15px] text-right">
-                <Link className="pt-5 group hover:underline transition-all duration-300 ease-in-out" href="/mycoupon">
-                  MY COUPON
-                </Link>
-                <h3 className="pt-2 group hover:underline transition-all duration-300 ease-in-out">
-                  REDEEM COUPON
-                </h3>
-              </div> */}
-              {
-                session?.user.User_info.role === "admin"?(
+              {session?.user.User_info.role === "user" && (
+                <>
+                  <Link href="/profile">
+                    <h2 className="text-[25px] text-right group hover:underline transition-all duration-300 ease-in-out">
+                      PROFILE
+                    </h2>
+                  </Link>
+                  <div className="text-[15px] text-right flex flex-col">
+                    <Link href="/booking">
+                      <h3 className="pt-5 group hover:underline transition-all duration-300 ease-in-out">
+                        MY BOOKING
+                      </h3>
+                    </Link>
+                    <Link href="/mycoupon">
+                      <h3 className="pt-2 text-right group hover:underline transition-all duration-300 ease-in-out">
+                        MY COUPON
+                      </h3>
+                    </Link>
+                  </div>
+                </>
+              )}
+
+              {session?.user.User_info.role === "admin" && (
+                <>
+                  <Link href="/profile">
+                    <h2 className="text-[25px] text-right group hover:underline transition-all duration-300 ease-in-out">
+                      PROFILE
+                    </h2>
+                  </Link>
+
+                  <div className="text-[15px] text-right flex flex-col">
+                    <Link href="/booking">
+                      <h3 className="pt-5 group hover:underline transition-all duration-300 ease-in-out">
+                        All BOOKING
+                      </h3>
+                    </Link>
+                  </div>
+
                   <div className="pt-10">
-                      <h2 className="text-[25px] text-right group hover:underline transition-all duration-300 ease-in-out">
-                        MANAGE
-                      </h2>
+                    <h2 className="text-[25px] text-right group hover:underline transition-all duration-300 ease-in-out">
+                      MANAGE
+                    </h2>
                     <div className="text-[15px] text-right flex flex-col">
-                      <Link className="pt-5 group hover:underline transition-all duration-300 ease-in-out" href="/manage/car">
-                      MANAGE CARS
-                      </Link >
-                      <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/manage/provider" >
-                      MANAGE PROVIDER
+                      <Link
+                        className="pt-5 group hover:underline transition-all duration-300 ease-in-out"
+                        href="/manage/car"
+                      >
+                        MANAGE CARS
                       </Link>
-                      <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/booking" >
-                      MANAGE BOOKING
+                      <Link
+                        className="pt-2 group hover:underline transition-all duration-300 ease-in-out"
+                        href="/manage/provider"
+                      >
+                        MANAGE PROVIDER
                       </Link>
-                      <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/manage/coupon" >
-                      MANAGE COUPON
+                      <Link
+                        className="pt-2 group hover:underline transition-all duration-300 ease-in-out"
+                        href="/booking"
+                      >
+                        MANAGE BOOKING
+                      </Link>
+                      <Link
+                        className="pt-2 group hover:underline transition-all duration-300 ease-in-out"
+                        href="/manage/coupon"
+                      >
+                        MANAGE COUPON
                       </Link>
                     </div>
                   </div>
-                ): null}
+                </>
+              )}
+
               <div className="text-right mt-auto">
                 <Link href="/signout">
                   <button className="text-[15px] text-white hover:underline transition-all duration-300 ease-in-out">
