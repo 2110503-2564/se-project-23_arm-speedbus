@@ -13,6 +13,8 @@ import getRentsForCar from "@/libs/getRentsForCar"; // Function to fetch rent da
 import { useRouter } from "next/navigation";
 import changeRentDate from "@/libs/changeRentDate";
 import "./calendar.css";
+import { set } from "mongoose";
+import { FaCheck } from "react-icons/fa";
 
 export default function ChangeDatePage({
   params,
@@ -31,7 +33,10 @@ export default function ChangeDatePage({
   const [errorMessage, setErrorMessage] = useState("");
   const [renderErrorMessage, setRenderErrorMessage] = useState("");
   const { data: session } = useSession();
+
   const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  const [rentItem, setRentItem] = useState<BookingItem | null>(null);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -73,6 +78,7 @@ export default function ChangeDatePage({
       try {
         if (!session?.user.token) return;
         const rentData = await getRent(session.user.token, params.bid);
+        setRentItem(rentData.data);
         console.log(rentData.success);
         if (!rentData.success || params.cid !== rentData.data.car_info._id) {
           setRenderErrorMessage("Incorrect URL/Access Denied");
@@ -114,14 +120,14 @@ export default function ChangeDatePage({
 
   
   useEffect(() => {
-    if (startDate && endDate && carItem) {
-      const days = endDate.diff(startDate, "day") + 1;
+    if (formStartDate && formEndDate && carItem) {
+      const days = formEndDate.diff(formStartDate, "day") + 1;
       const price = days * carItem.pricePerDay;
       setTotalPrice(price > 0 ? price : 0);
     } else {
-      setTotalPrice(0);
+      setTotalPrice(rentItem ? rentItem.totalPrice : 0);
     }
-  }, [startDate, endDate, carItem]);
+  }, [formStartDate, formEndDate, carItem]);
 
   const isDateUnavailable = (date: Date) => {
     return rentedDates.some(
@@ -220,12 +226,29 @@ export default function ChangeDatePage({
           </p>
           <p className="mt-4 text-md font-bold font-robotoMono">
             Total:&nbsp;
-            <span className="text-black font-normal text-2xl">
-              ${totalPrice}
-            </span>
-            <span className="text-sm text-gray-600 font-normal ml-2">
-              (${carItem.pricePerDay}/day)
-            </span>
+            { rentItem && rentItem.couponName != "No coupon Applied" ? (
+                <>
+                  <span className="text-gray-500 line-through text-xl mr-2">
+                    ${totalPrice}
+                  </span>
+                  <span className="text-black font-normal text-2xl">
+                  ${Math.max(totalPrice * (100 - rentItem.discount) / 100, totalPrice - rentItem.maxDiscount)}
+                  </span>
+                  <span className="text-sm text-gray-600 font-normal ml-2">
+                    (${Math.max(carItem.pricePerDay * (100 - rentItem.discount) / 100, (totalPrice - rentItem.maxDiscount) / dayjs(rentItem.endDate).diff(startDate, "day") + 1).toFixed(2)}/day)
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-black font-normal text-2xl">
+                    ${totalPrice}
+                  </span>
+                  <span className="text-sm text-gray-600 font-normal ml-2">
+                    (${carItem.pricePerDay}/day)
+                  </span>
+                </>
+              )
+            }
           </p>
         </div>
         <div className="w-1/2 flex items-center justify-center h-full mx-auto">
@@ -238,6 +261,21 @@ export default function ChangeDatePage({
               <DateReserve
                 onDateChange={(value: dayjs.Dayjs | null) => setFormEndDate(value)} label="Check-Out Date"
               />
+              <div>
+                {
+                  rentItem?.couponName == "No coupon selected" ? (
+                    <div className="mt-3 w-[250px] border border-black text-Black rounded-full py-1.5 px-6
+                      text-center text-sm font-robotoMono flex flex-row items-center justify-center gap-4">
+                      No coupon selected
+                    </div>
+                    ) : (
+                    <div className="mt-3 w-[275px] border border-black text-Black rounded-full py-1.5 px-6
+                      text-center text-sm font-robotoMono flex flex-row items-center justify-center gap-4">
+                      using {rentItem?.couponName} <FaCheck className="text-sm"/>
+                    </div>
+                  )
+                }
+              </div>
 
               <button
                 onClick={() => {

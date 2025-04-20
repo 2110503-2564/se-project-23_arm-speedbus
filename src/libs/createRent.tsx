@@ -4,6 +4,7 @@ export default async function createBooking(
   user_id: string,
   startDate: string,
   endDate: string,
+  couponName: string,
   discount: number,
   maxDiscount: number,
 ) {
@@ -21,6 +22,7 @@ export default async function createBooking(
         user_info: user_id,
         startDate: startDate,
         endDate: endDate,
+        couponName: couponName,
         discount: discount,
         maxDiscount: maxDiscount,
         status: "Confirmed",

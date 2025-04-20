@@ -15,6 +15,7 @@ import createRent from "@/libs/createRent";
 import redeemCoupon from "@/components/CouponCard";
 import { useRouter } from "next/navigation";
 import "./calendar.css";
+import { FaCheck } from "react-icons/fa";
 
 import { CouponItem } from "interfaces";
 import updateCoupon from "@/libs/updateCoupon";
@@ -128,14 +129,17 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
   async function handleCreateRent(startDate: string, endDate: string) {
     if (!session) return;
 
+    const cp = coupons.find((c) => c._id === selectedCoupon);
+
     const res = await createRent(
       session.user.token,
       params.cid,
       session.user.User_info._id,
       startDate,
       endDate,
-      selectedCoupon ? coupons.find((c) => c._id === selectedCoupon)?.percentage ?? 0 : 0,
-      selectedCoupon ? coupons.find((c) => c._id === selectedCoupon)?.maxDiscount ?? 0 : 0,
+      cp?.name ?? "No coupon selected",
+      cp?.percentage ?? 0,
+      cp?.maxDiscount ?? 0,
     );
 
     if (res.success) {
@@ -232,7 +236,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                   ${discountedPrice}
                 </span>
                 <span className="text-sm text-gray-600 font-normal ml-2">
-                  (${discountedPrice/(endDate.diff(startDate, "day") + 1)}/day)
+                  (${(discountedPrice/(endDate.diff(startDate, "day") + 1)).toFixed(2)}/day)
                 </span>
               </>
             ) : (
