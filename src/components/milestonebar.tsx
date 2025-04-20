@@ -90,14 +90,14 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
 
   return (
     <div className="w-full py-10 bg-white overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 items-center">
         <div
           ref={scrollRef}
           onScroll={checkScroll}
           className="relative overflow-x-auto scrollbar-hide"
         >
           <div
-            className="relative flex items-start gap-6 pb-16 pt-10"
+            className="relative flex flex-row items-start justify-center gap-6 pb-16 pt-10"
             style={{ width: "100%" }}
           >
             <div
@@ -125,7 +125,7 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
                 >
                   <div className="flex justify-center">
                     <div
-                      className={`absolute top-0 w-[4px] h-12 z-10 transform -translate-y-1/2 ${
+                      className={`absolute top-2 w-[10px] h-[75px] transform -translate-y-1/2 rounded-full ${
                         reached ? "bg-black" : "bg-gray-300"
                       }`}
                       style={{

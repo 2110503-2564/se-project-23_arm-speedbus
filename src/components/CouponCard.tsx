@@ -79,8 +79,8 @@ export default function CouponCard({
   return (
     <div
       className={`w-[230px] h-[333px] rounded-[24px] ${
-        hasCoupon === true ? "bg-gray-400" : "bg-black"
-      } text-white overflow-hidden relative hover:scale-105 transition-transform duration-300`}
+        hasCoupon === true ? "bg-gray-400" : "bg-black hover:scale-105 transition-transform duration-300"
+      } text-white overflow-hidden relative`}
     >
       {/* ครึ่งวงกลมด้านบน */}
       <div className="w-full h-[125px] relative rounded-b-full flex items-center justify-center">
@@ -130,7 +130,7 @@ export default function CouponCard({
           <button
             className={`px-4 py-2 mt-1 rounded font-semibold transition-transform duration-300 ${
               hasCoupon === true
-                ? "bg-white text-gray-400 cursor-not-allowed"
+                ? "bg-white text-gray-400"
                 : "bg-white text-black hover:bg-gray-300 hover:scale-105"
             }`}
             disabled={hasCoupon === true}
