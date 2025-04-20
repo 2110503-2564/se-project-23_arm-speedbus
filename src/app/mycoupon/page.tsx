@@ -28,7 +28,7 @@ export default function Page() {
   }, [session]);
 
   return (
-    <div className="min-h-screen flex justify-center items-center font-robotoMono">
+    <div className="mt-[100px] mb-[100px] flex justify-center items-center font-robotoMono">
       <div className="px-6 max-w-3xl w-full bg-white font-robotoMono">
         {loading ? (
           <p className="text-center text-black font-robotoMono">Loading...</p>
@@ -44,7 +44,7 @@ export default function Page() {
           </div>
         ) : (
           myCoupon?.data.map((coupon) => (
-            <div key={coupon._id} className="mb-4 border-b pb-4">
+            <div key={coupon._id} className="mb-4 border-b pb-4 rounded-lg border border-black p-5">
               <div className="flex justify-between text-lg text-black">
                 <div>
                   <p>
@@ -52,7 +52,13 @@ export default function Page() {
                   </p>
                   <p>
                     <strong>Status:</strong>{" "}
-                    <span className="text-green-600">{coupon.status}</span>
+                    {
+                      coupon.status === "Available" ? (
+                        <span className="text-green-500">Available</span>
+                      ) : (
+                        <span className="text-blue-500">Used</span>
+                      )
+                    }
                   </p>
                 </div>
                 <div>
