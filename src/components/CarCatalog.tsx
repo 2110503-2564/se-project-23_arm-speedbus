@@ -26,7 +26,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
             className={`w-full sm:w-[48%] md:w-[30%] lg:w-[22%] p-2 sm:p-4 md:p-4 lg:p-8 group opacity-0 transition-transform duration-1000 animate-slide-up`}
             style={{ animationDelay: `${index * 0.15}s` }}
           >
-            <div className="overflow-hidden border border-gray  bg-white relative group hover:scale-105 transition-all ease-in-out">
+            <div className="border border-gray  bg-white relative group hover:scale-105 transition-all ease-in-out">
               <ProductCard
                 Name={carItem.name}
                 imgSrc={carItem.picture}
