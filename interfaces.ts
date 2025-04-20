@@ -39,6 +39,7 @@ export interface UserItem {
   tel: string;
   role: string;
   totalPayment: number;
+  totalPaymentThisYear: number;
   createdAt: string;
   __v: number;
   id: string;

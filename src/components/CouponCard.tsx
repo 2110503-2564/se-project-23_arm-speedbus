@@ -54,6 +54,7 @@ export default function CouponCard({
   valid: number;
 }) {
   const [hasCoupon, setHasCoupon] = useState<boolean | null>(null);
+
   useEffect(() => {
     const checkCoupon = async () => {
       const session = await getSession();
@@ -68,6 +69,13 @@ export default function CouponCard({
 
     checkCoupon();
   }, []);
+
+  if (hasCoupon === null) {
+    return (
+      <div className="w-[230px] h-[333px] rounded-[24px] bg-gray-200 animate-pulse m-10" />
+    );
+  }
+
   return (
     <div
       className={`w-[230px] h-[333px] rounded-[24px] ${
@@ -112,15 +120,12 @@ export default function CouponCard({
             ${spent}
           </span>
         </p>
-        {hasCoupon === false && (
-          <p>
-            Valid:{" "}
-            <span className="font-bold text-[15px] font-rockwellCondensed">
-              {valid > 1 ? valid + " days" : valid + " day"}
-            </span>
-          </p>
-        )}
-
+        <p>
+          Valid:{" "}
+          <span className="font-bold text-[15px] font-rockwellCondensed">
+            {valid > 1 ? valid + " days" : valid + " day"}
+          </span>
+        </p>
         <div className="text-center">
           <button
             className={`px-4 py-2 mt-1 rounded font-semibold transition-transform duration-300 ${

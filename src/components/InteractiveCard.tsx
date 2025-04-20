@@ -24,7 +24,7 @@ export default function InteractiveCard({
 
   return (
     <div
-      className="w-[272px] h-[372px] bg-white rounded-none"
+      className="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300"
       onMouseOver={(e) => onCardMouseAction(e)}
       onMouseOut={(e) => onCardMouseAction(e)}
     >

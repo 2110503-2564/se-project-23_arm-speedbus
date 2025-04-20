@@ -15,7 +15,7 @@ import createRent from "@/libs/createRent";
 import redeemCoupon from "@/components/CouponCard";
 import { useRouter } from "next/navigation";
 import "./calendar.css";
-import CouponCardWrapper from "@/components/CouponCardWrapper";
+
 import { CouponItem } from "interfaces";
 import updateCoupon from "@/libs/updateCoupon";
 
