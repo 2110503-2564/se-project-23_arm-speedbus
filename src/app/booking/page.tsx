@@ -38,7 +38,11 @@ export default function RentPage() {
     fetchRents();
   }, [refresh]);
   const handleDelete = async (rentId: string) => {
-    if (!session.user.token) return;
+    const confirmed = window.confirm("Are you sure you want to delete this booking?");
+    if (!confirmed) return;
+  
+    if (!session?.user.token) return;
+  
     const res = await deleteRent(session.user.token, rentId);
     if (res.success) {
       alert("Deleted Booking Successfully");
@@ -48,6 +52,8 @@ export default function RentPage() {
     }
   };
   const handleFinish = async (rentId: string) => {
+    const confirmed = window.confirm("Are you sure you want to mark as finished?");
+    if (!confirmed) return;
     if (!session.user.token) return;
     const res = await finishRent(session.user.token, rentId);
     if (res.success) {
