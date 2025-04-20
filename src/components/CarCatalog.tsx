@@ -10,12 +10,12 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
   const carJsonReady = await carJson;
   return (
     <>
-      <div className="flex text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
+      <div className="flex text-3xl font-robotoMono text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
         Rent All_
       </div>
 
       <div className="flex text-m font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
-        <div className="flex-1">_ items</div>
+        <div className="flex-1">_items</div>
       </div>
 
       <div className="flex flex-wrap justify-center gap-4 px-4 ">
@@ -26,7 +26,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
             className={`w-full sm:w-[48%] md:w-[30%] lg:w-[22%] p-2 sm:p-4 md:p-4 lg:p-8 group opacity-0 transition-transform duration-1000 animate-slide-up`}
             style={{ animationDelay: `${index * 0.15}s` }}
           >
-            <div className="overflow-hidden border border-gray  bg-white relative group hover:scale-105 transition-all ease-in-out">
+            <div className="border border-gray  bg-white relative group hover:scale-105 transition-all ease-in-out">
               <ProductCard
                 Name={carItem.name}
                 imgSrc={carItem.picture}

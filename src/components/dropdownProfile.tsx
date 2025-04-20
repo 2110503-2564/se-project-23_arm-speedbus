@@ -66,21 +66,23 @@ export default function DropDownProfile({
           <div className="flex flex-col h-full p-6 font-[Roboto Mono] pr-20 pt-20">
             <div className="flex flex-col justify-start items-end flex-1">
               <Link href="/profile">
-                <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
+                <h2 className="text-[25px] text-right group hover:underline transition-all duration-300 ease-in-out">
                   PROFILE
                 </h2>
               </Link>
-              <div className="mt-2 text-[15px] text-right">
+              <div className="text-[15px] text-right flex flex-col">
                 <Link href="/booking">
                   <h3 className="pt-5 group hover:underline transition-all duration-300 ease-in-out">
-                    BOOKING
+                    MY BOOKING
                   </h3>
                 </Link>
-                <h3 className="pt-2 text-right group hover:underline transition-all duration-300 ease-in-out">
-                  IDK
-                </h3>
+                <Link href="/mycoupon">
+                  <h3 className="pt-2 text-right group hover:underline transition-all duration-300 ease-in-out">
+                    MY COUPON
+                  </h3>
+                </Link>
               </div>
-              <Link href="/coupon" className="pt-10">
+              {/* <Link href="/coupon" className="pt-10">
                 <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
                   COUPON
                 </h2>
@@ -92,7 +94,7 @@ export default function DropDownProfile({
                 <h3 className="pt-2 group hover:underline transition-all duration-300 ease-in-out">
                   REDEEM COUPON
                 </h3>
-              </div>
+              </div> */}
               {
                 session?.user.User_info.role === "admin"?(
                   <div className="pt-10">
@@ -108,6 +110,9 @@ export default function DropDownProfile({
                       </Link>
                       <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/booking" >
                       MANAGE BOOKING
+                      </Link>
+                      <Link className="pt-2 group hover:underline transition-all duration-300 ease-in-out" href="/manage/coupon" >
+                      MANAGE COUPON
                       </Link>
                     </div>
                   </div>

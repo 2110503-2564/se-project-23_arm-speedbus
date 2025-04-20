@@ -78,7 +78,7 @@ export default function AddProviderPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex flex-col">
               <label
-                className="block text-md text-black font-bold te1xt-gray-700 mb-1 font-robotoMono"
+                className="block text-md font-bold text-black mb-1 font-robotoMono"
                 htmlFor="name"
               >
                 Provider Name
@@ -90,12 +90,12 @@ export default function AddProviderPage() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter provider name"
-                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
+                className="block text-md font-bold text-black mb-1 font-robotoMono"
                 htmlFor="address"
               >
                 Address
@@ -107,12 +107,12 @@ export default function AddProviderPage() {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Enter Address"
-                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
+                className="block text-md font-bold text-black mb-1 font-robotoMono"
                 htmlFor="tel"
               >
                 Tel.
@@ -124,12 +124,12 @@ export default function AddProviderPage() {
                 value={formData.tel}
                 onChange={handleChange}
                 placeholder="Enter provider's Telephone Number"
-                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
+                className="block text-md font-bold text-black mb-1 font-robotoMono"
                 htmlFor="email"
               >
                 Provider Email
@@ -141,12 +141,12 @@ export default function AddProviderPage() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter Provider Email"
-                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
+                className="block text-md font-bold text-black mb-1 font-robotoMono"
                 htmlFor="picture"
               >
                 Provider Picture
@@ -158,12 +158,12 @@ export default function AddProviderPage() {
                 value={formData.picture}
                 onChange={handleChange}
                 placeholder="Enter picture URL"
-                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
+                className="block text-md font-bold text-black mb-1 font-robotoMono"
                 htmlFor="openTime"
               >
                 Provider Open Time
@@ -176,12 +176,12 @@ export default function AddProviderPage() {
                 onChange={handleChange}
                 placeholder="Enter Provider Open Time (must be in HH:MM:SS format)"
                 min={1}
-                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <div className="flex flex-col">
               <label
-                className="block text-md font-bold text-gray-700 mb-1 font-robotoMono"
+                className="block text-md font-bold text-black mb-1 font-robotoMono"
                 htmlFor="closeTime"
               >
                 Provider Close Time
@@ -193,7 +193,7 @@ export default function AddProviderPage() {
                 value={formData.closeTime}
                 onChange={handleChange}
                 placeholder="Enter Provider Close Time (must be in HH:MM:SS format)"
-                className="mt-1 p-2 border border-gray-300 border-2 bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
+                className="mt-1 p-2 border border-gray-300 border-2 text-black bg-white rounded-md w-full focus:ring focus:ring-indigo-200 font-robotoMono"
               />
             </div>
             <button

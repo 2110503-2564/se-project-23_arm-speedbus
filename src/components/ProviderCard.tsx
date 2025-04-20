@@ -22,7 +22,7 @@ export default function ProviderCard(
 ) {
   return (
     <InteractiveCard contentName={providerName}>
-      <div className="w-[300px] h-[230px] relative bg-gray-200">
+      <div className="w-full h-[230px] relative bg-gray-200 boarder-2border border-gray-300 rounded-lg">
         {imgSrc && (
           <Image
             src={imgSrc}

@@ -7,7 +7,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
   return (
     <>
       {/* Header */}
-      <div className="w-full max-w-screen-xl mx-auto px-4 mb-6 flex justify-between items-center font-robotoMono">
+      <div className="w-full max-w-screen-xl mx-auto px-4 mb-6 flex justify-between items-center font-robotoMono text-left">
         <h2 className="text-black text-2xl  tracking-widest font-robotoMono">
           PICK YOUR CAR FOR NEW EXPERIENCE
         </h2>
@@ -28,10 +28,10 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
             <Link
               href={`/car/${carItem.id}`}
               key={carItem.id}
-              className={`w-[17vw] p-2 group opacity-0 transition-transform duration-1000 animate-slide-up`}
+              className={`w-[17vw] group opacity-0 transition-transform duration-1000 animate-slide-up`}
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <div className="border border-gray-300  overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
+              <div className="border border-gray-300 bg-white relative group hover:scale-105 transition-all ease-in-out shadow-md hover:shadow-lg">
                 <ProductCard
                   Name={carItem.name}
                   imgSrc={carItem.picture}
