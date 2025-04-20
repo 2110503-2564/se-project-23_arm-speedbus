@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -36,7 +35,7 @@ export default function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full  p-2 border border-black  bg-white font-mono"
+                    className="w-full p-2 border border-black  bg-white font-mono"
                   />
                 </td>
               </tr>
