@@ -21,7 +21,8 @@ type Props = {
 };
 
 const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
-  const [currentSpending, setCurrentSpending] = useState<number>(0);
+  const [paymentThisYear, setpaymentThisYear] = useState<number>(0);
+  const [payment, setPayment] = useState<number>(0);
   const milestones = coupon.map((c) => c.spent);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -40,7 +41,8 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
 
       const data = await res.json();
       if (data.success) {
-        setCurrentSpending(data.data.totalPayment);
+        setpaymentThisYear(data.data.totalPaymentThisYear);
+        setPayment(data.data.totalPayment);
       }
     };
 
@@ -72,21 +74,21 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
   const progressPx = useMemo(() => {
     let progress = 0;
     for (let i = 0; i < milestones.length; i++) {
-      if (currentSpending >= milestones[i]) {
+      if (paymentThisYear >= milestones[i]) {
         progress = (i + 1) * CARD_WIDTH;
       } else if (i === 0) {
-        progress = (currentSpending / milestones[i]) * CARD_WIDTH;
+        progress = (paymentThisYear / milestones[i]) * CARD_WIDTH;
         break;
       } else {
         const prev = milestones[i - 1];
         const next = milestones[i];
-        const ratio = (currentSpending - prev) / (next - prev);
+        const ratio = (paymentThisYear - prev) / (next - prev);
         progress = i * CARD_WIDTH + ratio * CARD_WIDTH;
         break;
       }
     }
     return Math.min(progress, milestones.length * CARD_WIDTH);
-  }, [currentSpending, milestones]);
+  }, [paymentThisYear, milestones]);
 
   return (
     <div className="w-full py-10 bg-white overflow-hidden relative">
@@ -115,7 +117,7 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
             </div>
 
             {coupon.map((item, index) => {
-              const reached = currentSpending >= item.spent;
+              const reached = paymentThisYear >= item.spent;
 
               return (
                 <div
@@ -166,11 +168,21 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
         </div>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          You've spent{" "}
+          This year you've spent{" "}
           <span className="font-bold text-gray-700">
             $
-            {Number.isFinite(currentSpending)
-              ? currentSpending.toFixed(2)
+            {Number.isFinite(paymentThisYear)
+              ? paymentThisYear.toFixed(2)
+              : "0.00"}
+          </span>
+        </p>
+
+        <p className="text-center text-sm text-gray-600 mt-4">
+          You've spent total{" "}
+          <span className="font-bold text-gray-700">
+            $
+            {Number.isFinite(payment)
+              ? payment.toFixed(2)
               : "0.00"}
           </span>
         </p>
