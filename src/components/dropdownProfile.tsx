@@ -76,9 +76,11 @@ export default function DropDownProfile({
                     MY BOOKING
                   </h3>
                 </Link>
-                <h3 className="pt-2 text-right group hover:underline transition-all duration-300 ease-in-out">
-                  MY COUPON
-                </h3>
+                <Link href="/mycoupon">
+                  <h3 className="pt-2 text-right group hover:underline transition-all duration-300 ease-in-out">
+                    MY COUPON
+                  </h3>
+                </Link>
               </div>
               {/* <Link href="/coupon" className="pt-10">
                 <h2 className="text-[25px] group hover:underline transition-all duration-300 ease-in-out">
