@@ -1,18 +1,19 @@
-import Image from "next/image";
-import styles from "./topmenu.module.css";
-import TopMenuItem from "./TopMenuItem";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
-import Link from "next/link";
+// "use client" – เพื่อให้ใช้ useSession ได้
+"use client";
 
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import TopMenuItem from "./TopMenuItem";
+import Link from "next/link";
 import DropDownProfile from "./dropdownProfile";
-export default async function TopMenu() {
-  const session = await getServerSession(authOptions);
+
+export default function TopMenu() {
+  const { data: session, status } = useSession();
 
   return (
     <div className="h-[104px] bg-white fixed top-0 left-0 right-0 z-30 flex items-center justify-between ">
       <div className="flex gap-6 ml-[2vw]">
-        <img className="flex h-[100px] left-0" src="img/logo.jpg"></img>
+        <img className="flex h-[100px] left-0" src="img/logo.ico" />
         <TopMenuItem title="PROVIDER" pageRef="/provider" />
         <TopMenuItem title="SELECT CAR" pageRef="/car" />
       </div>
@@ -25,9 +26,9 @@ export default async function TopMenu() {
         </Link>
       </div>
 
-      <div className="flex gap-6 px-[140px] ">
+      <div className="flex gap-6 px-[140px]">
         <TopMenuItem title="COUPON" pageRef="/coupon" />
-        {session ? (
+        {status === "authenticated" ? (
           <DropDownProfile isLoggedIn={true} Text="PROFILE" />
         ) : (
           <DropDownProfile isLoggedIn={false} Text="LOGIN" />

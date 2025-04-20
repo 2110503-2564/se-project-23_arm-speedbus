@@ -1,37 +1,36 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 
-export default function () {
+export default function ProfilePage() {
   const { data: session } = useSession();
-  console.log(session);
+  const user = session?.user.User_info;
+
   return (
-    <main className="min-h-screen font-robotoMono mt-20">
-      <h1 className="text-4xl font-semibold text-gray-800 font-robotoMono text-center">
-        YOUR PROFILE
+    <main className="min-h-screen bg-gradient-to-b from-gray-100 to-white  py-16 font-robotoMono">
+      {" "}
+      <h1 className="text-5xl font-bold text-center text-gray-800 mb-12 transition duration-500 ease-in-out">
+        Your Profile
       </h1>
-      <div className="flex justify-between justify-center items-center mt-[10vh] mx-[30vh]">
-        <Image
-          src="/img/user.svg"
-          alt="user"
-          width={400}
-          height={400}
-          className="items-center"
-        />
-        <div className="bg-white p-6 py-[6vh] rounded-lg shadow-md space-y-4">
-          <div className="grid grid-cols-2 gap-[6vh] text-gray-800">
-            <div className="text-md font-semibold">User Id:</div>
-            <div className="text-md">{session?.user.User_info._id}</div>
-            <div className="text-md font-semibold">Name:</div>
-            <div className="text-md">{session?.user.User_info.name}</div>
-            <div className="text-md font-semibold">Email:</div>
-            <div className="text-md">{session?.user.User_info.email}</div>
-            <div className="text-md font-semibold">Tel:</div>
-            <div className="text-md">{session?.user.User_info.tel}</div>
-            <div className="text-md font-semibold">Created At:</div>
-            <div className="text-md">
-              {session?.user.User_info.createdAt.split("T")[0]}
-            </div>
+      <div className="flex justify-center items-center bg-[#FFFACD] w-full   hover:shadow-2xl transition-shadow duration-300 p-10 mx-auto">
+        <div className="grid grid-cols-2 gap-y-8 gap-x-6 text-gray-700 text-[17px]">
+          <div className="font-robotoMono font-bold">Name:</div>
+          <div className="text-gray-500 font-robotoMono font-robotoMono transition duration-300 hover:text-[#808000]">
+            {user?.name}
+          </div>
+
+          <div className="font-robotoMono font-bold">Email:</div>
+          <div className="text-gray-500 font-robotoMono transition duration-300 hover:text-black">
+            {user?.email}
+          </div>
+
+          <div className="font-robotoMono font-bold">Telephone:</div>
+          <div className="text-gray-500 font-robotoMono transition duration-300 hover:text-black">
+            {user?.tel}
+          </div>
+
+          <div className="font-robotoMono font-bold ">Created At:</div>
+          <div className="text-gray-500 font-robotoMono transition duration-300 hover:text-black">
+            {user?.createdAt.split("T")[0]}
           </div>
         </div>
       </div>
