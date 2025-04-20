@@ -9,7 +9,6 @@ export default async function Provider() {
   revalidateTag("providers");
   return (
     <main className="text-center p-5">
-      <h1 className="text-xl font-medium">Meet Our Car Providers</h1>
       <Suspense
         fallback={
           <p>

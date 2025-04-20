@@ -10,12 +10,12 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
   const carJsonReady = await carJson;
   return (
     <>
-      <div className="flex text-3xl font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
+      <div className="flex text-3xl font-robotoMono text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in ml-20 pl-10">
         Rent All_
       </div>
 
       <div className="flex text-m font-[Verdana,Geneva,Tahoma,sans-serif] text-left mt-4 mb-8 text-[#333] opacity-0 transition-opacity duration-1000 animate-fade-in pl-20 ml-10 mr-10 pr-20">
-        <div className="flex-1">_ items</div>
+        <div className="flex-1">_items</div>
       </div>
 
       <div className="flex flex-wrap justify-center gap-4 px-4 ">
