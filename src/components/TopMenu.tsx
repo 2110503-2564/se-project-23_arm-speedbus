@@ -1,4 +1,3 @@
-// "use client" – เพื่อให้ใช้ useSession ได้
 "use client";
 
 import { useSession } from "next-auth/react";
