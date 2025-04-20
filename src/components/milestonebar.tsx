@@ -22,7 +22,6 @@ type Props = {
 const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
   const [paymentThisYear, setpaymentThisYear] = useState<number>(0);
   const [payment, setPayment] = useState<number>(0);
-  // const [currentSpending, setCurrentSpending] = useState<number>(0);
   const [redeemStatus, setRedeemStatus] = useState<boolean[]>([]); // สถานะการรีดีมของคูปอง
   const milestones = coupon.map((c) => c.spent);
   const scrollRef = useRef<HTMLDivElement>(null);
