@@ -9,7 +9,7 @@ export default function CouponDeleteList({ couponJson }: { couponJson: CouponJso
         <Link
           href={`/coupon/delete/${coupon._id}`}
           key={coupon._id}
-          className="p-4 border border-black rounded-lg shadow hover:bg-gray-100 transition-all"
+          className="text-black p-4 border border-black rounded-lg shadow hover:bg-gray-100 transition-all"
         >
           <h2 className="text-xl font-semibold font-robotoMono">{coupon.name}</h2>
           <p className="text-sm">Discount: {coupon.percentage}%</p>
