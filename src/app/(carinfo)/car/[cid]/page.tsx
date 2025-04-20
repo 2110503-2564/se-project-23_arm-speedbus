@@ -309,9 +309,9 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
               )}
             </div>
           ) : (
-            <div className="bg-white shadow-md rounded-xl p-2 w-full max-w-2xl font-robotoMono">
+            <div className="bg-white border border-black p-2 w-full max-w-2xl font-robotoMono">
               <Link href="/api/auth/signin">
-                <h2 className="text-xl my-4 text-[#2d336b] text-center hover:text-[#7886c7] transition font-robotoMono">
+                <h2 className="text-xl my-4 text-black text-center transition font-robotoMono">
                   Sign in to book your rent
                 </h2>
               </Link>

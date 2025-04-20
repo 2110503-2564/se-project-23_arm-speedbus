@@ -1,6 +1,6 @@
 "use client";
 
-import CouponCardItem from "@/components/CouponCardItem";
+// import CouponCardItem from "@/components/CouponCardItem";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import getMyCoupon from "@/libs/getMyCoupon";
