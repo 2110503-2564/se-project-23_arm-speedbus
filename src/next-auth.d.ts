@@ -12,6 +12,8 @@ declare module "next-auth" {
         tel: string;
         __v: number;
         _id: string;
+        totalPayment: number;
+        totalPaymentThisYear: number;
       };
       exp: number;
       iat: number;

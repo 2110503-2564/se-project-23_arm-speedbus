@@ -19,7 +19,7 @@ export default function HeadSection() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-start h-[100vh] py-16 px-4 snap-start mb-10 ">
+    <div className="flex flex-col justify-start pt-5 px-4 snap-start ">
       <div className="flex justify-center items-center w-full">
         <Image
           src="/img/carbe.png"

@@ -7,7 +7,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
   return (
     <>
       {/* Header */}
-      <div className="w-full max-w-screen-xl mx-auto px-4 mb-6 flex justify-between items-center font-robotoMono">
+      <div className="w-full max-w-screen-xl mx-auto px-4 mb-6 flex justify-between items-center font-robotoMono text-left">
         <h2 className="text-black text-2xl  tracking-widest font-robotoMono">
           PICK YOUR CAR FOR NEW EXPERIENCE
         </h2>

@@ -39,6 +39,7 @@ export interface UserItem {
   tel: string;
   role: string;
   totalPayment: number;
+  totalPaymentThisYear: number;
   createdAt: string;
   __v: number;
   id: string;
@@ -64,6 +65,7 @@ export interface BookingItem {
   startDate: string;
   endDate: string;
   discount: number,
+  maxDiscount: number,
   totalDays: number;
   totalPrice: number;
   status: string;
