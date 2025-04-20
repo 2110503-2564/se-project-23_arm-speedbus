@@ -134,12 +134,8 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       session.user.User_info._id,
       startDate,
       endDate,
-      selectedCoupon
-        ? coupons.find((c) => c._id === selectedCoupon)?.percentage ?? 0
-        : 0,
-      selectedCoupon
-        ? coupons.find((c) => c._id === selectedCoupon)?.maxDiscount ?? 0
-        : 0
+      selectedCoupon ? coupons.find((c) => c._id === selectedCoupon)?.percentage ?? 0 : 0,
+      selectedCoupon ? coupons.find((c) => c._id === selectedCoupon)?.maxDiscount ?? 0 : 0,
     );
 
     if (res.success) {
@@ -227,7 +223,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           </p>
           <p className="mt-4 text-md font-bold font-robotoMono">
             Total:&nbsp;
-            {discountedPrice !== null ? (
+            {discountedPrice !== null && endDate ? (
               <>
                 <span className="text-gray-500 line-through text-xl mr-2">
                   ${totalPrice}
@@ -236,7 +232,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                   ${discountedPrice}
                 </span>
                 <span className="text-sm text-gray-600 font-normal ml-2">
-                  (${carItem.pricePerDay}/day)
+                  (${discountedPrice/(endDate.diff(startDate, "day") + 1)}/day)
                 </span>
               </>
             ) : (
