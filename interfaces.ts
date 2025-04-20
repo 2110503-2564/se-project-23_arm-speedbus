@@ -40,6 +40,7 @@ export interface UserItem {
   role: string;
   totalPayment: number;
   totalPaymentThisYear: number;
+  redeemCouponStatus: boolean[];
   createdAt: string;
   __v: number;
   id: string;
@@ -64,9 +65,9 @@ export interface BookingItem {
   user_info: BookingVirtual_User;
   startDate: string;
   endDate: string;
-  couponName: string,
-  discount: number,
-  maxDiscount: number,
+  couponName: string;
+  discount: number;
+  maxDiscount: number;
   totalDays: number;
   totalPrice: number;
   status: string;

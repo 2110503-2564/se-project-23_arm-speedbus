@@ -1,9 +1,8 @@
 "use client";
-
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import CouponCard from "./CouponCard";
-import { getSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import updateRedeemStatusInUser from "@/libs/updateRedeemStatusInUser"; // ต้องสร้างฟังก์ชันนี้ที่เชื่อม API
 
 const CARD_WIDTH = 270;
 
@@ -22,6 +21,7 @@ type Props = {
 
 const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
   const [currentSpending, setCurrentSpending] = useState<number>(0);
+  const [redeemStatus, setRedeemStatus] = useState<boolean[]>([]); // สถานะการรีดีมของคูปอง
   const milestones = coupon.map((c) => c.spent);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -41,6 +41,7 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
       const data = await res.json();
       if (data.success) {
         setCurrentSpending(data.data.totalPayment);
+        setRedeemStatus(data.data.redeemCouponStatus);
       }
     };
 
@@ -144,6 +145,11 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
                         minSp={item.minSpend}
                         spent={item.spent}
                         valid={item.valid}
+                        redeemStatus={redeemStatus}
+                        index={index}
+                        updateDetails={(updatedStatus) =>
+                          setRedeemStatus(updatedStatus)
+                        }
                       />
                     </div>
                   ) : (
