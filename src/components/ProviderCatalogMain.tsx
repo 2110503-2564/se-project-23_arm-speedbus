@@ -13,17 +13,17 @@ export default async function ProviderCatalogMain({
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-8 px-4">
+      <div className="w-full h-auto flex flex-wrap justify-center gap-10 p-4 overflow-x-hidden font-robotoMono">
         {providerJsonReady.data
           .slice(0, Math.min(providerJsonReady.data.length, 4))
           .map((providerItem: ProviderItem, index) => (
             <Link
               href={`/provider/${providerItem.id}`}
               key={providerItem.id}
-              className={`w-full sm:w-[48%] md:w-[30%] lg:w-[22%] p-2 sm:p-4 md:p-4 lg:p-8 group opacity-0 transition-transform duration-1000 animate-slide-up`}
+              className={`w-[17vw] group opacity-0 transition-transform duration-1000 animate-slide-up`}
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <div className="border border-gray-300 h-auto overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
+              <div className="border border-gray-300 bg-white relative group hover:scale-105 transition-all ease-in-out shadow-md hover:shadow-lg">
                 <ProviderCard
                   providerName={providerItem.name}
                   imgSrc={providerItem.picture}

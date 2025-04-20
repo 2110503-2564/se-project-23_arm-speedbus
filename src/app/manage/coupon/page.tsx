@@ -18,7 +18,7 @@ export default async function manageCouponsPage() {
             </Link>
             <Link href="/manage/coupon/delete" className="block">
               <div className="text-red-600 border border-red-600 px-5 py-2 rounded-full text-sm hover:bg-red-600 hover:text-white transition text-center font-robotoMono">
-                Delete a Coupon
+              Delete Expired Coupons
               </div>
             </Link>
           </div>
