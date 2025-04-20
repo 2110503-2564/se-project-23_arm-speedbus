@@ -1,8 +1,8 @@
 "use client";
+
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import CouponCard from "./CouponCard";
 import { useSession } from "next-auth/react";
-import updateRedeemStatusInUser from "@/libs/updateRedeemStatusInUser"; // ต้องสร้างฟังก์ชันนี้ที่เชื่อม API
 
 const CARD_WIDTH = 270;
 

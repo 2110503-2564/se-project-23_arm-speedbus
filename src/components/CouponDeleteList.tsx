@@ -10,35 +10,10 @@ export default function CouponDeleteList({
 }: {
   couponJson: CouponJson;
 }) {
-  useEffect(() => {
-    const updateExpiredCoupons = async () => {
-      const session = await getSession();
-      if (!session?.user?.token) return;
-
-      for (const coupon of couponJson.data) {
-        const isExpired = new Date(coupon.expirationDate) < new Date();
-        if (isExpired && coupon.status !== "Expired") {
-          await updateCoupon(
-            session.user.token,
-            coupon._id,
-            coupon.percentage,
-            coupon.name,
-            coupon.maxDiscount,
-            coupon.minSpend,
-            coupon.expirationDate,
-            "Expired"
-          );
-        }
-      }
-    };
-
-    updateExpiredCoupons();
-  }, [couponJson]);
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-4">
       {couponJson.data.map((coupon) => {
-        const isExpired = new Date(coupon.expirationDate) < new Date();
+        const isExpired = coupon.status === "Expired";
         const formattedDate = new Date(
           coupon.expirationDate
         ).toLocaleDateString("en-GB");

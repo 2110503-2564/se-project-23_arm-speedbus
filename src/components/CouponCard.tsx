@@ -1,4 +1,5 @@
 "use client";
+
 import createCoupon from "@/libs/createCoupon";
 import { getSession } from "next-auth/react";
 import React, { useState } from "react";
