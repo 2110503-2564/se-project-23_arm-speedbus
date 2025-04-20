@@ -1,4 +1,3 @@
-// components/ClientDeleteCouponPage.tsx
 'use client';
 
 import { useState } from "react";
@@ -19,8 +18,9 @@ export default function ClientDeleteCouponPage({
 
   const handleDeleteCoupon = async () => {
     try {
-        const res = await deleteExpiredCoupons(token);
+      const res = await deleteExpiredCoupons(token);
       alert(res.message);
+      router.refresh(); // ✅ รีเฟรชหน้าเมื่อสำเร็จ
     } catch (err) {
       setDeleteError("Failed to delete the coupon.");
     }
