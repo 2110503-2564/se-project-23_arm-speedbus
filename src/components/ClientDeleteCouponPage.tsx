@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import CouponDeleteList from "@/components/CouponDeleteList";
@@ -28,9 +28,6 @@ export default function ClientDeleteCouponPage({
 
   return (
     <main className="text-center p-5">
-      <h1 className="text-xl font-medium font-robotoMono mb-4">
-        Select the Coupon You Want to Delete
-      </h1>
       <CouponDeleteList couponJson={coupons} />
 
       <button
@@ -41,7 +38,9 @@ export default function ClientDeleteCouponPage({
       </button>
 
       {deleteError && (
-        <p className="text-red-600 text-sm mt-2 font-robotoMono">{deleteError}</p>
+        <p className="text-red-600 text-sm mt-2 font-robotoMono">
+          {deleteError}
+        </p>
       )}
     </main>
   );

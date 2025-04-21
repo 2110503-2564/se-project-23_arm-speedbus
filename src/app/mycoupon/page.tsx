@@ -44,7 +44,10 @@ export default function Page() {
           </div>
         ) : (
           myCoupon?.data.map((coupon) => (
-            <div key={coupon._id} className="mb-4 border-b pb-4 rounded-lg border border-black p-5">
+            <div
+              key={coupon._id}
+              className="mb-4 border-b pb-4 rounded-lg border border-black p-5"
+            >
               <div className="flex justify-between text-lg text-black">
                 <div>
                   <p>
@@ -52,13 +55,13 @@ export default function Page() {
                   </p>
                   <p>
                     <strong>Status:</strong>{" "}
-                    {
-                      coupon.status === "Available" ? (
-                        <span className="text-green-500">Available</span>
-                      ) : (
-                        <span className="text-blue-500">Used</span>
-                      )
-                    }
+                    {coupon.status === "Available" ? (
+                      <span className="text-green-500">Available</span>
+                    ) : coupon.status === "Used" ? (
+                      <span className="text-blue-500">Used</span>
+                    ) : (
+                      <span className="text-red-500">Expired</span>
+                    )}
                   </p>
                 </div>
                 <div>
