@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import CouponCard from "./CouponCard";
-import { getSession } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
 const CARD_WIDTH = 270;
@@ -23,6 +22,7 @@ type Props = {
 const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
   const [paymentThisYear, setpaymentThisYear] = useState<number>(0);
   const [payment, setPayment] = useState<number>(0);
+  const [redeemStatus, setRedeemStatus] = useState<boolean[]>([]); // สถานะการรีดีมของคูปอง
   const milestones = coupon.map((c) => c.spent);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -42,6 +42,7 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
       const data = await res.json();
       if (data.success) {
         setpaymentThisYear(data.data.totalPaymentThisYear);
+        setRedeemStatus(data.data.redeemCouponStatus);
         setPayment(data.data.totalPayment);
       }
     };
@@ -146,6 +147,11 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
                         minSp={item.minSpend}
                         spent={item.spent}
                         valid={item.valid}
+                        redeemStatus={redeemStatus}
+                        index={index}
+                        updateDetails={(updatedStatus) =>
+                          setRedeemStatus(updatedStatus)
+                        }
                       />
                     </div>
                   ) : (
@@ -178,12 +184,9 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
         </p>
 
         <p className="text-center text-sm text-gray-600 mt-4">
-          You've spent total{" "}
+          You've spent{" "}
           <span className="font-bold text-gray-700">
-            $
-            {Number.isFinite(payment)
-              ? payment.toFixed(2)
-              : "0.00"}
+            ${Number.isFinite(payment) ? payment.toFixed(2) : "0.00"}
           </span>
         </p>
       </div>
