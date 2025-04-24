@@ -32,6 +32,7 @@ export default async function CarCatalog({ carJson }: { carJson: CarJson }) {
                 imgSrc={carItem.picture}
                 price={carItem.pricePerDay}
                 provider={carItem.provider_info.name}
+                rating={parseFloat(carItem.averageRating?.toFixed(2))}
               />
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">

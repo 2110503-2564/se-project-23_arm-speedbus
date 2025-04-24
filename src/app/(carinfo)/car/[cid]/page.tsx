@@ -374,7 +374,10 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           {ratings.length === 0 ? null : (
             <>
               <div className="font-robotoMono text-[30px]">Review</div>
-              <div className="justify-end mx-10 font-robotoMono my-2 hover:underline cursor-pointer">
+              <div
+                className="justify-end mx-10 font-robotoMono my-2 hover:underline cursor-pointer"
+                onClick={() => router.push(`/car/${params.cid}/Rating`)}
+              >
                 View more
               </div>
             </>

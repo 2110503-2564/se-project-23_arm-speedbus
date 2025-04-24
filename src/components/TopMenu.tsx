@@ -12,7 +12,7 @@ export default function TopMenu() {
   return (
     <div className="h-[104px] bg-white fixed top-0 left-0 right-0 z-30 flex items-center justify-between ">
       <div className="flex gap-6 ml-[2vw]">
-        <img className="flex h-[100px] left-0" src="img/logo.ico" />
+        <img className="flex h-[100px] left-0" src="img/logo.jpg" />
         <TopMenuItem title="PROVIDER" pageRef="/provider" />
         <TopMenuItem title="SELECT CAR" pageRef="/car" />
       </div>

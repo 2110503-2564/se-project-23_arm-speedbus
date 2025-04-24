@@ -26,11 +26,21 @@ export default function Footer() {
         <div className="space-y-6">
           <h2 className="text-2xl font-bold">ARM SPEED BUS</h2>
           <p className="text-gray-700 leading-relaxed">
-            ARM SPEED BUS is a modern car rental service offering flexible and reliable options for every journey. Whether you're planning a weekend trip or need a ride for your daily commute — we've got you covered.
+            ARM SPEED BUS is a modern car rental service offering flexible and
+            reliable options for every journey. Whether you're planning a
+            weekend trip or need a ride for your daily commute — we've got you
+            covered.
           </p>
           <div>
             <p className="font-semibold underline">Social</p>
-            <Link href="https://www.instagram.com/rtxp.pp/">Instagram</Link>
+            <Link href="https://www.instagram.com/boon_baworntatt/">
+              Instagram
+            </Link>
+            <div>
+              <Link href="https://www.instagram.com/p/C7oEIispaPd/?img_index=1">
+                Outstagram
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -39,7 +49,11 @@ export default function Footer() {
           <p className="font-semibold underline">Information</p>
           <p>Rental Guide</p>
           <p>FAQ</p>
-          <p>Partner With Us</p>
+          <p>
+            <Link href="https://www.facebook.com/profile.php?id=100016896722458">
+              Partner With Us
+            </Link>
+          </p>
           <p>Contact</p>
           <p>Terms & Conditions</p>
         </div>
@@ -58,10 +72,7 @@ export default function Footer() {
               onChange={(e) => setEmail(e.target.value)}
               className="bg-transparent focus:outline-none flex-1 placeholder-gray-500"
             />
-            <button
-              className="text-gray-700"
-              onClick={handleSubscribe}
-            >
+            <button className="text-gray-700" onClick={handleSubscribe}>
               Subscribe
             </button>
           </div>
@@ -71,7 +82,8 @@ export default function Footer() {
           <label className="flex items-center space-x-2 text-xs text-gray-600">
             <input type="checkbox" className="form-checkbox" />
             <span>
-              I have read and accept the <span className="underline">terms and conditions</span>.
+              I have read and accept the{" "}
+              <span className="underline">terms and conditions</span>.
             </span>
           </label>
         </div>
