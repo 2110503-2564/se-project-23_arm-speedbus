@@ -16,6 +16,7 @@ import redeemCoupon from "@/components/CouponCard";
 import { useRouter } from "next/navigation";
 import "./calendar.css";
 import { FaCheck } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 import { CouponItem } from "interfaces";
 import updateCoupon from "@/libs/updateCoupon";
@@ -139,7 +140,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       endDate,
       cp?.name ?? "No coupon selected",
       cp?.percentage ?? 0,
-      cp?.maxDiscount ?? 0,
+      cp?.maxDiscount ?? 0
     );
 
     if (res.success) {
@@ -185,9 +186,16 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
     <main className="min-h-screen px-[5vw] py-10 font-robotoMono text-black flex flex-col gap-12 mt-10">
       {/* Section: Title and Main Content */}
       <div className="flex flex-row items-center gap-20">
-        {/* รูป + ชื่อรถ */}
         <div className="flex flex-col items-start ml-20">
-          <h1 className="text-[45px] tracking-wider mb-4">{carItem.name}</h1>
+          <h1 className="text-[45px] tracking-wider mb-4 flex items-center gap-4 font-robotoMono">
+            {carItem.name}
+
+            <span className="text-[20px] font-semibold w-[115px] h-[46px] bg-white rounded-full font-robotoMono border border-black flex items-center justify-center gap-2">
+              4.9
+              <FaStar className="text-black text-[20px]" />
+            </span>
+          </h1>
+
           <div className="w-[457px] h-[468px] bg-gray-200 overflow-hidden">
             <Image
               src={carItem.picture}
@@ -236,7 +244,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
                   ${discountedPrice}
                 </span>
                 <span className="text-sm text-gray-600 font-normal ml-2">
-                  (${(discountedPrice/(endDate.diff(startDate, "day") + 1)).toFixed(2)}/day)
+                  ($
+                  {(
+                    discountedPrice /
+                    (endDate.diff(startDate, "day") + 1)
+                  ).toFixed(2)}
+                  /day)
                 </span>
               </>
             ) : (
