@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import "./calendar.css";
 import { FaCheck } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import DropdownRating from "@/components/DropdownmenuRating";
 
 import { CouponItem } from "interfaces";
 import updateCoupon from "@/libs/updateCoupon";
@@ -44,6 +45,7 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const [coupons, setCoupons] = useState<CouponItem[]>([]);
   const [selectedCoupon, setSelectedCoupon] = useState<string>("");
   const [ratings, setRatings] = useState<Rating[]>([]);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const fetchRatings = async () => {
@@ -57,6 +59,15 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
 
     fetchRatings();
   }, [params.cid]);
+
+  useEffect(() => {
+    if (open) {
+      const timer = setTimeout(() => setVisible(true), 10);
+      return () => clearTimeout(timer);
+    } else {
+      setVisible(false);
+    }
+  }, [open]);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -202,6 +213,11 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         Car not found
       </div>
     );
+  const ratingBreakdown = ratings.reduce((acc, rating) => {
+    const star = Math.round(rating.car_rating);
+    acc[star] = (acc[star] || 0) + 1;
+    return acc;
+  }, {} as Record<number, number>);
 
   return (
     /* layout ใหม่ตามภาพ UI */
@@ -213,10 +229,11 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           <h1 className="text-[45px] tracking-wider mb-4 flex items-center gap-4 font-robotoMono">
             {carItem.name}
 
-            <span className="text-[20px] font-semibold w-[115px] h-[46px] bg-white rounded-full font-robotoMono border border-black flex items-center justify-center gap-2">
-              {averageRating.toFixed(1)}
-              <FaStar className="text-black text-[20px]" />
-            </span>
+            <DropdownRating
+              averageRating={averageRating}
+              totalRating={ratings.length}
+              breakdown={ratingBreakdown}
+            />
             <div className="text-[12px] flex items-baseline">
               ({totalRating})
             </div>
