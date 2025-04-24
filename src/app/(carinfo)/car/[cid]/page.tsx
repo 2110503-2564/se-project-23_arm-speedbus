@@ -25,6 +25,8 @@ import getMyCoupon from "@/libs/getMyCoupon";
 import CouponDropDownList from "@/components/CouponDropDownList";
 import { set } from "mongoose";
 
+import CommentCard from "@/components/CommentCard";
+
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
   const [carItem, setCarItem] = useState<CarItem | null>(null);
@@ -334,6 +336,23 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
               </Link>
             </div>
           )}
+        </div>
+      </div>
+      <div className="flex flex-col ml-20 ">
+        Review
+        <div className="flex flex-row mt-10 gap-12 min-h-[320px]">
+          <CommentCard
+            name="Pleang"
+            rating={3.8}
+            review="pen arai mak mai"
+            created={new Date("2003-12-14")}
+          />
+          <CommentCard
+            name="Popeang"
+            rating={5}
+            review="pen arai mak mai ai knight, mueng ni mun pen kon dee jing jing happy april fool day"
+            created={new Date("2003-12-14")}
+          />
         </div>
       </div>
     </main>
