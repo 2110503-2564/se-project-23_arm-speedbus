@@ -183,12 +183,12 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
           </span>
         </p>
 
-        <p className="text-center text-sm text-gray-600 mt-4">
+        {/* <p className="text-center text-sm text-gray-600 mt-4">
           You've spent{" "}
           <span className="font-bold text-gray-700">
             ${Number.isFinite(payment) ? payment.toFixed(2) : "0.00"}
           </span>
-        </p>
+        </p> */}
       </div>
     </div>
   );

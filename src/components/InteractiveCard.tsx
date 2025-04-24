@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 
 export default function InteractiveCard({
   children,
@@ -9,7 +9,7 @@ export default function InteractiveCard({
   contentName: string;
 }) {
   function onCardSelected() {
-    alert('You selected ' + contentName);
+    alert("You selected " + contentName);
   }
 
   function onCardMouseAction(event: React.SyntheticEvent) {
