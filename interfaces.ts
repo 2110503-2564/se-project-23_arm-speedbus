@@ -130,3 +130,17 @@ export interface CouponTemplateItem {
   spent: number;
   valid: number;
 }
+
+export interface Rating {
+  _id: string;
+  rent_info: string;
+  car_info: string;
+  provider_info: string;
+  user_info: UserItem;
+  car_rating: number;
+  provider_rating: number;
+  review?: string;
+  createdAt: string;
+  updatedAt: string;
+  __v?: number;
+}

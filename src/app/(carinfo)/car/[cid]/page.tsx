@@ -26,6 +26,8 @@ import CouponDropDownList from "@/components/CouponDropDownList";
 import { set } from "mongoose";
 
 import CommentCard from "@/components/CommentCard";
+import { Rating } from "interfaces";
+import getRatingsForCar from "@/libs/getRatingsForCar";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
@@ -41,6 +43,20 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const { data: session } = useSession();
   const [coupons, setCoupons] = useState<CouponItem[]>([]);
   const [selectedCoupon, setSelectedCoupon] = useState<string>("");
+  const [ratings, setRatings] = useState<Rating[]>([]);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const res = await getRatingsForCar(params.cid);
+        setRatings(res.data);
+      } catch (error) {
+        console.error("Error fetching ratings:", error);
+      }
+    };
+
+    fetchRatings();
+  }, [params.cid]);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -168,7 +184,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       setErrorMessage(res.message);
     }
   }
+  const averageRating =
+    ratings.length > 0
+      ? ratings.reduce((sum, r) => sum + r.car_rating, 0) / ratings.length
+      : 0;
 
+  const totalRating = ratings.length;
   if (loading)
     return (
       <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
@@ -193,9 +214,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             {carItem.name}
 
             <span className="text-[20px] font-semibold w-[115px] h-[46px] bg-white rounded-full font-robotoMono border border-black flex items-center justify-center gap-2">
-              4.9
+              {averageRating.toFixed(1)}
               <FaStar className="text-black text-[20px]" />
             </span>
+            <div className="text-[12px] flex items-baseline">
+              ({totalRating})
+            </div>
           </h1>
 
           <div className="w-[457px] h-[468px] bg-gray-200 overflow-hidden">
@@ -338,33 +362,35 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           )}
         </div>
       </div>
-      <div className="flex flex-col ml-20 ">
+      <div className="flex flex-col ml-20">
         <div className="flex flex-row justify-between">
-          <div className="font-robotoMono text-[30px]">Review</div>
-          <div className="justify-end mx-10 font-robotoMono my-2 hover:underline">
-            View more
+          {ratings.length === 0 ? null : (
+            <>
+              <div className="font-robotoMono text-[30px]">Review</div>
+              <div className="justify-end mx-10 font-robotoMono my-2 hover:underline cursor-pointer">
+                View more
+              </div>
+            </>
+          )}
+        </div>
+
+        {ratings.length === 0 ? (
+          <div className="mt-10 text-gray-500 font-robotoMono text-lg">
+            No review for this car
           </div>
-        </div>
-        <div className="flex flex-row mt-10 gap-12 min-h-[320px]">
-          <CommentCard
-            name="Pleang"
-            rating={3.8}
-            review="pen arai mak mai"
-            created={new Date("2003-12-14")}
-          />
-          <CommentCard
-            name="Popeang"
-            rating={5}
-            review="pen arai mak mai ai knight, mueng ni mun pen kon dee jing jing happy april fool day"
-            created={new Date("2003-12-14")}
-          />
-          <CommentCard
-            name="Popeang"
-            rating={5}
-            review="pen arai mak mai ai knight, mueng ni mun pen kon dee jing jing happy april fool day 8;p omg lol tarareto tarara tung tung tung tung tung tung sahur"
-            created={new Date("2003-12-14")}
-          />
-        </div>
+        ) : (
+          <div className="flex flex-row mt-10 gap-12 min-h-[320px] flex-wrap">
+            {ratings.slice(0, 3).map((rating) => (
+              <CommentCard
+                key={rating._id}
+                name={rating.user_info.name}
+                rating={rating.car_rating}
+                review={rating.review || ""}
+                created={new Date(rating.createdAt)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );

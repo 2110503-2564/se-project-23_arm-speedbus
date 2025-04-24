@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function ExpandableComment({ text }: { text: string }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  let maxLength = 20;
+  let maxLength = 25;
 
   const shortText =
     text.length > maxLength
