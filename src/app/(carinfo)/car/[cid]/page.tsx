@@ -339,7 +339,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         </div>
       </div>
       <div className="flex flex-col ml-20 ">
-        Review
+        <div className="flex flex-row justify-between">
+          <div className="font-robotoMono text-[30px]">Review</div>
+          <div className="justify-end mx-10 font-robotoMono my-2 hover:underline">
+            View more
+          </div>
+        </div>
         <div className="flex flex-row mt-10 gap-12 min-h-[320px]">
           <CommentCard
             name="Pleang"
