@@ -12,22 +12,8 @@ export default function InteractiveCard({
     alert("You selected " + contentName);
   }
 
-  function onCardMouseAction(event: React.SyntheticEvent) {
-    // if (event.type == 'mouseover') {
-    //   event.currentTarget.classList.remove('shadow-lg');
-    //   event.currentTarget.classList.add('shadow-2xl');
-    // } else {
-    //   event.currentTarget.classList.remove('shadow-2xl');
-    //   event.currentTarget.classList.add('shadow-lg');
-    // }
-  }
-
   return (
-    <div
-      className="w-full bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300"
-      onMouseOver={(e) => onCardMouseAction(e)}
-      onMouseOut={(e) => onCardMouseAction(e)}
-    >
+    <div className="w-full max-w-sm bg-white  shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
       {children}
     </div>
   );
