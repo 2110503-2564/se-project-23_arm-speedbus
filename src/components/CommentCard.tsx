@@ -35,7 +35,7 @@ export default function CommentCard({
   created: Date;
 }) {
   return (
-    <div className="w-[390px] border border-black rounded-lg p-4 shadow-sm bg-white space-y-1">
+    <div className="w-[390px] border border-black rounded-lg p-4 shadow-sm bg-white flex flex-col space-y-1 h-full">
       <div className="flex items-center justify-start gap-x-4 ">
         <FaUser className="text-gray-700 text-xl" />
         <h3 className="text-[20px]  font-robotoMono">{name}</h3>

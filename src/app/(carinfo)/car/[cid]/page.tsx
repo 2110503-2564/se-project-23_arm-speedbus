@@ -353,6 +353,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             review="pen arai mak mai ai knight, mueng ni mun pen kon dee jing jing happy april fool day"
             created={new Date("2003-12-14")}
           />
+          <CommentCard
+            name="Popeang"
+            rating={5}
+            review="pen arai mak mai ai knight, mueng ni mun pen kon dee jing jing happy april fool day 8;p omg lol tarareto tarara tung tung tung tung tung tung sahur"
+            created={new Date("2003-12-14")}
+          />
         </div>
       </div>
     </main>
