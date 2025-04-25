@@ -390,23 +390,15 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           </div>
         ) : (
           <div className="flex flex-row mt-10 gap-12 min-h-[320px] flex-wrap">
-            {ratings
-              .slice()
-              .sort(
-                (a, b) =>
-                  new Date(b.createdAt).getTime() -
-                  new Date(a.createdAt).getTime()
-              )
-              .slice(0, 3)
-              .map((rating) => (
-                <CommentCard
-                  key={rating._id}
-                  name={rating.user_info.name}
-                  rating={rating.car_rating}
-                  review={rating.review || ""}
-                  created={new Date(rating.createdAt)}
-                />
-              ))}
+            {ratings.slice(0, 3).map((rating) => (
+              <CommentCard
+                key={rating._id}
+                name={rating.user_info.name}
+                rating={rating.car_rating}
+                review={rating.review || ""}
+                created={new Date(rating.createdAt)}
+              />
+            ))}
           </div>
         )}
       </div>
