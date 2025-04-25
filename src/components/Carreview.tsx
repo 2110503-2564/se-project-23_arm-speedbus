@@ -42,14 +42,20 @@ export default function CarReviewClient({
 
         <div className="flex-1">
           <div className="flex flex-col">
-            {filteredRatings.map((rating) => (
-              <Comment
+            {filteredRatings.map((rating, index) => (
+              <div
                 key={rating._id}
-                name={rating.user_info.name}
-                rating={rating.car_rating}
-                review={rating.review || ""}
-                created={new Date(rating.createdAt)}
-              />
+                className={`opacity-0 animate-fade-in-up`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <Comment
+                  key={rating._id}
+                  name={rating.user_info.name}
+                  rating={rating.car_rating}
+                  review={rating.review || ""}
+                  created={new Date(rating.createdAt)}
+                />
+              </div>
             ))}
           </div>
         </div>
