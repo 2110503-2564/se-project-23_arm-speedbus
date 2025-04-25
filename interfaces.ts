@@ -135,7 +135,7 @@ export interface CouponTemplateItem {
 
 export interface Rating {
   _id: string;
-  rent_info: string;
+  rent_info: BookingItem;
   car_info: CarItem;
   provider_info: string;
   user_info: UserItem;
