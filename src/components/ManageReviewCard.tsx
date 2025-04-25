@@ -119,9 +119,9 @@ export default function ManageReviewCard({
   };
 
   return (
-    <div className="mb-4 pb-4 rounded-lg border border-black p-5 relative">
+    <div className="mb-4 pb-4 rounded-lg border border-black p-5 relative bg-white">
       <div className="flex flex-col">
-        <span className="text-black text-[16px]">ratingId : {ratingId}</span>
+        <span className="text-black text-[16px]">ReviewId : {ratingId}</span>
         <span className="text-black text-[16px] mt-1">User : {userName}</span>
         <span className="text-black text-[16px] mt-1">Car : {carName}</span>
       </div>
