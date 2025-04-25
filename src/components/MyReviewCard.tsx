@@ -1,16 +1,9 @@
-"use client";
-
-import dayjs from "dayjs";
-import { FaUser } from "react-icons/fa";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import ExpandableComment from "./ExpandableComment";
-import { useState } from "react";
 
 function renderStars(rating: number) {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating - fullStars > 0;
   const emptyStars = 5 - Math.ceil(rating);
-  const [editingId, setEditingId] = useState("");
 
   return (
     <div className="flex items-center gap-[2px]">
@@ -28,15 +21,15 @@ function renderStars(rating: number) {
 export default function MyReviewCard({
   rentId,
   name,
-  rating,
+  carRating,
   review,
-  created,
+  posted,
 }: {
   rentId: string;
   name?: string;
-  rating: number;
+  carRating: number;
   review?: string;
-  created: Date;
+  posted: Date;
 }) {
   const buttonStyle =
     "text-black text-[12px] rounded-lg bg-white border border-black py-1 px-3 hover:bg-black hover:text-white transition duration-300";
@@ -46,7 +39,7 @@ export default function MyReviewCard({
       <div className="flex flex-col">
         <div className="flex">
           <div className="text-black text-[16px]">RentId : {rentId}</div>
-          <div className="ml-auto">{renderStars(rating)}</div>
+          <div className="ml-auto">{renderStars(carRating)}</div>
         </div>
         <span className="text-black text-[16px]">Car : {name}</span>
       </div>
@@ -57,7 +50,7 @@ export default function MyReviewCard({
 
       <div className="flex flex-row items-center justify-between">
         <div className="text-gray-500 text-[12px]">
-          Posted on : {created.toLocaleString()}
+          Posted on : {posted.toLocaleString()}
         </div>
         <div className="flex gap-2">
           <button className={buttonStyle}>Edit</button>

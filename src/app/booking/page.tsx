@@ -38,11 +38,13 @@ export default function RentPage() {
     fetchRents();
   }, [refresh]);
   const handleDelete = async (rentId: string) => {
-    const confirmed = window.confirm("Are you sure you want to delete this booking?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this booking?"
+    );
     if (!confirmed) return;
-  
+
     if (!session?.user.token) return;
-  
+
     const res = await deleteRent(session.user.token, rentId);
     if (res.success) {
       alert("Deleted Booking Successfully");
@@ -52,7 +54,9 @@ export default function RentPage() {
     }
   };
   const handleFinish = async (rentId: string) => {
-    const confirmed = window.confirm("Are you sure you want to mark as finished?");
+    const confirmed = window.confirm(
+      "Are you sure you want to mark as finished?"
+    );
     if (!confirmed) return;
     if (!session.user.token) return;
     const res = await finishRent(session.user.token, rentId);
@@ -63,26 +67,36 @@ export default function RentPage() {
       setEditError(res.message);
     }
   };
-  if (loading) return <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">Loading...</div>
-  if (error) return <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">{error}</div>;
+  if (loading)
+    return (
+      <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        Loading...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="text-center text-xl text-red-600 p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
+        {error}
+      </div>
+    );
   return (
     <main className="p-6 min-h-screen font-robotoMono mt-10 bg-gray-100">
-        <h1 className="text-4xl font-semibold text-gray-800 font-robotoMono text-center mb-6 mt-3">
-              All Rent Booking History
-        </h1>
-        {session.user.User_info.role === "admin" ? (
-          <div className="mb-8 text-center">
-            <h2 className="text-lg text-black font-robotoMono mt-3">
-              Manage and modify rental bookings for all users.
-            </h2>
-          </div>
-        ) : (
-          <div className="mb-8 text-center">
-            <h2 className="text-lg text-black font-robotoMono mt-3">
-              A user can have up to 3 active bookings.
-            </h2>
-          </div>
-        )}
+      <h1 className="text-4xl font-semibold text-gray-800 font-robotoMono text-center mb-6 mt-3">
+        All Rent Booking History
+      </h1>
+      {session.user.User_info.role === "admin" ? (
+        <div className="mb-8 text-center">
+          <h2 className="text-lg text-black font-robotoMono mt-3">
+            Manage and modify rental bookings for all users.
+          </h2>
+        </div>
+      ) : (
+        <div className="mb-8 text-center">
+          <h2 className="text-lg text-black font-robotoMono mt-3">
+            A user can have up to 3 active bookings.
+          </h2>
+        </div>
+      )}
       <div className="max-w-4xl mx-auto font-robotoMono border border-black">
         <div className="bg-white rounded-lg shadow overflow-hidden">
           {/* booking section */}
@@ -97,53 +111,80 @@ export default function RentPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <div className="text-md font-semibold text-gray-700 font-robotoMono">
-                        Renting ID: <span className="text-gray-700 font-extrabold font-robotoMono text-xl">{rentItem._id}</span>
+                        Renting ID:{" "}
+                        <span className="text-gray-700 font-extrabold font-robotoMono text-xl">
+                          {rentItem._id}
+                        </span>
                       </div>
                       <div className="text-md text-gray-600 font-robotoMono">
-                        Car: <span className="text-gray-700 font-extrabold font-robotoMono text-xl">{rentItem.car_info?.name}</span>
+                        Car:{" "}
+                        <span className="text-gray-700 font-extrabold font-robotoMono text-xl">
+                          {rentItem.car_info?.name}
+                        </span>
                       </div>
                       <div className="text-md text-gray-600 font-robotoMono">
-                        User: <span className="text-gray-700 font-extrabold font-robotoMono text-xl">{rentItem.user_info?.name}</span>
+                        User:{" "}
+                        <span className="text-gray-700 font-extrabold font-robotoMono text-xl">
+                          {rentItem.user_info?.name}
+                        </span>
                       </div>
-                      {
-                        rentItem.discount > 0 ? (
-                          <div className="text-md text-green-500 font-robotoMono">
-                            Discount: <span className="text-green-500 font-extrabold font-robotoMono text-xl">
-                              {rentItem.discount}% (up to ${rentItem.maxDiscount})
-                            </span>
-                          </div>
-                        )
-                        : null
-                      }
-                      {
-                        rentItem.status == "Confirmed" ? (
-                          <div className="text-md text-blue-600 font-robotoMono">
-                            Status: <span className="text-blue-600 font-extrabold font-robotoMono text-xl">Confirmed</span>
-                          </div>
-                        ):(
-                          <div className="text-md text-green-600 font-robotoMono">
-                            Status: <span className="text-green-600 font-extrabold font-robotoMono text-xl">Finished</span>
-                          </div>
-                        )
-                      }
+                      {rentItem.discount > 0 ? (
+                        <div className="text-md text-green-500 font-robotoMono">
+                          Discount:{" "}
+                          <span className="text-green-500 font-extrabold font-robotoMono text-xl">
+                            {rentItem.discount}% (up to ${rentItem.maxDiscount})
+                          </span>
+                        </div>
+                      ) : null}
+                      {rentItem.status == "Confirmed" ? (
+                        <div className="text-md text-blue-600 font-robotoMono">
+                          Status:{" "}
+                          <span className="text-blue-600 font-extrabold font-robotoMono text-xl">
+                            Confirmed
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="text-md text-green-600 font-robotoMono">
+                          Status:{" "}
+                          <span className="text-green-600 font-extrabold font-robotoMono text-xl">
+                            Finished
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <div>
                       <div className="text-gray-600 font-robotoMono">
-                        Start Date: <span className="text-black font-extrabold font-robotoMono"> {rentItem.startDate?.split('T')[0]}</span>
+                        Start Date:{" "}
+                        <span className="text-black font-extrabold font-robotoMono">
+                          {" "}
+                          {rentItem.startDate?.split("T")[0]}
+                        </span>
                       </div>
                       <div className="text-gray-600 font-robotoMono">
-                        End Date: <span className="text-black font-extrabold font-robotoMono">{rentItem.endDate?.split('T')[0]} </span>
+                        End Date:{" "}
+                        <span className="text-black font-extrabold font-robotoMono">
+                          {rentItem.endDate?.split("T")[0]}{" "}
+                        </span>
                       </div>
                       <div className="text-gray-600 font-robotoMono">
-                        Status: <span className="text-black font-extrabold font-robotoMono">{rentItem.status}</span>
+                        Status:{" "}
+                        <span className="text-black font-extrabold font-robotoMono">
+                          {rentItem.status}
+                        </span>
                       </div>
                       <div className="text-gray-600 font-robotoMono">
-                        Daily Cost: <span className="text-black font-extrabold font-robotoMono">${rentItem.car_info.pricePerDay}</span>
+                        Daily Cost:{" "}
+                        <span className="text-black font-extrabold font-robotoMono">
+                          ${rentItem.car_info.pricePerDay}
+                        </span>
                       </div>
                       <div className="text-gray-600 font-robotoMono">
-                        Confirmation Date: <span className="text-black font-extrabold font-robotoMono">{rentItem.iDate}</span>
+                        Confirmation Date:{" "}
+                        <span className="text-black font-extrabold font-robotoMono">
+                          {rentItem.iDate}
+                        </span>
                       </div>
-                      <br/>
+                      <br />
                       <div className="text-gray-600 text-xl font-bold font-robotoMono">
                         Total Day: {rentItem.totalDays}
                       </div>
@@ -170,7 +211,9 @@ export default function RentPage() {
                       ) : session.user.User_info.role === "user" &&
                         rentItem.status === "Finished" ? (
                         <div className="mt-4 flex justify-end text-green-600 font-robotoMono">
-                          <p className="items-center font-robotoMono">Rent Finished</p>
+                          <p className="items-center font-robotoMono">
+                            Rent Finished
+                          </p>
                         </div>
                       ) : null}
                     </div>
@@ -188,16 +231,17 @@ export default function RentPage() {
                           Change Date
                         </button>
                       )}
-                     <button
+                      <button
                         onClick={() => handleDelete(rentItem._id)}
                         className="text-red-600 border border-red-600 px-5 py-2 rounded-full text-sm hover:bg-red-600 hover:text-white transition text-center"
                       >
                         Delete
                       </button>
-
                     </div>
                     {editError && (
-                      <div className="text-red-500 mt-2 font-robotoMono">{editError}</div>
+                      <div className="text-red-500 mt-2 font-robotoMono">
+                        {editError}
+                      </div>
                     )}
                   </div>
                 </div>

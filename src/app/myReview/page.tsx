@@ -2,8 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import getMyCoupon from "@/libs/getMyCoupon";
-import { CouponJson, RatingItem } from "interfaces";
+import { RatingItem } from "interfaces";
 import Link from "next/link";
 import getMyRatings from "@/libs/getMyRatings";
 import MyReviewCard from "@/components/MyReviewCard";
@@ -48,11 +47,11 @@ export default function Page() {
           myRating?.data.map((rating) => (
             <div key={rating._id}>
               <MyReviewCard
-                rentId={rating.rent_info._id}
+                rentId={rating.rent_info}
                 name={rating.car_info.name}
-                rating={rating.car_rating}
+                carRating={rating.car_rating}
                 review={rating.review}
-                created={new Date(rating.createdAt)}
+                posted={new Date(rating.updatedAt)}
               ></MyReviewCard>
             </div>
           ))
