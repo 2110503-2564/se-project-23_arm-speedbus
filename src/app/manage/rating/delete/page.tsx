@@ -27,7 +27,7 @@ export default async function DeletRatingPage() {
     <main className="text-center p-5">
       {session?.user.User_info.role === "admin" ? (
         <div>
-          <h1 className="text-xl font-medium font-robotoMono mt-6 mb-8">
+          <h1 className="text-xl font-medium font-robotoMono mt-6 mb-10">
             Select the Rating You Want to Delete
           </h1>
           <Suspense
