@@ -11,7 +11,7 @@ export default function CouponDropDownList( {couponList, onSelectCoupon}
   const [selectedCouponName, setSelectedCouponName] = useState<string|null>("Select a coupon");
 
   return (
-    <div className="relative inline-block flex flex-col items-center">
+    <div className="relative flex flex-col items-center z-10">
         {selectedCouponId ? (
             <button onClick={() => setIsOpen(!isOpen)}
                 className="mt-3 w-[220px] border border-black text-Black rounded-full py-1.5 px-6 text-sm
@@ -53,60 +53,73 @@ export default function CouponDropDownList( {couponList, onSelectCoupon}
         }
 
         {
-            isOpen ? (
-                <div className="relative absolute mt-2 w-[230px] items-center bg-white rounded-lg border border-black">
-                    {couponList.map((item, index) => (
-                        item.status !== "Available" ? null : (
-                        <div key={index} className="w-full">
-                            {
-                                item._id === selectedCouponId ? (
-                                    <div>              
-                                        <button
-                                        className="p-4 w-full whitespace-pre-wrap flex flex-col items-start text-black transition-transform duration-300"
-                                        onClick={() => {
-                                            setSelectedCouponName(item.name);
-                                            setSelectedCouponId(item._id);
-                                            onSelectCoupon(item._id);
-                                            setIsOpen(false);
-                                        }}
-                                        >
-                                        <div className="font-sm font-robotoMono">{item.name}</div>
-                                        <div className="font-sm font-robotoMono">Discount: {item.percentage}%</div>
-                                        <div className="font-sm font-robotoMono">Expired: {dayjs(item.expirationDate).format("YYYY-MM-DD").toString()}</div>
-                                        </button>
-            
-                                        {index < couponList.length - 1 && (
-                                        <div className="border-t border-1 border-black mx-4 rounded-full"></div>
-                                        )}
-                                    </div>        
-                                ) : (
-                                    <div>
-                                        <button
-                                        className="p-4 w-full whitespace-pre-wrap flex flex-col items-start text-gray-500 hover:text-black transition-transform duration-300"
-                                        onClick={() => {
-                                            setSelectedCouponName(item.name);
-                                            setSelectedCouponId(item._id);
-                                            onSelectCoupon(item._id);
-                                            setIsOpen(false);
-                                        }}
-                                        >
-                                        <div className="font-sm font-robotoMono">{item.name}</div>
-                                        <div className="font-sm font-robotoMono">Discount: {item.percentage}%</div>
-                                        <div className="font-sm font-robotoMono">Expired: {dayjs(item.expirationDate).format("YYYY-MM-DD").toString()}</div>
-                                        </button>
-            
-                                        {index < couponList.length - 1 && (
-                                        <div className="border-t border-1 border-black mx-4 rounded-full"></div>
-                                        )}
-                                    </div>
-                                )
-                            }
+        isOpen ? (
+            <div
+            className="absolute top-12 z-10 mt-2 w-[230px] bg-white rounded-lg border border-black shadow-lg"
+            >
+            {couponList.map((item, index) =>
+                item.status !== "Available" ? null : (
+                <div key={index} className="w-full">
+                    {item._id === selectedCouponId ? (
+                    <div>
+                        <button
+                        className="p-4 w-full whitespace-pre-wrap flex flex-col items-start text-black transition-transform duration-300"
+                        onClick={() => {
+                            setSelectedCouponName(item.name);
+                            setSelectedCouponId(item._id);
+                            onSelectCoupon(item._id);
+                            setIsOpen(false);
+                        }}
+                        >
+                        <div className="font-sm font-robotoMono">{item.name}</div>
+                        <div className="font-sm font-robotoMono">
+                            Discount: {item.percentage}%
                         </div>
-                        )
-                    ))}
+                        <div className="font-sm font-robotoMono">
+                            Expired:{" "}
+                            {dayjs(item.expirationDate)
+                            .format("YYYY-MM-DD")
+                            .toString()}
+                        </div>
+                        </button>
+
+                        {index < couponList.length - 1 && (
+                        <div className="border-t border-1 border-black mx-4 rounded-full"></div>
+                        )}
+                    </div>
+                    ) : (
+                    <div>
+                        <button
+                        className="p-4 w-full whitespace-pre-wrap flex flex-col items-start text-gray-500 hover:text-black transition-transform duration-300"
+                        onClick={() => {
+                            setSelectedCouponName(item.name);
+                            setSelectedCouponId(item._id);
+                            onSelectCoupon(item._id);
+                            setIsOpen(false);
+                        }}
+                        >
+                        <div className="font-sm font-robotoMono">{item.name}</div>
+                        <div className="font-sm font-robotoMono">
+                            Discount: {item.percentage}%
+                        </div>
+                        <div className="font-sm font-robotoMono">
+                            Expired:{" "}
+                            {dayjs(item.expirationDate)
+                            .format("YYYY-MM-DD")
+                            .toString()}
+                        </div>
+                        </button>
+
+                        {index < couponList.length - 1 && (
+                        <div className="border-t border-1 border-black mx-4 rounded-full"></div>
+                        )}
+                    </div>
+                    )}
                 </div>
-            )
-            : null
+                )
+            )}
+            </div>
+        ) : null
         }
     </div>
   );
