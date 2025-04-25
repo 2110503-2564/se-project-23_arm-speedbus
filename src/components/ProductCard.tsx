@@ -10,12 +10,14 @@ export default function ProductCard({
   imgSrc,
   price,
   provider,
+  rating,
   onCompare,
 }: {
   Name: string;
   imgSrc?: string;
   price?: string | number | null;
   provider?: string | null;
+  rating?: number;
   onCompare?: Function;
 }) {
   const router = useRouter();
@@ -56,10 +58,12 @@ export default function ProductCard({
 
         {/* Rating & Review */}
         <div className="flex justify-between items-center w-full mt-auto text-sm">
-          <div className="flex items-center text-black">
-            <FaStar className="mr-1" />
-            <span className="font-semibold">4.9</span>
-          </div>
+          {rating ? (
+            <div className="flex items-center text-black">
+              <FaStar className="mr-1" />
+              <span className="font-semibold">{rating.toFixed(2)}</span>
+            </div>
+          ) : null}
           <div
             className="text-gray-500 cursor-pointer hover:underline whitespace-nowrap"
             onClick={(e) => {

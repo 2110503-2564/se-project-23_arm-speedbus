@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import "./calendar.css";
 import { FaCheck } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
+import DropdownRating from "@/components/DropdownmenuRating";
 
 import { CouponItem } from "interfaces";
 import updateCoupon from "@/libs/updateCoupon";
@@ -24,6 +25,10 @@ import updateCoupon from "@/libs/updateCoupon";
 import getMyCoupon from "@/libs/getMyCoupon";
 import CouponDropDownList from "@/components/CouponDropDownList";
 import { set } from "mongoose";
+
+import CommentCard from "@/components/CommentCard";
+import { Rating } from "interfaces";
+import getRatingsForCar from "@/libs/getRatingsForCar";
 
 export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const router = useRouter();
@@ -39,6 +44,20 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
   const { data: session } = useSession();
   const [coupons, setCoupons] = useState<CouponItem[]>([]);
   const [selectedCoupon, setSelectedCoupon] = useState<string>("");
+  const [ratings, setRatings] = useState<Rating[]>([]);
+
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const res = await getRatingsForCar(params.cid);
+        setRatings(res.data);
+      } catch (error) {
+        console.error("Error fetching ratings:", error);
+      }
+    };
+
+    fetchRatings();
+  }, [params.cid]);
 
   useEffect(() => {
     const fetchCar = async () => {
@@ -166,7 +185,12 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
       setErrorMessage(res.message);
     }
   }
+  const averageRating =
+    ratings.length > 0
+      ? ratings.reduce((sum, r) => sum + r.car_rating, 0) / ratings.length
+      : 0;
 
+  const totalRating = ratings.length;
   if (loading)
     return (
       <div className="text-center text-xl text-black p-4 bg-slate-100 rounded-lg shadow-md max-w-md mx-auto">
@@ -179,6 +203,11 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
         Car not found
       </div>
     );
+  const ratingBreakdown = ratings.reduce((acc, rating) => {
+    const star = Math.round(rating.car_rating);
+    acc[star] = (acc[star] || 0) + 1;
+    return acc;
+  }, {} as Record<number, number>);
 
   return (
     /* layout ใหม่ตามภาพ UI */
@@ -190,10 +219,14 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           <h1 className="text-[45px] tracking-wider mb-4 flex items-center gap-4 font-robotoMono">
             {carItem.name}
 
-            <span className="text-[20px] font-semibold w-[115px] h-[46px] bg-white rounded-full font-robotoMono border border-black flex items-center justify-center gap-2">
-              4.9
-              <FaStar className="text-black text-[20px]" />
-            </span>
+            <DropdownRating
+              averageRating={averageRating}
+              totalRating={ratings.length}
+              breakdown={ratingBreakdown}
+            />
+            <div className="text-[12px] flex items-baseline">
+              ({totalRating})
+            </div>
           </h1>
 
           <div className="w-[457px] h-[468px] bg-gray-200 overflow-hidden">
@@ -335,6 +368,39 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
             </div>
           )}
         </div>
+      </div>
+      <div className="flex flex-col ml-20">
+        <div className="flex flex-row justify-between">
+          {ratings.length === 0 ? null : (
+            <>
+              <div className="font-robotoMono text-[30px]">Review</div>
+              <div
+                className="justify-end mx-10 font-robotoMono my-2 hover:underline cursor-pointer"
+                onClick={() => router.push(`/car/${params.cid}/Rating`)}
+              >
+                View more
+              </div>
+            </>
+          )}
+        </div>
+
+        {ratings.length === 0 ? (
+          <div className="mt-10 text-gray-500 font-robotoMono text-lg">
+            No review for this car
+          </div>
+        ) : (
+          <div className="flex flex-row mt-10 gap-12 min-h-[320px] flex-wrap">
+            {ratings.slice(0, 3).map((rating) => (
+              <CommentCard
+                key={rating._id}
+                name={rating.user_info.name}
+                rating={rating.car_rating}
+                review={rating.review || ""}
+                created={new Date(rating.createdAt)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );
