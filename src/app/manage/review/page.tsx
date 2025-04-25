@@ -1,21 +1,38 @@
-import { Suspense } from "react";
+"use client";
+
+import { useState, useEffect, Suspense } from "react";
+import { useSession } from "next-auth/react";
 import { LinearProgress } from "@mui/material";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
 import getRatings from "@/libs/getAllRatings";
 import { Rating } from "interfaces";
 import ManageReviewCard from "@/components/ManageReviewCard";
 
-export default async function DeletRatingPage() {
-  const session = await getServerSession(authOptions);
+export default function DeletRatingPage() {
+  const { data: session } = useSession();
+  const [ratings, setRatings] = useState<Rating[]>([]);
 
-  // Fetch ratings if the user is authenticated
-  const ratingsResponse = session?.user.token
-    ? await getRatings(session.user.token)
-    : { success: false, data: [] };
+  useEffect(() => {
+    const fetchRatings = async () => {
+      if (session?.user.token) {
+        const ratingsResponse = await getRatings(session.user.token);
+        if (ratingsResponse.success) {
+          setRatings(ratingsResponse.data);
+        }
+      }
+    };
 
-  // Extract ratings from the response
-  const ratings: Rating[] = ratingsResponse.success ? ratingsResponse.data : [];
+    fetchRatings();
+  }, [session]);
+
+  // ฟังก์ชันสำหรับดึงข้อมูลใหม่หลังจากลบรีวิว
+  const refreshRatings = async () => {
+    if (session?.user.token) {
+      const ratingsResponse = await getRatings(session.user.token);
+      if (ratingsResponse.success) {
+        setRatings(ratingsResponse.data);
+      }
+    }
+  };
 
   return (
     <main className="p-6 min-h-screen font-robotoMono mt-10 bg-gray-100">
@@ -46,6 +63,7 @@ export default async function DeletRatingPage() {
                   providerRating={rating.provider_rating}
                   review={rating.review}
                   posted={new Date(rating.updatedAt)}
+                  refreshRatings={refreshRatings}
                 />
               </div>
             ))}

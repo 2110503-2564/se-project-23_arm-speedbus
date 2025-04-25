@@ -34,6 +34,7 @@ export default function ManageReviewCard({
   providerRating,
   review,
   posted,
+  refreshRatings,
 }: {
   ratingId: string;
   userName?: string;
@@ -42,6 +43,7 @@ export default function ManageReviewCard({
   providerRating: number;
   review?: string;
   posted: Date;
+  refreshRatings: () => void; // Function to refresh ratings after deletion
 }) {
   dayjs.locale("th");
   const formattedDate = dayjs(posted).format("DD/MM/YYYY HH:mm:ss");
@@ -109,7 +111,7 @@ export default function ManageReviewCard({
       // Call the deleteRating function with the ratingId
       await deleteRating(session.user.token, ratingId);
       alert("Review deleted successfully!");
-      // Optionally trigger some state change to remove the card from the UI
+      refreshRatings(); // Refresh the ratings after deletion
     } catch (error) {
       console.error("Error deleting review:", error);
       alert("Error deleting review.");
