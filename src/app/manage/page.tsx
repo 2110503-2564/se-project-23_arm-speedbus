@@ -32,6 +32,12 @@ export default async function ManageChoice() {
                   Manage Bookings
                 </span>
               </Link>
+
+              <Link href="/manage/rating" className="block w-full">
+                <span className="block hover:bg-indigo-200 transition-all duration-300 border border-black px-6 py-4 text-xl text-black text-center font-medium tracking-wide">
+                  Manage Ratings
+                </span>
+              </Link>
             </div>
           </div>
         </main>

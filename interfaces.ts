@@ -141,7 +141,7 @@ export interface Rating {
   user_info: UserItem;
   car_rating: number;
   provider_rating: number;
-  review?: string;
+  review: string;
   createdAt: string;
   updatedAt: string;
   __v?: number;
