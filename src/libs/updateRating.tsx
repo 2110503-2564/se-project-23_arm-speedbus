@@ -1,7 +1,7 @@
 export default async function updateRating(
   token: string,
   id: string,
-  car_ratings: number,
+  car_rating: number,
   provider_rating: number,
   review: string
 ) {
@@ -15,7 +15,7 @@ export default async function updateRating(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        car_ratings: car_ratings,
+        car_rating: car_rating,
         provider_rating: provider_rating,
         review: review,
       }),

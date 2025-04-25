@@ -20,7 +20,7 @@ export default async function DeletRatingPage() {
   return (
     <main className="p-6 min-h-screen font-robotoMono mt-10 bg-gray-100">
       {session?.user.User_info.role === "admin" ? (
-        <div className="max-w-3xl mx-auto center w-full font-robotoMono">
+        <div className="max-w-4xl mx-auto center w-full font-robotoMono">
           <h1 className="text-4xl font-semibold text-gray-800 font-robotoMono text-center mb-6 mt-3">
             All Review History
           </h1>
@@ -39,9 +39,11 @@ export default async function DeletRatingPage() {
             {ratings.map((rating: Rating, idx) => (
               <div key={idx}>
                 <ManageReviewCard
-                  rentId={rating.rent_info}
-                  carName={rating.user_info.name}
+                  ratingId={rating._id}
+                  userName={rating.user_info.name}
+                  carName={rating.car_info.name}
                   carRating={rating.car_rating}
+                  providerRating={rating.provider_rating}
                   review={rating.review}
                   posted={new Date(rating.updatedAt)}
                 />

@@ -52,7 +52,7 @@ export default function MyReviewCard({
         <div className="text-gray-500 text-[12px]">
           Posted on : {posted.toLocaleString()}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-8">
           <button className={buttonStyle}>Edit</button>
           <button className={buttonStyle}>Delete</button>
         </div>
