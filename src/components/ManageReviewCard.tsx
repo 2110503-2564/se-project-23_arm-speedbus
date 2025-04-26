@@ -135,7 +135,7 @@ export default function ManageReviewCard({
             max="5"
             value={newCarRating}
             onChange={handleCarRatingChange}
-            className="w-16 text-center"
+            className="w-16 text-center bg-gray-100 rounded"
           />
         ) : (
           renderStars(newCarRating)
@@ -151,7 +151,7 @@ export default function ManageReviewCard({
             max="5"
             value={newProviderRating}
             onChange={handleProviderRatingChange}
-            className="w-16 text-center"
+            className="w-16 text-center bg-gray-100 rounded"
           />
         ) : (
           renderStars(newProviderRating)
