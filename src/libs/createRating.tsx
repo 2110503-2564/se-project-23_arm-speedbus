@@ -1,7 +1,7 @@
 export default async function createRating(
   token: string,
   rent_info: string,
-  car_ratings: number,
+  car_rating: number,
   provider_rating: number,
   review: string
 ) {
@@ -14,13 +14,15 @@ export default async function createRating(
     },
     body: JSON.stringify({
       rent_info: rent_info,
-      car_ratings: car_ratings,
+      car_rating: car_rating,
       provider_rating: provider_rating,
       review: review,
     }),
   });
 
   if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Backend Error:", errorText);
     throw new Error("Failed to fetch data");
   }
 

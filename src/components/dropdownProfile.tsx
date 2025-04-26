@@ -72,6 +72,9 @@ export default function DropDownProfile({
                     <Link href="/mycoupon">
                       <h3 className="pt-2 group hover:underline">MY COUPON</h3>
                     </Link>
+                    <Link href="/myReview">
+                      <h3 className="pt-2 group hover:underline">MY REVIEW</h3>
+                    </Link>
                   </div>
                 </>
               )}
