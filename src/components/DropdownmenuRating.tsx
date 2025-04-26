@@ -110,7 +110,7 @@ export default function DropdownRating({
                 </div>
                 <div className="flex-1 h-3 bg-white border border-black rounded overflow-hidden">
                   <div
-                    className="bg-green-500 h-full transition-all duration-500 ease-out"
+                    className="bg-black h-full transition-all duration-500 ease-out"
                     style={{ width: animateBars ? `${percent}%` : "0%" }}
                   />
                 </div>
