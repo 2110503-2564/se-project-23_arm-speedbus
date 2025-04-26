@@ -1,9 +1,8 @@
 import deleteRating from "@/libs/deleteRating";
 import updateRating from "@/libs/updateRating";
+import dayjs from "dayjs";
 import { Rating } from "interfaces";
-import { set } from "mongoose";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
@@ -31,14 +30,15 @@ export default function MyReviewCard({
   onSelect,
   setConfirmationMessage,
   setColor,
+  refreshRatings
 }: {
   rating: Rating;
   editingId: string | null;
   onSelect: (selectedRatingId: string | null) => void;
   setConfirmationMessage: (message: string | null) => void;
   setColor: (color: string) => void;
+  refreshRatings: () => void;
 }) {
-  const router = useRouter();
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [carRating, setCarRating] = useState(rating.car_rating);
@@ -61,7 +61,7 @@ export default function MyReviewCard({
     );
 
     if (response.success) {
-      router.refresh();
+      refreshRatings();
       setColor("text-green-600");
       setConfirmationMessage("Review updated successfully!");
       setTimeout(() => setConfirmationMessage(null), 3000);
@@ -73,10 +73,9 @@ export default function MyReviewCard({
 
     const response = await deleteRating(session.user.token, rating._id);
 
-    setIsModalOpen(false);
-
     if (response.success) {
-      router.refresh();
+      setIsModalOpen(false);
+      refreshRatings();
       setColor("text-red-600");
       setConfirmationMessage("Review deleted successfully!");
       setTimeout(() => setConfirmationMessage(null), 3000);
@@ -131,7 +130,7 @@ export default function MyReviewCard({
 
           <div className="flex flex-row items-center justify-between mt-2">
             <div className="text-gray-500 text-[12px]">
-              Posted on : {rating.createdAt.toLocaleString()}{" "}
+              Posted on : {dayjs(rating.createdAt).format("DD/MM/YYYY HH:mm:ss")}{" "}
               {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
             </div>
             <div className="flex gap-2">
@@ -163,7 +162,7 @@ export default function MyReviewCard({
 
           <div className="flex flex-row items-center justify-between mt-2">
             <div className="text-gray-500 text-[12px]">
-              Posted on : {rating.createdAt.toLocaleString()}{" "}
+              Posted on : {dayjs(rating.createdAt).format("DD/MM/YYYY HH:mm:ss")}{" "}
               {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
             </div>
             <div className="flex gap-2">
