@@ -143,6 +143,7 @@ export interface Rating {
   provider_rating: number;
   review: string;
   createdAt: string;
+  isEdited: boolean;
   updatedAt: string;
   __v?: number;
 }

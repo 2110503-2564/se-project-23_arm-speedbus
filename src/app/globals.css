@@ -107,3 +107,17 @@ a {
     color: black;
   }
 }
+
+textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: oklch(92.8% 0.006 264.531);
+  border-radius: 10px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background-color: oklch(27.8% 0.033 256.848);
+  border-radius: 10px;
+}

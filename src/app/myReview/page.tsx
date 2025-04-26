@@ -11,6 +11,9 @@ export default function Page() {
   const { data: session } = useSession();
   const [myRating, setMyRating] = useState<RatingItem>();
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(null);
+  const [color, setColor] = useState<string>("text-black");
 
   useEffect(() => {
     const fetchRating = async () => {
@@ -31,27 +34,35 @@ export default function Page() {
   return (
     <div className="mt-[100px] mb-[100px] flex justify-center items-center font-robotoMono">
       <div className="px-6 max-w-3xl w-full bg-white font-robotoMono">
+        {confirmationMessage && (
+          <div className={`text-center ${color} text-sm mb-4`}>
+            {confirmationMessage}
+          </div>
+        )}
+
         {loading ? (
           <p className="text-center text-black font-robotoMono">Loading...</p>
         ) : myRating?.data.length === 0 ? (
           <div className="text-center text-black font-robotoMono py-10">
             <p className="text-3xl mb-4">You don't have any Rating.</p>
             <Link
-              href="/coupon"
+              href="/booking"
               className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
             >
-              Redeem Now
+              Review Now
             </Link>
           </div>
         ) : (
-          myRating?.data.map((rating) => (
-            <div key={rating._id}>
+          myRating?.data.map((ratingItem) => (
+            <div key={ratingItem._id}>
               <MyReviewCard
-                rentId={rating.rent_info}
-                name={rating.car_info.name}
-                carRating={rating.car_rating}
-                review={rating.review}
-                posted={new Date(rating.updatedAt)}
+                rating={ratingItem}
+                editingId={editingId}
+                onSelect={(selectedRatingId) => {
+                  setEditingId(selectedRatingId);
+                }}
+                setConfirmationMessage={setConfirmationMessage}
+                setColor={setColor}
               ></MyReviewCard>
             </div>
           ))
