@@ -127,7 +127,7 @@ export default function ManageReviewCard({
       </div>
 
       <div className="absolute top-0 right-0 flex items-center mt-5 mr-6">
-        <span className="mr-2">Car Rating:</span>
+        <span className="mr-2 text-black">Car Rating:</span>
         {isEditing ? (
           <input
             type="number"
@@ -139,22 +139,6 @@ export default function ManageReviewCard({
           />
         ) : (
           renderStars(newCarRating)
-        )}
-      </div>
-
-      <div className="absolute top-0 right-0 flex items-center mt-12 mr-6">
-        <span className="mr-2">Provider Rating:</span>
-        {isEditing ? (
-          <input
-            type="number"
-            min="1"
-            max="5"
-            value={newProviderRating}
-            onChange={handleProviderRatingChange}
-            className="w-16 text-center"
-          />
-        ) : (
-          renderStars(newProviderRating)
         )}
       </div>
 
@@ -192,12 +176,6 @@ export default function ManageReviewCard({
             </>
           ) : (
             <>
-              <button
-                className={buttonStyle}
-                onClick={() => setIsEditing(true)}
-              >
-                Edit
-              </button>
               <button className={buttonStyle} onClick={handleDelete}>
                 Delete
               </button>
