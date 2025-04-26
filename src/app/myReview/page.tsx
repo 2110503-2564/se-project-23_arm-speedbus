@@ -11,6 +11,7 @@ export default function Page() {
   const { data: session } = useSession();
   const [myRating, setMyRating] = useState<RatingItem>();
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRating = async () => {
@@ -44,14 +45,14 @@ export default function Page() {
             </Link>
           </div>
         ) : (
-          myRating?.data.map((rating) => (
-            <div key={rating._id}>
+          myRating?.data.map((ratingItem) => (
+            <div key={ratingItem._id}>
               <MyReviewCard
-                rentId={rating.rent_info}
-                name={rating.car_info.name}
-                carRating={rating.car_rating}
-                review={rating.review}
-                posted={new Date(rating.updatedAt)}
+                rating={ratingItem}
+                editingId={editingId}
+                onSelect={(selectedRatingId) => {
+                  setEditingId(selectedRatingId);
+                }}
               ></MyReviewCard>
             </div>
           ))

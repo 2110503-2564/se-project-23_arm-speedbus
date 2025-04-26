@@ -1,9 +1,16 @@
+import deleteRating from "@/libs/deleteRating";
+import updateRating from "@/libs/updateRating";
+import { Rating } from "interfaces";
+import { set } from "mongoose";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
-function renderStars(rating: number) {
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating - fullStars > 0;
-  const emptyStars = 5 - Math.ceil(rating);
+function renderStars(ratingScore: number) {
+  const fullStars = Math.floor(ratingScore);
+  const hasHalfStar = ratingScore - fullStars > 0;
+  const emptyStars = 5 - Math.ceil(ratingScore);
 
   return (
     <div className="flex items-center gap-[2px]">
@@ -19,44 +26,176 @@ function renderStars(rating: number) {
 }
 
 export default function MyReviewCard({
-  rentId,
-  name,
-  carRating,
-  review,
-  posted,
+  rating,
+  editingId,
+  onSelect
 }: {
-  rentId: string;
-  name?: string;
-  carRating: number;
-  review?: string;
-  posted: Date;
+  rating: Rating;
+  editingId: string | null;
+  onSelect: (selectedRatingId: string | null) => void;
 }) {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [carRating, setCarRating] = useState(rating.car_rating);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [review, setReview] = useState(rating.review);
+
   const buttonStyle =
     "text-black text-[12px] rounded-lg bg-white border border-black py-1 px-3 hover:bg-black hover:text-white transition duration-300";
+
+  const handleEdit = async () => {
+    if (!session) return;
+    if(rating.car_rating === carRating && rating.review === review) return;
+
+    const response = await updateRating(
+      session.user.token,
+      rating._id,
+      carRating,
+      rating.provider_rating,
+      review
+    )
+
+    router.push("/myReview");
+  }
+
+  const handleDelete = async () => {
+    if (!session) return;
+
+    const response = await deleteRating(
+      session.user.token,
+      rating._id
+    )
+
+    router.push("/myReview");
+  };
 
   return (
     <div className="mb-4 h-full pb-4 rounded-lg border border-black p-5">
       <div className="flex flex-col">
         <div className="flex">
-          <div className="text-black text-[16px]">RentId : {rentId}</div>
-          <div className="ml-auto">{renderStars(carRating)}</div>
+          <div className="text-black text-[16px]">RentId : {rating.rent_info}</div>
+          {
+            editingId === rating._id ? (
+              <div className="flex justify-end ml-auto">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  (hoverRating || carRating) >= star
+                  ?
+                  <FaStar
+                    key={star}
+                    size={20}
+                    className={`cursor-pointer transition text-yellow-500`}
+                    onClick={() => setCarRating(star)}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                  />
+                  :
+                  <FaRegStar
+                    key={star}
+                    size={20}
+                    className={`cursor-pointer transition text-yellow-500`}
+                    onClick={() => setCarRating(star)}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="ml-auto">{renderStars(rating.car_rating)}</div>
+            )
+          }
         </div>
-        <span className="text-black text-[16px]">Car : {name}</span>
+        <span className="text-black text-[16px]">Car : {rating.car_info.name}</span>
       </div>
 
       <div className="border-t border-black my-2"></div>
 
-      <div className="text-black text-[16px]">{review}</div>
+      {editingId === rating._id ? (
+        <>
+          <textarea
+            className="bg-white border border-black text-gray-800 rounded-lg p-2 w-full h-full resize-none focus:outline-none scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
+            defaultValue={review}
+            onChange={(e) => setReview(e.target.value)}
+          ></textarea>
 
-      <div className="flex flex-row items-center justify-between">
-        <div className="text-gray-500 text-[12px]">
-          Posted on : {posted.toLocaleString()}
+          <div className="flex flex-row items-center justify-between mt-2">
+            <div className="text-gray-500 text-[12px]">
+              Posted on : {rating.createdAt.toLocaleString()} {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
+            </div>
+            <div className="flex gap-2">
+              <button
+                className={`${buttonStyle} border-green-600 text-green-600 hover:bg-green-600 hover:text-white`}
+                onClick={() => {
+                  handleEdit();
+                  onSelect(null);
+                }}
+                >
+                  Confirm
+                </button>
+              <button 
+                className={`${buttonStyle} border-red-600 text-red-600 hover:bg-red-600 hover:text-white`}
+                onClick={() => {
+                  onSelect(null)
+                  setReview(rating.review);
+                  setCarRating(rating.car_rating);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="text-black text-[16px]">{rating.review}</div>
+
+          <div className="flex flex-row items-center justify-between mt-2">
+            <div className="text-gray-500 text-[12px]">
+              Posted on : {rating.createdAt.toLocaleString()} {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
+            </div>
+            <div className="flex gap-2">
+              <button
+                className={buttonStyle}
+                onClick={() => onSelect(rating._id)}
+              >
+                Edit
+              </button>
+              <button
+                className={`${buttonStyle} border-red-600 text-red-600 hover:bg-red-600 hover:text-white`}
+                onClick={() => setIsModalOpen(true)} // Open the modal
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {isModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white rounded-lg p-6 w-[300px] shadow-lg">
+            <h2 className="text-lg font-bold mb-4 text-black font-robotoMono">Confirm Deletion</h2>
+            <p className="text-sm text-black mb-6 font-robotoMono">
+              Are you sure you want to delete this review? This action cannot be
+              undone.
+            </p>
+            <div className="flex justify-end gap-4">
+              <button
+                className="px-3 py-1 bg-white border border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-lg font-robotoMono transition duration-300"
+                onClick={handleDelete}
+              >
+                Delete
+              </button>
+              <button
+                className="px-3 py-1 bg-white border border-black text-black hover:bg-black hover:text-white rounded-lg font-robotoMono transition duration-300"
+                onClick={() => setIsModalOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="flex gap-2 mt-8">
-          <button className={buttonStyle}>Edit</button>
-          <button className={buttonStyle}>Delete</button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
