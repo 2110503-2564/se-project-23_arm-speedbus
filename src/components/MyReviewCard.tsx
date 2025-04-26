@@ -83,7 +83,7 @@ export default function MyReviewCard({
   };
 
   return (
-    <div className="mb-4 h-full pb-4 rounded-lg border border-black p-5">
+    <div className="mb-4 w-[750px] h-full pb-4 rounded-lg border border-black p-5">
       <div className="flex flex-col">
         <div className="flex">
           <div className="text-black text-[16px]">RentId : {rating.rent_info}</div>
