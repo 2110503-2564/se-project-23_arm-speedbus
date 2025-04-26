@@ -38,10 +38,10 @@ export default function Page() {
           <div className="text-center text-black font-robotoMono py-10">
             <p className="text-3xl mb-4">You don't have any Rating.</p>
             <Link
-              href="/coupon"
+              href="/myReview"
               className="mt-3 border border-black rounded-full py-1.5 px-8 text-sm hover:bg-black hover:text-white transition font-robotoMono"
             >
-              Redeem Now
+              Review Now
             </Link>
           </div>
         ) : (
@@ -56,7 +56,8 @@ export default function Page() {
               ></MyReviewCard>
             </div>
           ))
-        )}
+        )
+        }
       </div>
     </div>
   );
