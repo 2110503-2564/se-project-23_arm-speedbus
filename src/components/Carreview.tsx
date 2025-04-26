@@ -23,7 +23,7 @@ export default function CarReviewClient({
     : ratings;
 
   return (
-    <div className="w-full px-10 py-10">
+    <div className="w-full px-10 py-10" data-testid="rating-section">
       <h1 className="text-3xl mb-10 font-robotoMono text-black text-center">
         {carName} Reviews
       </h1>
