@@ -60,9 +60,8 @@ export default function MyReviewCard({
       review
     );
 
-    router.push("/myReview");
-
     if (response.success) {
+      router.refresh();
       setColor("text-green-600");
       setConfirmationMessage("Review updated successfully!");
       setTimeout(() => setConfirmationMessage(null), 3000);
@@ -75,9 +74,9 @@ export default function MyReviewCard({
     const response = await deleteRating(session.user.token, rating._id);
 
     setIsModalOpen(false);
-    router.push("/myReview");
 
     if (response.success) {
+      router.refresh();
       setColor("text-red-600");
       setConfirmationMessage("Review deleted successfully!");
       setTimeout(() => setConfirmationMessage(null), 3000);
