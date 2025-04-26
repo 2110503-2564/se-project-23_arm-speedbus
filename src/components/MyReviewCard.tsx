@@ -28,15 +28,9 @@ function renderStars(ratingScore: number) {
 export default function MyReviewCard({
   rating,
   editingId,
-<<<<<<< HEAD
-  onSelect,
-||||||| 6c9bca2
-  onSelect
-=======
   onSelect,
   setConfirmationMessage,
   setColor,
->>>>>>> 6d6b01237f146d7c32ea31403f36d50f3be26f0c
 }: {
   rating: Rating;
   editingId: string | null;
@@ -66,13 +60,6 @@ export default function MyReviewCard({
       review
     );
 
-<<<<<<< HEAD
-    router.push("/myReview");
-  };
-||||||| 6c9bca2
-    router.push("/myReview");
-  }
-=======
     if (response.success) {
       router.refresh();
       setColor("text-green-600");
@@ -80,7 +67,6 @@ export default function MyReviewCard({
       setTimeout(() => setConfirmationMessage(null), 3000);
     }
   };
->>>>>>> 6d6b01237f146d7c32ea31403f36d50f3be26f0c
 
   const handleDelete = async () => {
     if (!session) return;
@@ -101,29 +87,11 @@ export default function MyReviewCard({
     <div className="mb-4 h-full pb-4 rounded-lg border border-black p-5">
       <div className="flex flex-col">
         <div className="flex">
-<<<<<<< HEAD
-          <div className="text-black text-[16px]">
-            RentId : {rating.rent_info}
-          </div>
-          {editingId === rating._id ? (
-            <div className="flex justify-end ml-auto">
-              {[1, 2, 3, 4, 5].map((star) =>
-                (hoverRating || carRating) >= star ? (
-||||||| 6c9bca2
-          <div className="text-black text-[16px]">RentId : {rating.rent_info}</div>
-          {
-            editingId === rating._id ? (
-              <div className="flex justify-end ml-auto">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  (hoverRating || carRating) >= star
-                  ?
-=======
           <div className="text-black text-[16px]">RentId : {rating.rent_info}</div>
           {editingId === rating._id ? (
             <div className="flex justify-end ml-auto">
               {[1, 2, 3, 4, 5].map((star) =>
                 (hoverRating || carRating) >= star ? (
->>>>>>> 6d6b01237f146d7c32ea31403f36d50f3be26f0c
                   <FaStar
                     key={star}
                     size={20}
@@ -141,32 +109,14 @@ export default function MyReviewCard({
                     onMouseEnter={() => setHoverRating(star)}
                     onMouseLeave={() => setHoverRating(0)}
                   />
-<<<<<<< HEAD
-                )
-              )}
-            </div>
-          ) : (
-            <div className="ml-auto">{renderStars(rating.car_rating)}</div>
-          )}
-||||||| 6c9bca2
-                ))}
-              </div>
-            ) : (
-              <div className="ml-auto">{renderStars(rating.car_rating)}</div>
-            )
-          }
-=======
                 )
               )}
             </div>
           ) : (
             <div className="ml-auto">{renderStars(carRating)}</div>
           )}
->>>>>>> 6d6b01237f146d7c32ea31403f36d50f3be26f0c
         </div>
-        <span className="text-black text-[16px]">
-          Car : {rating.car_info.name}
-        </span>
+        <span className="text-black text-[16px]">Car : {rating.car_info.name}</span>
       </div>
 
       <div className="border-t border-black my-2"></div>
@@ -181,17 +131,8 @@ export default function MyReviewCard({
 
           <div className="flex flex-row items-center justify-between mt-2">
             <div className="text-gray-500 text-[12px]">
-<<<<<<< HEAD
-              Posted on : {rating.createdAt.toLocaleString()}{" "}
-              {rating.isEdited && (
-                <span className="text-gray-500 text-[12px]">(Edited)</span>
-              )}
-||||||| 6c9bca2
-              Posted on : {rating.createdAt.toLocaleString()} {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
-=======
               Posted on : {rating.createdAt.toLocaleString()}{" "}
               {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
->>>>>>> 6d6b01237f146d7c32ea31403f36d50f3be26f0c
             </div>
             <div className="flex gap-2">
               <button
@@ -222,17 +163,8 @@ export default function MyReviewCard({
 
           <div className="flex flex-row items-center justify-between mt-2">
             <div className="text-gray-500 text-[12px]">
-<<<<<<< HEAD
-              Posted on : {rating.createdAt.toLocaleString()}{" "}
-              {rating.isEdited && (
-                <span className="text-gray-500 text-[12px]">(Edited)</span>
-              )}
-||||||| 6c9bca2
-              Posted on : {rating.createdAt.toLocaleString()} {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
-=======
               Posted on : {rating.createdAt.toLocaleString()}{" "}
               {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
->>>>>>> 6d6b01237f146d7c32ea31403f36d50f3be26f0c
             </div>
             <div className="flex gap-2">
               <button className={buttonStyle} onClick={() => onSelect(rating._id)}>
@@ -250,59 +182,6 @@ export default function MyReviewCard({
       )}
 
       {isModalOpen && (
-<<<<<<< HEAD
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg p-6 w-[300px] shadow-lg">
-            <h2 className="text-lg font-bold mb-4 text-black font-robotoMono">
-              Confirm Deletion
-            </h2>
-            <p className="text-sm text-black mb-6 font-robotoMono">
-              Are you sure you want to delete this review? This action cannot be
-              undone.
-            </p>
-            <div className="flex justify-end gap-4">
-              <button
-                className="px-3 py-1 bg-white border border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-lg font-robotoMono transition duration-300"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-              <button
-                className="px-3 py-1 bg-white border border-black text-black hover:bg-black hover:text-white rounded-lg font-robotoMono transition duration-300"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-||||||| 6c9bca2
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg p-6 w-[300px] shadow-lg">
-            <h2 className="text-lg font-bold mb-4 text-black font-robotoMono">Confirm Deletion</h2>
-            <p className="text-sm text-black mb-6 font-robotoMono">
-              Are you sure you want to delete this review? This action cannot be
-              undone.
-            </p>
-            <div className="flex justify-end gap-4">
-              <button
-                className="px-3 py-1 bg-white border border-red-600 text-red-600 hover:bg-red-600 hover:text-white rounded-lg font-robotoMono transition duration-300"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-              <button
-                className="px-3 py-1 bg-white border border-black text-black hover:bg-black hover:text-white rounded-lg font-robotoMono transition duration-300"
-                onClick={() => setIsModalOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-=======
          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
            <div className="bg-white rounded-lg p-6 w-[300px] shadow-lg">
              <h2 className="text-lg font-bold mb-4 text-black font-robotoMono">Confirm Deletion</h2>
@@ -327,7 +206,6 @@ export default function MyReviewCard({
            </div>
          </div>
        )}
->>>>>>> 6d6b01237f146d7c32ea31403f36d50f3be26f0c
     </div>
   );
 }
