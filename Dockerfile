@@ -1,5 +1,5 @@
 # ใช้ Node.js base image
-FROM node:16
+FROM node:18
 
 # ตั้ง working directory
 WORKDIR /usr/src/app
@@ -13,11 +13,8 @@ RUN npm install
 # คัดลอกไฟล์ทั้งหมด
 COPY . .
 
-# สร้างแอป
-RUN npm run build
-
 # เปิดพอร์ต
 EXPOSE 3000
 
 # สั่งให้รันแอป
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

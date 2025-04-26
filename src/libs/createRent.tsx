@@ -6,7 +6,7 @@ export default async function createBooking(
   endDate: string,
   couponName: string,
   discount: number,
-  maxDiscount: number,
+  maxDiscount: number
 ) {
   const response = await fetch(
     `${process.env.BACKEND_URL}/api/v1/cars/${car_id}/rents`,
