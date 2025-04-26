@@ -1,9 +1,8 @@
 import deleteRating from "@/libs/deleteRating";
 import updateRating from "@/libs/updateRating";
+import dayjs from "dayjs";
 import { Rating } from "interfaces";
-import { set } from "mongoose";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
@@ -31,14 +30,15 @@ export default function MyReviewCard({
   onSelect,
   setConfirmationMessage,
   setColor,
+  refreshRatings
 }: {
   rating: Rating;
   editingId: string | null;
   onSelect: (selectedRatingId: string | null) => void;
   setConfirmationMessage: (message: string | null) => void;
   setColor: (color: string) => void;
+  refreshRatings: () => void;
 }) {
-  const router = useRouter();
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [carRating, setCarRating] = useState(rating.car_rating);
@@ -61,7 +61,7 @@ export default function MyReviewCard({
     );
 
     if (response.success) {
-      router.refresh();
+      refreshRatings();
       setColor("text-green-600");
       setConfirmationMessage("Review updated successfully!");
       setTimeout(() => setConfirmationMessage(null), 3000);
@@ -73,10 +73,9 @@ export default function MyReviewCard({
 
     const response = await deleteRating(session.user.token, rating._id);
 
-    setIsModalOpen(false);
-
     if (response.success) {
-      router.refresh();
+      setIsModalOpen(false);
+      refreshRatings();
       setColor("text-red-600");
       setConfirmationMessage("Review deleted successfully!");
       setTimeout(() => setConfirmationMessage(null), 3000);
@@ -84,7 +83,7 @@ export default function MyReviewCard({
   };
 
   return (
-    <div className="mb-4 h-full pb-4 rounded-lg border border-black p-5">
+    <div className="mb-4 w-[750px] h-full pb-4 rounded-lg border border-black p-5">
       <div className="flex flex-col">
         <div className="flex">
           <div className="text-black text-[16px]">RentId : {rating.rent_info}</div>
@@ -127,11 +126,12 @@ export default function MyReviewCard({
             className="bg-white border border-black text-gray-800 rounded-lg p-2 w-full h-full resize-none focus:outline-none scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
             defaultValue={review}
             onChange={(e) => setReview(e.target.value)}
+            aria-label="Edit Review"
           ></textarea>
 
           <div className="flex flex-row items-center justify-between mt-2">
             <div className="text-gray-500 text-[12px]">
-              Posted on : {rating.createdAt.toLocaleString()}{" "}
+              Posted on : {dayjs(rating.createdAt).format("DD/MM/YYYY HH:mm:ss")}{" "}
               {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
             </div>
             <div className="flex gap-2">
@@ -163,7 +163,7 @@ export default function MyReviewCard({
 
           <div className="flex flex-row items-center justify-between mt-2">
             <div className="text-gray-500 text-[12px]">
-              Posted on : {rating.createdAt.toLocaleString()}{" "}
+              Posted on : {dayjs(rating.createdAt).format("DD/MM/YYYY HH:mm:ss")}{" "}
               {rating.isEdited && <span className="text-gray-500 text-[12px]">(Edited)</span>}
             </div>
             <div className="flex gap-2">
