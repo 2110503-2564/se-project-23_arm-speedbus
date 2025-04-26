@@ -21,6 +21,8 @@ export default async function createRating(
   });
 
   if (!response.ok) {
+    const errorText = await response.text();
+    console.error("Backend Error:", errorText);
     throw new Error("Failed to fetch data");
   }
 

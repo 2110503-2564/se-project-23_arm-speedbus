@@ -8,6 +8,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import AddReview from "@/components/AddReview";
+
 export default function RentPage() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -79,6 +81,7 @@ export default function RentPage() {
         {error}
       </div>
     );
+
   return (
     <main className="p-6 min-h-screen font-robotoMono mt-10 bg-gray-100">
       <h1 className="text-4xl font-semibold text-gray-800 font-robotoMono text-center mb-6 mt-3">
@@ -210,10 +213,14 @@ export default function RentPage() {
                         </div>
                       ) : session.user.User_info.role === "user" &&
                         rentItem.status === "Finished" ? (
-                        <div className="mt-4 flex justify-end text-green-600 font-robotoMono">
-                          <p className="items-center font-robotoMono">
-                            Rent Finished
-                          </p>
+                        <div className="mt-4 flex justify-end text-black font-robotoMono">
+                          <div className="items-center font-robotoMono">
+                            <AddReview
+                              token={session?.user.token}
+                              rentId={rentItem._id}
+                              onSuccess={() => setRefresh((prev) => prev + 1)}
+                            ></AddReview>
+                          </div>
                         </div>
                       ) : null}
                     </div>
