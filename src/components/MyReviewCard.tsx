@@ -127,6 +127,7 @@ export default function MyReviewCard({
             className="bg-white border border-black text-gray-800 rounded-lg p-2 w-full h-full resize-none focus:outline-none scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"
             defaultValue={review}
             onChange={(e) => setReview(e.target.value)}
+            aria-label="Edit Review"
           ></textarea>
 
           <div className="flex flex-row items-center justify-between mt-2">
