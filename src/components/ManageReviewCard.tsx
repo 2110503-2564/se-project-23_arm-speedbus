@@ -135,13 +135,49 @@ export default function ManageReviewCard({
             max="5"
             value={newCarRating}
             onChange={handleCarRatingChange}
-            className="w-16 text-center"
+            className="w-16 text-center bg-gray-100 rounded"
           />
         ) : (
           renderStars(newCarRating)
         )}
       </div>
 
+<<<<<<< HEAD
+||||||| 46bdbbe
+      <div className="absolute top-0 right-0 flex items-center mt-12 mr-6">
+        <span className="mr-2">Provider Rating:</span>
+        {isEditing ? (
+          <input
+            type="number"
+            min="1"
+            max="5"
+            value={newProviderRating}
+            onChange={handleProviderRatingChange}
+            className="w-16 text-center"
+          />
+        ) : (
+          renderStars(newProviderRating)
+        )}
+      </div>
+
+=======
+      <div className="absolute top-0 right-0 flex items-center mt-12 mr-6">
+        <span className="mr-2">Provider Rating:</span>
+        {isEditing ? (
+          <input
+            type="number"
+            min="1"
+            max="5"
+            value={newProviderRating}
+            onChange={handleProviderRatingChange}
+            className="w-16 text-center bg-gray-100 rounded"
+          />
+        ) : (
+          renderStars(newProviderRating)
+        )}
+      </div>
+
+>>>>>>> 5fd01d7a43912cc655185ee9720bb664435d20aa
       <div className="border-t border-black my-3"></div>
 
       <div className="text-black text-[16px]">
