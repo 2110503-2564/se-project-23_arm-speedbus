@@ -121,6 +121,12 @@ export default function DropDownProfile({
                       >
                         MANAGE COUPON
                       </Link>
+                      <Link
+                        href="/manage/review"
+                        className="pt-2 group hover:underline"
+                      >
+                        MANAGE REVIEW
+                      </Link>
                     </div>
                   </div>
                 </>

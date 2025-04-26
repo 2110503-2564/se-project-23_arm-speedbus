@@ -374,7 +374,10 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           {ratings.length === 0 ? null : (
             <>
               <div className="font-robotoMono text-[30px]">Review</div>
-              <div className="justify-end mx-10 font-robotoMono my-2 hover:underline cursor-pointer">
+              <div
+                className="justify-end mx-10 font-robotoMono my-2 hover:underline cursor-pointer"
+                onClick={() => router.push(`/car/${params.cid}/Rating`)}
+              >
                 View more
               </div>
             </>
@@ -387,23 +390,15 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           </div>
         ) : (
           <div className="flex flex-row mt-10 gap-12 min-h-[320px] flex-wrap">
-            {ratings
-              .slice()
-              .sort(
-                (a, b) =>
-                  new Date(b.createdAt).getTime() -
-                  new Date(a.createdAt).getTime()
-              )
-              .slice(0, 3)
-              .map((rating) => (
-                <CommentCard
-                  key={rating._id}
-                  name={rating.user_info.name}
-                  rating={rating.car_rating}
-                  review={rating.review || ""}
-                  created={new Date(rating.createdAt)}
-                />
-              ))}
+            {ratings.slice(0, 3).map((rating) => (
+              <CommentCard
+                key={rating._id}
+                name={rating.user_info.name}
+                rating={rating.car_rating}
+                review={rating.review || ""}
+                created={new Date(rating.createdAt)}
+              />
+            ))}
           </div>
         )}
       </div>

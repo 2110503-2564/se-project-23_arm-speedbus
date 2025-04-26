@@ -7,6 +7,7 @@ export interface ProviderItem {
   picture: string;
   openTime: string;
   closeTime: string;
+  averageRating: number;
   __v: number;
   id: string;
 }
@@ -24,6 +25,7 @@ export interface CarItem {
   capacity: number;
   description: string;
   pricePerDay: number;
+  averageRating: number;
   __v: number;
   id: string;
 }
@@ -134,13 +136,18 @@ export interface CouponTemplateItem {
 export interface Rating {
   _id: string;
   rent_info: string;
-  car_info: string;
+  car_info: CarItem;
   provider_info: string;
   user_info: UserItem;
   car_rating: number;
   provider_rating: number;
-  review?: string;
+  review: string;
   createdAt: string;
   updatedAt: string;
   __v?: number;
+}
+
+export interface RatingItem {
+  success: boolean;
+  data: Rating[];
 }

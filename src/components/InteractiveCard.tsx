@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 
 export default function InteractiveCard({
   children,
@@ -13,7 +14,7 @@ export default function InteractiveCard({
   }
 
   return (
-    <div className="w-full max-w-sm bg-white  shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
+    <div className="w-full max-w-sm bg-white shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
       {children}
     </div>
   );

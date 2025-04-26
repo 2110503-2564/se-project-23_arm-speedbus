@@ -18,11 +18,11 @@ export default async function CarUpdateList({ carJson }: { carJson: CarJson }) {
           >
             <div className="border border-gray-300 rounded-lg overflow-hidden shadow-lg bg-white relative group hover:scale-105 transition-all ease-in-out">
               <ProductCard
-                                Name={carItem.name}
-                                imgSrc={carItem.picture}
-                                price={carItem.pricePerDay.toString()}
-                                provider={carItem.provider_info.name}
-                              />
+                Name={carItem.name}
+                imgSrc={carItem.picture}
+                price={carItem.pricePerDay.toString()}
+                provider={carItem.provider_info.name}
+              />
 
               <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity"></div>
               <div className="absolute inset-0 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity">
