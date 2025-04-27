@@ -130,6 +130,12 @@ export default function DropDownProfile({
                       >
                         MANAGE REVIEW
                       </Link>
+                      <Link
+                        href="/auditlog"
+                        className="pt-2 group hover:underline"
+                      >
+                        Audit Log
+                      </Link>
                     </div>
                   </div>
                 </>

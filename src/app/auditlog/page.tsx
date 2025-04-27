@@ -66,7 +66,7 @@ export default function AuditLogsPage() {
       {session.user.User_info.role === "admin" ? (
         <div className="max-w-4xl mx-auto">
           <div className="mb-8 text-center">
-            <h1 className="text-4xl font-semibold text-gray-800 mb-2 font-poppins">
+            <h1 className="text-4xl font-semibold text-gray-800 mb-5 py-10 font-poppins">
               All Audit Logs
             </h1>
             <h1 className="text-xl font-semibold text-gray-800 mb-2 font-poppins">
@@ -97,7 +97,7 @@ export default function AuditLogsPage() {
                           Action: {auditLogItem.action}
                         </div>
                         <div className="text-gray-600">
-                          User ID: {auditLogItem.user_id._id}
+                          User ID: {auditLogItem.user_id?._id || "Deleted user"}
                         </div>
                       </div>
                       <div>
