@@ -1,3 +1,5 @@
+import { useBaseUrl } from "@/utils/useBaseUrl";
+
 export default async function createCar(
   token: string,
   name: string,
@@ -8,7 +10,9 @@ export default async function createCar(
   description: string,
   pricePerDay: number
 ) {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/cars`, {
+  const baseUrl = useBaseUrl();
+
+  const response = await fetch(`${baseUrl}/api/v1/cars`, {
     cache: "no-store",
     method: "POST",
     headers: {

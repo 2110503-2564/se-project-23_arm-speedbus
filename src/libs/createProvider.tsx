@@ -1,3 +1,5 @@
+import { useBaseUrl } from "@/utils/useBaseUrl";
+
 export default async function createProvider(
   token: string,
   name: string,
@@ -8,7 +10,9 @@ export default async function createProvider(
   openTime: string,
   closeTime: string
 ) {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/providers`, {
+  const baseUrl = useBaseUrl();
+
+  const response = await fetch(`${baseUrl}/api/v1/providers`, {
     cache: "no-store",
     method: "POST",
     headers: {

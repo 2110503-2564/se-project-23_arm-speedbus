@@ -1,8 +1,12 @@
+import { useBaseUrl } from "@/utils/useBaseUrl";
+
 export default async function userLogin(
   userEmail: string,
   userPassword: string
 ) {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/login`, {
+  const baseUrl = useBaseUrl();
+
+  const response = await fetch(`${baseUrl}/api/v1/auth/login`, {
     method: "POST",
     headers: {
       "Content-type": "application/json",

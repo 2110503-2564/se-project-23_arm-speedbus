@@ -1,3 +1,5 @@
+import { useBaseUrl } from "@/utils/useBaseUrl";
+
 export default async function createCoupon(
   token: string,
   couponName: string,
@@ -6,7 +8,9 @@ export default async function createCoupon(
   minSp: number,
   expirationDate: Date
 ) {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/coupons`, {
+  const baseUrl = useBaseUrl();
+
+  const response = await fetch(`${baseUrl}/api/v1/coupons`, {
     cache: "no-store",
     method: "POST",
     headers: {

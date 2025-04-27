@@ -1,3 +1,5 @@
+import { useBaseUrl } from "@/utils/useBaseUrl";
+
 export default async function createRating(
   token: string,
   rent_info: string,
@@ -5,7 +7,9 @@ export default async function createRating(
   provider_rating: number,
   review: string
 ) {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/ratings`, {
+  const baseUrl = useBaseUrl();
+
+  const response = await fetch(`${baseUrl}/api/v1/ratings`, {
     cache: "no-store",
     method: "POST",
     headers: {

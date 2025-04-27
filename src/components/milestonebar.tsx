@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import CouponCard from "./CouponCard";
 import { useSession } from "next-auth/react";
+import { useBaseUrl } from "@/utils/useBaseUrl";
 
 const CARD_WIDTH = 270;
 
@@ -29,18 +30,18 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   const { data: session } = useSession();
+
+  const baseUrl = useBaseUrl();
+
   useEffect(() => {
     const fetchUser = async () => {
       if (!session?.user?.token) return;
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_NEXT_PUBLIC_NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${session.user.token}`,
-          },
-        }
-      );
+      const res = await fetch(`${baseUrl}/api/v1/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${session.user.token}`,
+        },
+      });
 
       const data = await res.json();
       if (data.success) {

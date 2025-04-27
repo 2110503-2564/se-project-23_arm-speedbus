@@ -1,5 +1,9 @@
+import { useBaseUrl } from "@/utils/useBaseUrl";
+
 export default async function getMyRatings(token: string) {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/v1/ratings/me`, {
+  const baseUrl = useBaseUrl();
+
+  const response = await fetch(`${baseUrl}/api/v1/ratings/me`, {
     cache: "no-store",
     method: "GET",
     headers: {
