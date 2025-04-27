@@ -33,14 +33,11 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
     const fetchUser = async () => {
       if (!session?.user?.token) return;
 
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_NEXT_PUBLIC_NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/me`,
-        {
-          headers: {
-            Authorization: `Bearer ${session.user.token}`,
-          },
-        }
-      );
+      const res = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${session.user.token}`,
+        },
+      });
 
       const data = await res.json();
       if (data.success) {
@@ -48,6 +45,7 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
         setRedeemStatus(data.data.redeemCouponStatus);
         setPayment(data.data.totalPayment);
       }
+      console.log(data.data.totalPayment);
     };
 
     fetchUser();
