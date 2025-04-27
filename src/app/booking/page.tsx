@@ -3,12 +3,14 @@ import deleteRent from "@/libs/deleteRent";
 import finishRent from "@/libs/finishRent";
 import getRents from "@/libs/getRents";
 import dayjs from "dayjs";
-import { BookingItem, BookingJson } from "interfaces";
+import { BookingItem, BookingJson, Rating } from "interfaces";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import getMyRatings from "@/libs/getMyRatings";
 
 import AddReview from "@/components/AddReview";
+import { dividerClasses } from "@mui/material";
 
 export default function RentPage() {
   const router = useRouter();
@@ -22,6 +24,8 @@ export default function RentPage() {
   const [error, setError] = useState("");
   const [editError, setEditError] = useState("");
   const [refresh, setRefresh] = useState(0);
+  const [userReviews, setUserReviews] = useState<Rating[]>([]);
+
   if (!session?.user.token) {
     return;
   }
@@ -39,6 +43,20 @@ export default function RentPage() {
 
     fetchRents();
   }, [refresh]);
+  useEffect(() => {
+    const fetchRatings = async () => {
+      try {
+        const res = await getMyRatings(session?.user.token);
+        setUserReviews(res.data);
+      } catch (err) {
+        setError("Could not fetch rents.");
+      }
+    };
+
+    fetchRatings();
+  }, [refresh]);
+  const reviewedRentIds = userReviews.map((r) => r.rent_info);
+
   const handleDelete = async (rentId: string) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this booking?"
@@ -212,7 +230,8 @@ export default function RentPage() {
                           </button>
                         </div>
                       ) : session.user.User_info.role === "user" &&
-                        rentItem.status === "Finished" ? (
+                        rentItem.status === "Finished" &&
+                        !reviewedRentIds.includes(rentItem._id) ? (
                         <div className="mt-4 flex justify-end text-black font-robotoMono">
                           <div className="items-center font-robotoMono">
                             <AddReview
@@ -221,6 +240,10 @@ export default function RentPage() {
                               onSuccess={() => setRefresh((prev) => prev + 1)}
                             ></AddReview>
                           </div>
+                        </div>
+                      ) : rentItem.status !== "Confirmed" ? (
+                        <div className="text-gray-500 font-robotoMono text-center">
+                          You have already reviewed this booking.
                         </div>
                       ) : null}
                     </div>

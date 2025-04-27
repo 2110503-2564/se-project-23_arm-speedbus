@@ -49,6 +49,7 @@ const SpendingMilestoneBar: React.FC<Props> = ({ coupon }) => {
         setRedeemStatus(data.data.redeemCouponStatus);
         setPayment(data.data.totalPayment);
       }
+      console.log(data.data.totalPayment);
     };
 
     fetchUser();
