@@ -241,11 +241,11 @@ export default function RentPage() {
                             ></AddReview>
                           </div>
                         </div>
-                      ) : (
+                      ) : rentItem.status !== "Confirmed" ? (
                         <div className="text-gray-500 font-robotoMono text-center">
                           You have already reviewed this booking.
                         </div>
-                      )}
+                      ) : null}
                     </div>
 
                     <div className="mt-4 flex justify-end items-center gap-2 font-robotoMono">

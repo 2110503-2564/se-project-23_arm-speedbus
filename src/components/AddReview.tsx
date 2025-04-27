@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import createRating from "@/libs/createRating";
+import { useRouter } from "next/navigation";
 
 export default function AddReview({
   token,
@@ -19,6 +20,7 @@ export default function AddReview({
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const router = useRouter();
 
   const handleSubmit = async () => {
     if (carRating === 0 || review.trim() === "") {
@@ -28,13 +30,15 @@ export default function AddReview({
     try {
       setErrorMessage(""); // reset error ก่อน
       await createRating(token, rentId, carRating, 1, review);
+      router.push("/myReview");
       setReview("");
       setCarRating(0);
       setSuccessMessage(true);
       setIsFocused(false);
 
-      setTimeout(() => setSuccessMessage(false), 2500);
-
+      setTimeout(() => {
+        setSuccessMessage(false);
+      }, 2500);
       if (onSuccess) onSuccess();
     } catch (err: any) {
       console.error("Error submitting rating:", err);
