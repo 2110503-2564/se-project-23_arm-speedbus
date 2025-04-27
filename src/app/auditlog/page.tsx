@@ -97,7 +97,7 @@ export default function AuditLogsPage() {
                           Action: {auditLogItem.action}
                         </div>
                         <div className="text-gray-600">
-                          User ID: {auditLogItem.user_id._id}
+                          User ID: {auditLogItem.user_id?._id || "No user"}
                         </div>
                       </div>
                       <div>
