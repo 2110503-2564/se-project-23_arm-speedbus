@@ -16,5 +16,8 @@ COPY . .
 # Expose port 3000 for the frontend application
 EXPOSE 3000
 
+# Build the application
+RUN npm run build
+
 # Command to run the application
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
