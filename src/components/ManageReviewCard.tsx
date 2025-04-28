@@ -52,61 +52,65 @@ export default function ManageReviewCard({
   if (!session) return null; // Ensure session is available
 
   const [isEditing, setIsEditing] = useState(false); // To toggle between edit and view modes
-  const [newCarRating, setNewCarRating] = useState(carRating);
-  const [newProviderRating, setNewProviderRating] = useState(providerRating);
-  const [newReview, setNewReview] = useState(review || "");
 
   const buttonStyle =
     "text-black text-[12px] rounded-lg bg-white border border-black py-1 px-3 hover:bg-black hover:text-white transition duration-300";
 
   // Validate and Update Rating Function
-  const handleCarRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value);
-    if (value >= 1 && value <= 5 && Number.isInteger(value)) {
-      setNewCarRating(value);
-    } else {
-      alert("Rating must be an integer between 1 and 5.");
-    }
-  };
+  // const handleCarRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = parseInt(e.target.value);
+  //   if (value >= 1 && value <= 5 && Number.isInteger(value)) {
+  //     setNewCarRating(value);
+  //   } else {
+  //     alert("Rating must be an integer between 1 and 5.");
+  //   }
+  // };
 
-  const handleProviderRatingChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = parseInt(e.target.value);
-    if (value >= 1 && value <= 5 && Number.isInteger(value)) {
-      setNewProviderRating(value);
-    } else {
-      alert("Rating must be an integer between 1 and 5.");
-    }
-  };
+  // const handleProviderRatingChange = (
+  //   e: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   const value = parseInt(e.target.value);
+  //   if (value >= 1 && value <= 5 && Number.isInteger(value)) {
+  //     setNewProviderRating(value);
+  //   } else {
+  //     alert("Rating must be an integer between 1 and 5.");
+  //   }
+  // };
 
   // Update review function
-  const handleUpdate = async () => {
-    try {
-      // Call the updateRating function with the new values
-      console.log("Updating review with values:", {
-        ratingId,
-        newCarRating,
-        newProviderRating,
-        newReview,
-      });
-      await updateRating(
-        session.user.token,
-        ratingId,
-        newCarRating,
-        newProviderRating,
-        newReview
-      );
-      setIsEditing(false); // Close the editing mode after update
-      alert("Review updated successfully!");
-    } catch (error) {
-      console.error("Error updating review:", error);
-      alert("Error updating review.");
-    }
-  };
+  // const handleUpdate = async () => {
+  //   try {
+  //     // Call the updateRating function with the new values
+  //     console.log("Updating review with values:", {
+  //       ratingId,
+  //       newCarRating,
+  //       newProviderRating,
+  //       newReview,
+  //     });
+  //     await updateRating(
+  //       session.user.token,
+  //       ratingId,
+  //       newCarRating,
+  //       newProviderRating,
+  //       newReview
+  //     );
+  //     setIsEditing(false); // Close the editing mode after update
+  //     alert("Review updated successfully!");
+  //   } catch (error) {
+  //     console.error("Error updating review:", error);
+  //     alert("Error updating review.");
+  //   }
+  // };
 
   // Delete review function
   const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this review?"
+    );
+    if (!confirmDelete) {
+      return;
+    }
+
     try {
       // Call the deleteRating function with the ratingId
       await deleteRating(session.user.token, ratingId);
@@ -133,12 +137,12 @@ export default function ManageReviewCard({
             type="number"
             min="1"
             max="5"
-            value={newCarRating}
-            onChange={handleCarRatingChange}
+            value={carRating}
+            // onChange={handleCarRatingChange}
             className="w-16 text-center bg-gray-100 rounded"
           />
         ) : (
-          renderStars(newCarRating)
+          renderStars(carRating)
         )}
       </div>
 
@@ -147,13 +151,13 @@ export default function ManageReviewCard({
       <div className="text-black text-[16px]">
         {isEditing ? (
           <textarea
-            value={newReview}
-            onChange={(e) => setNewReview(e.target.value)}
+            value={review}
+            // onChange={(e) => setNewReview(e.target.value)}
             rows={4}
             className="w-full p-2 border border-gray-300 rounded"
           />
         ) : (
-          newReview
+          review
         )}
       </div>
 
@@ -164,7 +168,10 @@ export default function ManageReviewCard({
         <div className="flex gap-2 mt-8">
           {isEditing ? (
             <>
-              <button className={buttonStyle} onClick={handleUpdate}>
+              <button
+                className={buttonStyle}
+                // onClick={handleUpdate}
+              >
                 Save
               </button>
               <button
