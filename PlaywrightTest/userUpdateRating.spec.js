@@ -13,7 +13,7 @@ test('test', async ({ page }) => {
 
   await page.click('text=MY REVIEW'); 
 
-  await page.getByRole('button', { name: 'Edit' }).click(); 
+  await page.getByRole('button', { name: 'Edit' }).first().click(); 
 
   await page.getByRole('textbox', { name: 'Edit Review' }).fill('This car is so good!');
 

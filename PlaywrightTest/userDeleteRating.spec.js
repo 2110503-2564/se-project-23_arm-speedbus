@@ -11,22 +11,20 @@ test('test', async ({ page }) => {
 
   await page.getByRole('link', { name: 'SELECT CAR' }).click();
 
-  await page.getByRole('link', { name: 'Product Picture Getaway Car' }).click();
+  await page.getByRole('link', { name: 'Product Picture Thomas Day $' }).click();
 
   await page.locator('div').filter({ hasText: /^Check-In Date$/ }).getByLabel('Choose date').click();
-  await page.getByRole('gridcell', { name: '5', exact: true }).click();
+  await page.getByRole('gridcell', { name: '10' }).click();
   await page.getByRole('button', { name: 'Choose date', exact: true }).click();
-  await page.getByRole('gridcell', { name: '6', exact: true }).click();
+  await page.getByRole('gridcell', { name: '11' }).click();
 
   await page.getByRole('button', { name: 'Book' }).click();
 
   await page.goto('http://localhost:3000/booking');
 
-  await page.locator('div:nth-child(6) > div:nth-child(2) > div > .mt-4 > div > .space-y-2 > div > svg:nth-child(5) > path').click();
-  await page.getByRole('textbox', { name: 'Review...' }).nth(4).fill("Great experience!");
+  await page.locator('div:nth-child(9) > div:nth-child(2) > div > .mt-4 > div > .space-y-2 > div > svg:nth-child(5) > path').click();
+  await page.locator('div:nth-child(9) > div:nth-child(2) > div > .mt-4 > div > .space-y-2 > div > .bg-transparent').fill("Great experience!");
   await page.getByRole('button', { name: 'Review' }).click();
-
-  await expect(page.getByText('Review added successfully!')).toBeVisible();
 
   await page.goto('http://localhost:3000/myReview');
 

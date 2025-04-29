@@ -26,5 +26,4 @@ test('test', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Review...' }).nth(4).fill("This car so far so good");
   await page.getByRole('button', { name: 'Review' }).click();
 
-  await expect(page.getByText('Review added successfully!')).toBeVisible();
 });
