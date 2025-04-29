@@ -22,8 +22,11 @@ test('test', async ({ page }) => {
 
   await page.goto('http://localhost:3000/booking');
 
-  await page.locator('div:nth-child(6) > div:nth-child(2) > div > .mt-4 > div > .space-y-2 > div > svg:nth-child(5) > path').click();
-  await page.getByRole('textbox', { name: 'Review...' }).nth(4).fill("This car so far so good");
+  await page.getByRole('textbox', { name: 'Review...' }).fill('This car so good!');
+  await page.locator('svg').nth(3).click();
   await page.getByRole('button', { name: 'Review' }).click();
 
+  await page.goto('http://localhost:3000/myReview');
+
+  await page.waitForTimeout(3000);
 });

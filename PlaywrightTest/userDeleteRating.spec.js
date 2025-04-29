@@ -9,28 +9,11 @@ test('test', async ({ page }) => {
 
   await page.waitForURL('http://localhost:3000/'); 
 
-  await page.getByRole('link', { name: 'SELECT CAR' }).click();
+  await page.getByText('PROFILE').click();
 
-  await page.getByRole('link', { name: 'Product Picture Thomas Day $' }).click();
-
-  await page.locator('div').filter({ hasText: /^Check-In Date$/ }).getByLabel('Choose date').click();
-  await page.getByRole('gridcell', { name: '10' }).click();
-  await page.getByRole('button', { name: 'Choose date', exact: true }).click();
-  await page.getByRole('gridcell', { name: '11' }).click();
-
-  await page.getByRole('button', { name: 'Book' }).click();
-
-  await page.goto('http://localhost:3000/booking');
-
-  await page.locator('div:nth-child(9) > div:nth-child(2) > div > .mt-4 > div > .space-y-2 > div > svg:nth-child(5) > path').click();
-  await page.locator('div:nth-child(9) > div:nth-child(2) > div > .mt-4 > div > .space-y-2 > div > .bg-transparent').fill("Great experience!");
-  await page.getByRole('button', { name: 'Review' }).click();
-
-  await page.goto('http://localhost:3000/myReview');
-
-  await expect(page.getByText('Great experience!')).toBeVisible();
-
-  await page.getByRole('button', { name: 'Delete' }).first().click();
+  await page.getByRole('link', { name: 'MY REVIEW' }).click();
+  
+  await page.getByRole('button', { name: 'Delete' }).click();
   await page.getByRole('button', { name: 'Delete' }).nth(1).click();
   
   await expect(page.getByText('Review deleted successfully!')).toBeVisible();

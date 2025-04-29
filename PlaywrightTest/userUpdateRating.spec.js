@@ -21,4 +21,6 @@ test('test', async ({ page }) => {
 
   await expect(page.getByText('Review updated successfully!')).toBeVisible();
   await expect(page.getByText('This car is so good!')).toBeVisible();
+
+  await page.waitForTimeout(3000);
 });

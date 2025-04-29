@@ -15,5 +15,13 @@ test('test', async ({ page }) => {
 
   await page.getByRole('link', { name: 'MANAGE REVIEW' }).click();
 
+  page.once('dialog', async dialog => {
+    console.log(`Dialog message: ${dialog.message()}`);
+    await page.waitForTimeout(2000); // หน่วง 3 วิก่อนกดยืนยัน
+    await dialog.accept();
+  });
+
   await page.getByRole('button', { name: 'Delete' }).first().click();
+
+  await page.waitForTimeout(3000);
 });
