@@ -240,18 +240,19 @@ export default function CarDetailPage({ params }: { params: { cid: string } }) {
           </div>
         </div>
 
-        {/* Calendar */}
-        <div
-          className="flex items-center justify-center mt-12 mx-auto"
-          style={{ height: "468px" }}
-        >
-          <ReactCalendar
-            className="text-black react-calendar"
-            tileClassName={({ date }) =>
-              isDateUnavailable(date) ? "red-underline" : ""
-            }
-          />
-        </div>
+        {session && (
+          <div
+            className="flex items-center justify-center mt-12 mx-auto"
+            style={{ height: "468px" }}
+          >
+            <ReactCalendar
+              className="text-black react-calendar"
+              tileClassName={({ date }) =>
+                isDateUnavailable(date) ? "red-underline" : ""
+              }
+            />
+          </div>
+        )}
       </div>
 
       <hr className="border-t border-black/40" />
